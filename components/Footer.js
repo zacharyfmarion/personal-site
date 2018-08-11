@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavLink, Text, Flex } from 'rebass';
 import styled from 'styled-components';
 
-const Footer = ({ author, twitterUrl, facebookUrl }) => (
+const Footer = ({ author }) => (
   <Flex bg="blue" justifyContent="center" px={4} py={2}>
     <FooterContainer justifyContent="space-between" color="white">
       <Flex alignItems="center">
@@ -10,8 +10,8 @@ const Footer = ({ author, twitterUrl, facebookUrl }) => (
       </Flex>
       <Flex>
         <NavLink href="#">Latest Posts</NavLink>
-        <NavLink href={twitterUrl}>Twitter</NavLink>
-        <NavLink href={facebookUrl}>Facebook</NavLink>
+        <NavLink href="#">Twitter</NavLink>
+        <NavLink href="#">Facebook</NavLink>
       </Flex>
     </FooterContainer>
   </Flex>

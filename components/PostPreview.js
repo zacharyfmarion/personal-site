@@ -1,23 +1,26 @@
 import * as React from 'react';
+import Link from 'next/link';
 import { Flex, Heading, Text, Image } from 'rebass';
 import styled from 'styled-components';
 
-const PostPreview = ({ title, description, readTime }) => {
+const PostPreview = ({ title, description, link, readTime }) => {
   return (
-    <PostWrapper bg="white">
-      <FlexImage src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=2048&q=20" />
-      <Flex flexDirection="column" p={4}>
-        <MainContent flexDirection="column">
-          <Heading is="h4" pb={3}>
-            {title}
-          </Heading>
-          <Text fontSize={18}>{description}</Text>
-        </MainContent>
-        <Flex justifyContent="space-between">
-          <Text>{readTime} minute read</Text>
+    <Link href={link || '/not-found'}>
+      <PostWrapper bg="white">
+        <FlexImage src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=2048&q=20" />
+        <Flex flexDirection="column" p={4}>
+          <MainContent flexDirection="column">
+            <Heading is="h4" pb={3}>
+              {title}
+            </Heading>
+            <Text fontSize={18}>{description}</Text>
+          </MainContent>
+          <Flex justifyContent="space-between">
+            <Text>{readTime} minute read</Text>
+          </Flex>
         </Flex>
-      </Flex>
-    </PostWrapper>
+      </PostWrapper>
+    </Link>
   );
 };
 
