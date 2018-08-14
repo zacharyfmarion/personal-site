@@ -23,7 +23,7 @@ const Header = ({ title, subtitle, bg, ...props }) => (
 );
 
 const HeaderBox = styled(Flex)`
-  min-height: 400px;
+  height: 400px;
 `;
 
 export default Header;
