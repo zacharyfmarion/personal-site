@@ -1,4 +1,4 @@
 {
-  "presets": ["@babel/react", "@babel/stage-2"],
+  "presets": ["next/babel"],
   "plugins": ["inline-react-svg"]
 }

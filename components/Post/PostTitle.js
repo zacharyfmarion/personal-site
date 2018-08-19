@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Header from '../Header';
+import Router from 'next/router';
 
-const PostTitle = ({ title, date, bg }) => (
-  <Header title={title} subtitle={date} bg={bg} mb={4} />
+const PostTitle = ({ link, ...props }) => (
+  <Header {...props} mb={4} onBack={() => Router.push(link)} />
 );
 
 export default PostTitle;

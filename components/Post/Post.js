@@ -11,16 +11,15 @@ const globalStyles = `
   }
 `;
 
-const Post = ({ children }) => {
+const Post = ({ children, title, link, date, author }) => {
   return (
     <Flex flexDirection="column">
       <Head>
         <style>{globalStyles}</style>
       </Head>
-      {/* TODO: Put this info in the post meta */}
-      <PostTitle title="Minimax" date="07/22/2018" bg="blue" />
+      <PostTitle link={link} title={title} date={date} bg="blue" />
       <PostContainer bg="white">{children}</PostContainer>
-      <Footer author="Zachary Marion" />
+      <Footer author={author} />
     </Flex>
   );
 };

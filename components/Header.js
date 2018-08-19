@@ -14,7 +14,7 @@ const Header = ({ title, subtitle, bg, onBack, ...props }) => (
     bg={bg}
     {...props}
   >
-    {onBack && <BackIcon />}
+    {onBack && <StyledBackIcon onClick={onBack} />}
     <Heading is="h1" textAlign="center" fontSize={[4, 5, 6]}>
       {title}
     </Heading>
@@ -23,6 +23,10 @@ const Header = ({ title, subtitle, bg, onBack, ...props }) => (
     </Heading>
   </HeaderBox>
 );
+
+const StyledBackIcon = styled(BackIcon)`
+  cursor: pointer;
+`;
 
 const HeaderBox = styled(Flex)`
   height: 400px;

@@ -3,12 +3,13 @@ import Post, { OpeningParagraph } from '../components/Post';
 export const meta = {
   author: 'Zachary Marion',
   title: 'Minimax',
+  date: '08/19/2018',
   description: "I've been playing a lot of chess recently, and it has gotten me interested in how the game should optimally be played. In college I took an intro to AI course, and one of the first things that we covered was an algorithm called minimax",
   link: '/minimax',
   readTime: 6,
 }
 
-export default Post
+export default ({ children }) => <Post {...meta}>{children}</Post>
 
 <OpeningParagraph>
   I've been playing a lot of chess recently, and it has gotten me interested in how the game should optimally be played. In college I took an intro to AI course, and one of the first things that we covered was an algorithm called minimax, which allows you to discover the optimal play for any two player, fully determined zero-sum game. This post will be the first in a series dedicated to understanding how to solve games such as this. Later on we will dive into Monte Carlo Tree Search (MCTS), reinforcement learning and the use of neural networks to determine policies. For now, let's start with minimax.
