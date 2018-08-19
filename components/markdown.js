@@ -18,8 +18,6 @@ const components = createComponents({
   li: { fontSize, my: 3 },
 });
 
-console.log(components);
-
 export default {
   ...components,
   code: Code,

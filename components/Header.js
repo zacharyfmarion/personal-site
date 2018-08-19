@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Flex, Heading } from 'rebass';
 import styled from 'styled-components';
+import BackIcon from '../assets/arrow-left.svg';
 
-const Header = ({ title, subtitle, bg, ...props }) => (
+const Header = ({ title, subtitle, bg, onBack, ...props }) => (
   <HeaderBox
     px={4}
     py={5}
@@ -13,6 +14,7 @@ const Header = ({ title, subtitle, bg, ...props }) => (
     bg={bg}
     {...props}
   >
+    {onBack && <BackIcon />}
     <Heading is="h1" textAlign="center" fontSize={[4, 5, 6]}>
       {title}
     </Heading>
