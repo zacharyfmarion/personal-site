@@ -35,6 +35,7 @@ const Wrapper = styled(Flex)`
 const PostContainer = styled(Container)`
   margin-top: -100px;
   flex: 1 1 auto;
+  z-index: 1;
 `;
 
 export default Layout;

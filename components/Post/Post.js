@@ -11,13 +11,13 @@ const globalStyles = `
   }
 `;
 
-const Post = ({ children, title, link, date, author }) => {
+const Post = ({ children, title, image, date, author }) => {
   return (
     <Flex flexDirection="column">
       <Head>
         <style>{globalStyles}</style>
       </Head>
-      <PostTitle link={link} title={title} date={date} bg="blue" />
+      <PostTitle title={title} date={date} image={image} />
       <PostContainer bg="white">{children}</PostContainer>
       <Footer author={author} />
     </Flex>
