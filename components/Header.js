@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Flex, Text, BackgroundImage, Heading } from 'rebass';
 import styled, { css } from 'styled-components';
+import media from 'utils/media';
+
 import BackIcon from '../assets/arrow-left.svg';
 
 const Header = ({ title, subtitle, image, onBack, ...props }) => {
@@ -13,15 +15,35 @@ const Header = ({ title, subtitle, image, onBack, ...props }) => {
           <Text>Back to posts</Text>
         </BackContainer>
       )}
-      <Heading is="h1" textAlign="center" fontSize={[4, 5, 6]}>
+      <TitleHeading is="h1" textAlign="center">
         {title}
-      </Heading>
-      <Heading is="h6" textAlign="center" fontWeight={400} fontSize={28}>
+      </TitleHeading>
+      <SubtitleHeading is="h6" textAlign="center" fontWeight={400}>
         {subtitle}
-      </Heading>
+      </SubtitleHeading>
     </Wrapper>
   );
 };
+
+const TitleHeading = styled(Heading)`
+  font-size: 3em;
+  ${media.tablet`
+    font-size: 2.5em; 
+  `};
+  ${media.mobile`
+    font-size: 2em; 
+  `};
+`;
+
+const SubtitleHeading = styled(Heading)`
+  font-size: 2em;
+  ${media.tablet`
+    font-size: 1.5em; 
+  `};
+  ${media.mobile`
+    font-size: 1.2em; 
+  `};
+`;
 
 const BackContainer = styled(Flex)`
   position: absolute;
@@ -36,12 +58,12 @@ const StyledBackIcon = styled(BackIcon)`
 
 const backgroundStyles = css`
   position: relative;
-  height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   ${p => !p.src && `background-color: #0e1b25`};
+  height: 500px;
 `;
 
 const ImageWrapper = styled(BackgroundImage)`

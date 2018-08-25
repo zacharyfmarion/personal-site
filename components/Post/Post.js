@@ -44,6 +44,7 @@ const PostContainer = styled(Container)`
   margin-top: -100px;
   border-radius: 4px;
   min-height: 230px;
+  width: 100%;
   padding: 40px !important;
   &:before {
     ${psuedoStyles} left: -5px;

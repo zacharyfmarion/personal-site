@@ -25,6 +25,7 @@ export default class _Document extends Document {
     return (
       <html lang="en">
         <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           {styleTags}
           <link
             href="https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre"
