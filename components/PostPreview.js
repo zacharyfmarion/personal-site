@@ -44,7 +44,7 @@ const PostWrapper = styled(Flex)`
   width: 100%;
   border-radius: 5px;
   overflow: hidden;
-  margin: ${p => (p.noMargin ? '0' : '0 20px 40px')};
+  ${p => !p.noMargin && `margin-bottom: 40px`};
   min-height: 260px;
   max-height: 300px;
   cursor: pointer;
