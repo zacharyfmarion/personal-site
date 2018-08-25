@@ -3,18 +3,10 @@ import { Flex, Text, BackgroundImage, Heading } from 'rebass';
 import styled, { css } from 'styled-components';
 import BackIcon from '../assets/arrow-left.svg';
 
-const Header = ({ title, subtitle, image, isPost, onBack, ...props }) => {
+const Header = ({ title, subtitle, image, onBack, ...props }) => {
   const Wrapper = image ? ImageWrapper : FlexWrapper;
   return (
-    <Wrapper
-      px={4}
-      py={5}
-      color="white"
-      ratio={3 / 4}
-      src={image}
-      isPost={isPost}
-      {...props}
-    >
+    <Wrapper px={4} py={5} ratio={3 / 4} src={image} color="white" {...props}>
       {onBack && (
         <BackContainer alignItems="center" onClick={onBack}>
           <StyledBackIcon />
@@ -44,11 +36,12 @@ const StyledBackIcon = styled(BackIcon)`
 
 const backgroundStyles = css`
   position: relative;
-  height: ${p => (p.isPost ? 500 : 400)}px;
+  height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  ${p => !p.src && `background-color: #0e1b25`};
 `;
 
 const ImageWrapper = styled(BackgroundImage)`

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { NavLink, Text, Flex } from 'rebass';
+import { NavLink, Text, Flex, Container } from 'rebass';
 import styled from 'styled-components';
 
 const Footer = ({ author }) => (
-  <Flex bg="blue" justifyContent="center" px={4} py={2}>
-    <FooterContainer justifyContent="space-between" color="white">
+  <Flex justifyContent="center" px={4} py={4}>
+    <FooterContainer>
       <Flex alignItems="center">
         <Text>{author} © 2018</Text>
       </Flex>
@@ -17,10 +17,15 @@ const Footer = ({ author }) => (
   </Flex>
 );
 
-const FooterContainer = styled(Flex)`
-  max-width: 1024px;
+const FooterContainer = styled(Container)`
+  display: flex;
+  justify-content: space-between;
   min-height: 75px;
   flex: 1 1 auto;
+  & > p,
+  div {
+    font-family: 'Noto Sans', sans-serif;
+  }
 `;
 
 export default Footer;

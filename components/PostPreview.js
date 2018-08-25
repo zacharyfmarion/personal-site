@@ -2,18 +2,26 @@ import * as React from 'react';
 import Link from 'next/link';
 import { Flex, Heading, Text, BackgroundImage } from 'rebass';
 import styled from 'styled-components';
+import trimDescription from '../utils/trimDescription';
 
-const PostPreview = ({ title, description, image, link, readTime }) => {
+const PostPreview = ({
+  title,
+  description,
+  image,
+  link,
+  readTime,
+  noMargin,
+}) => {
   return (
-    <Link href={link || '/not-found'}>
-      <PostWrapper bg="white">
+    <Link href={`/posts${link}` || '/not-found'}>
+      <PostWrapper bg="white" noMargin={noMargin}>
         <FlexImage src={image} />
         <ContentWrapper flexDirection="column" p={4}>
           <MainContent flexDirection="column">
             <Heading is="h4" pb={3}>
               {title}
             </Heading>
-            <Text fontSize={18}>{description}</Text>
+            <Text fontSize={18}>{trimDescription(description, 100)}</Text>
           </MainContent>
           <Flex justifyContent="space-between">
             <Text>{readTime} minute read</Text>
@@ -33,9 +41,10 @@ const MainContent = styled(Flex)`
 `;
 
 const PostWrapper = styled(Flex)`
+  width: 100%;
   border-radius: 5px;
   overflow: hidden;
-  margin: 0 20px 40px;
+  margin: ${p => (p.noMargin ? '0' : '0 20px 40px')};
   min-height: 260px;
   max-height: 300px;
   cursor: pointer;

@@ -1,9 +1,11 @@
 import * as React from 'react';
 import Head from 'next/head';
-import PostTitle from './PostTitle';
-import Footer from '../Footer';
 import { Flex, Container } from 'rebass';
 import styled, { css } from 'styled-components';
+
+import PostTitle from './PostTitle';
+import RelatedPosts from './RelatedPosts';
+import Footer from '../Footer';
 
 const globalStyles = `
   body {
@@ -19,6 +21,7 @@ const Post = ({ children, title, image, date, author }) => {
       </Head>
       <PostTitle title={title} date={date} image={image} />
       <PostContainer bg="white">{children}</PostContainer>
+      <RelatedPosts title={title} />
       <Footer author={author} />
     </Flex>
   );

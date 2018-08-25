@@ -2,12 +2,13 @@ import Layout from '../components/Layout';
 import PostPreview from '../components/PostPreview';
 
 // Posts
-import MinimaxPost, { meta as minimaxMeta } from './minimax.mdx';
+import { welcomeMeta, minimaxMeta } from './posts';
 
 const Home = () => {
   return (
     <Layout>
       <PostPreview {...minimaxMeta} />
+      <PostPreview {...welcomeMeta} />
     </Layout>
   );
 };

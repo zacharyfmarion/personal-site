@@ -3,13 +3,7 @@ import Header from '../Header';
 import Router from 'next/router';
 
 const PostTitle = ({ date, ...props }) => (
-  <Header
-    {...props}
-    isPost
-    mb={4}
-    subtitle={date}
-    onBack={() => Router.push('/')}
-  />
+  <Header {...props} mb={4} subtitle={date} onBack={() => Router.push('/')} />
 );
 
 export default PostTitle;
