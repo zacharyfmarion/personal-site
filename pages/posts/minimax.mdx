@@ -7,13 +7,13 @@ export const meta = {
   description: "I've been playing a lot of chess recently, and it has gotten me interested in how the game should optimally be played. In college I took an intro to AI course, and one of the first things that we covered was an algorithm called minimax",
   image: 'https://images.unsplash.com/photo-1523875194681-bedd468c58bf?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=a95f188182bee368ba7465de4dc3d8c4',
   link: '/minimax',
-  readTime: 6,
+  readTime: 12,
 }
 
 export default ({ children }) => <Post {...meta}>{children}</Post>
 
 <OpeningParagraph>
-  I've been playing a lot of chess recently, and it has gotten me interested in how the game should optimally be played. In college I took an intro to AI course, and one of the first things that we covered was an algorithm called minimax, which allows you to discover the optimal play for any two player, fully determined zero-sum game. This post will be the first in a series dedicated to understanding how to solve games such as this. Later on we will dive into Monte Carlo Tree Search (MCTS), reinforcement learning and the use of neural networks to determine policies. For now, let's start with minimax.
+  I have been playing a lot of chess recently, and it has gotten me interested in how the game should optimally be played. In college I took an intro to AI course, and one of the first things that we covered was an algorithm called minimax, which allows you to discover the optimal play for any two player, fully determined zero-sum game. This post will be the first in a series dedicated to understanding how to solve games such as this. Later on we will dive into Monte Carlo Tree Search (MCTS), reinforcement learning and the use of neural networks to determine policies. For now, let's start with minimax.
 </OpeningParagraph>
 
 ## Terminology
@@ -209,7 +209,7 @@ Because it is often not feasable to fully explore the state space, (games like c
 1. Modify the base cases of min_play and max_play to also return the reward after a certain depth
 2. Modify the reward to return the value of some heurisitic instead of just [-1, 0, 1].
 
-## Alpha Beta Pruning
+### Alpha Beta Pruning
 
 It turns out that the minimax algorithm visits a lot of unessesary states when performing its calculations. We can mitigate this using alpha-beta pruning, which eliminates branches of the tree that cannot be optimal based on the current stored node values. This improvement can greatly increase the speed at which the algorithm runs, while still returning optimal results.
 

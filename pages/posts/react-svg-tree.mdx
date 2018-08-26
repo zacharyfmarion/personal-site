@@ -1,0 +1,29 @@
+import Post, { OpeningParagraph } from 'components/Post';
+import { Link } from 'components/markdown';
+
+export const meta = {
+  author: 'Zachary Marion',
+  title: 'React Svg Tree',
+  date: '08/26/2018',
+  description: "So in between my last post and this one, I realized that I wanted to create some tree animations to show some common tree operations and explain more gracefully how the minimax algorithm worked.",
+  image: 'https://images.unsplash.com/photo-1515863149848-223cbed59017?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=58d13630d6c133bb32e0c7dc48eb4216',
+  link: '/react-svg-tree',
+  readTime: 12,
+}
+
+export default ({ children }) => <Post {...meta}>{children}</Post>
+
+<OpeningParagraph>
+  So in between my last post and this one, I realized that I wanted to create some tree animations to show some common tree operations and explain more gracefully how the minimax algorithm worked. Because I'm a react addict, I wanted a react component that could render easily animatable svg paths. After an admittedly short time googling this, I didn't come across any great options. One component, <Link href="https://github.com/bkrem/react-d3-tree">React d3 Tree</Link>, did do most of what I wanted, but I didn't really want to bring in d3 as a dependency for something so simple.
+</OpeningParagraph>
+
+Well, turns out it isn't so simple. Rendering a general tree is actually quite a difficult problem. More specifically, determining the x-coordinates for a particular node at a given depth in the tree is annoyingly nontrivial. The y-coordinates are just evenly spaced at a given depth separation value, so figuring them out is as simple as multiplying the depth of the node by the depth separation constant. Let's look at an example.
+
+EXAMPLE
+
+Fortunately, I'm not the only person who has had this problem. After another quick google search I came across this paper, written by a UNC professor from my home state. It was written in 1989, well before I was born, but I figured trees hadn't really changed a whole lot since then so it should be alright. The paper describes an algorithm for finding the optimal aesthetic positioning of x-coordinates in a general tree (DEFINE THIS TERM). The basic algorithm takes part in two steps:
+Do a first-pass traversal of the tree and save preliminary x-coordinate values for each node
+Do a second path and determine the final positions of the nodes.
+Wow, super easy right? Wrong again. The algorithm itself is much more complicated and outside of the scope of this post. I'd rather focus on my implementation of it, because I think that is less boring and way easier to explain.
+
+At my company, we use Flow, which is a type checker for javascript code. Essentially it is a superset of javascript that get's compiled down into code that can be run in the browser. It adds the ability to define types for variables and functions in your code, which catches a lot of errors that a browser won't catch because of the loosely-typed nature of js code. For this component, I decided to use Typescript, which is essentially the same thing as Flow, just better in every way. Okay so I'm opinionated, deal with it. I set up a basic create-react-app project with typescript and started by thinking about the shape of the component I was building. I wanted the ability to specify nodes as children of the `<Tree />` component, but this quickly becomes verbose for large trees, so I also wanted the ability to specify a data structure. I settled on just supporting both approaches - if there are children then they are rendered, otherwise a `vertices` prop is required which the component uses to render the positioned nodes.

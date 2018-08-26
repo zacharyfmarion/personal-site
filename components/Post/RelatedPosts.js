@@ -2,25 +2,28 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'rebass';
 
-import * as postsMetas from 'pages/posts';
+import * as postMetas from 'pages/posts';
 import PostPreview from '../PostPreview';
+import getRelatedPost from '../../utils/getRelatedPost';
 
 class RelatedPosts extends React.Component {
-  get relatedPosts() {
-    return Object.keys(postsMetas)
-      .filter(key => postsMetas[key].title !== this.props.title)
-      .slice(0, 2);
+  get relatedPost() {
+    return getRelatedPost(Object.values(postMetas), this.props.title);
   }
 
   render() {
     return (
-      <PostsContainer py={4}>
-        <PostPreviewsWrapper px={4} alignItems="center" justifyContent="center">
-          {this.relatedPosts.map(postTitle => (
-            <PostPreview key={postTitle} noMargin {...postsMetas[postTitle]} />
-          ))}
-        </PostPreviewsWrapper>
-      </PostsContainer>
+      this.relatedPost && (
+        <PostsContainer py={4}>
+          <PostPreviewsWrapper
+            px={4}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <PostPreview noMargin {...this.relatedPost} />
+          </PostPreviewsWrapper>
+        </PostsContainer>
+      )
     );
   }
 }

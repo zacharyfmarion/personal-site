@@ -99,8 +99,47 @@ const components = createComponents({
   li: { fontSize, my: 3 },
 });
 
+const BlockQuote = styled(components.blockquote)`
+  border-left: 3px solid rgba(0, 0, 0, 0.84);
+  padding-left: 20px;
+  margin-left: -23px;
+  padding-bottom: 2px;
+
+  & > p {
+    margin: 0;
+  }
+`;
+
+const Paragraph = styled.p`
+  font-family: 'Frank Ruhl Libre', serif;
+  margin: 0px;
+  margin-bottom: 30px;
+  font-size: 22px;
+  line-height: 1.5;
+`;
+
+export const HorizontalRule = styled.hr`
+  text-align: center;
+  margin-top: -15px;
+  margin-bottom: 25px;
+  border: 0;
+  font-weight: 400;
+  font-size: 50px;
+  letter-spacing: 0.6em;
+
+  &::before {
+    content: '...';
+    color: rgba(0, 0, 0, 0.7);
+  }
+`;
+
+export const Link = components.a;
+
 export default {
   ...components,
   code: Code,
   inlineCode: InlineCode,
+  blockquote: BlockQuote,
+  p: Paragraph,
+  hr: HorizontalRule,
 };

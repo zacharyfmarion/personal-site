@@ -4835,6 +4835,10 @@ react-svg-loader@^2.1.0:
     loader-utils "^1.1.0"
     react-svg-core "^2.1.0"
 
+react-svg-tree@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-svg-tree/-/react-svg-tree-0.3.0.tgz#46afad6c1eb991b8c3e972059738f2f2aee46456"
+
 react@>=16.0.0, react@^16.4.1:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.4.2.tgz#2cd90154e3a9d9dd8da2991149fdca3c260e129f"
