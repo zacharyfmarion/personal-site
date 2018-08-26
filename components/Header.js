@@ -3,7 +3,7 @@ import { Flex, Text, BackgroundImage, Heading } from 'rebass';
 import styled, { css } from 'styled-components';
 import media from 'utils/media';
 
-import BackIcon from '../assets/arrow-left.svg';
+import BackIcon from './assets/arrow-left.svg';
 
 const Header = ({ title, subtitle, image, onBack, ...props }) => {
   const Wrapper = image ? ImageWrapper : FlexWrapper;

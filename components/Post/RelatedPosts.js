@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Flex, Container } from 'rebass';
+import { Flex } from 'rebass';
 
 import * as postsMetas from 'pages/posts';
 import PostPreview from '../PostPreview';
@@ -15,7 +15,7 @@ class RelatedPosts extends React.Component {
   render() {
     return (
       <PostsContainer py={4}>
-        <PostPreviewsWrapper>
+        <PostPreviewsWrapper px={4} alignItems="center" justifyContent="center">
           {this.relatedPosts.map(postTitle => (
             <PostPreview key={postTitle} noMargin {...postsMetas[postTitle]} />
           ))}
@@ -25,8 +25,11 @@ class RelatedPosts extends React.Component {
   }
 }
 
-const PostPreviewsWrapper = styled(Container)`
+const PostPreviewsWrapper = styled(Flex)`
   display: flex;
+  flex: 1 1 auto;
+  margin: auto;
+  max-width: 1024px;
 `;
 
 const PostsContainer = styled(Flex)`

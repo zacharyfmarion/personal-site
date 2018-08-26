@@ -3,7 +3,15 @@ import getConfig from 'next/config';
 import { ServerStyleSheet, injectGlobal } from 'styled-components';
 
 injectGlobal`
-  p, div {
+  body {
+    margin: 0;
+  }
+
+  pre {
+    border-radius: 3px;
+  }
+
+  div {
     font-family: 'Frank Ruhl Libre', serif;
   }
 `;

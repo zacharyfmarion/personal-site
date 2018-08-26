@@ -22,7 +22,7 @@ It is important to stay consistent with terminology, so let's define exactly wha
 
 - **state**: A unique possible configuration of the system in question. For example, in the case of chess this would be the positions of each piece on the board. This could be represented in a variety of ways, for example a 2d array.
 - **state space**: The set of all possible states of a system.
-- **action**: Any move that transitions a system from one state to the next. In chess this would be a valid move resulting in a piece leaving a position (a, b) and arriving at the position (c, d).
+- **action**: Any move that transitions a system from one state to the next. In chess this would be a valid move resulting in a piece leaving a position `(a, b)` and arriving at the position `(c, d)`.
 - **heuristic function**: A function that takes in the current state and player as input and returns the favorability of that state to the current player.
 
 Later blog posts will build on this set of definitions as we dive into more complex topics.
@@ -33,7 +33,7 @@ The basic idea of minimax is that given the fact that the state space is fully e
 
 More concretely, we construct a tree where each node is a state and each directed edge represents an action s -> s'. We will use the game of tic-tac-toe for our examples, as it is simple enough to be easily understood but not so trivial that it would be pointless to run minimax. The root of the tree that we construct is just the empty board. The next layer of nodes is each valid move for the first player, `X`. We can use rotational and translational symmetries of the board to exclude some states. Below is the first layer of the tree in question:
 
-step1-1
+![Basic](/static/minimax/basic.png "Visual example of first algorithm step")
 
 Now let's assume that each of these three states have a value associated with them, which represents how good the state is for the player currently at the root of the tree - `X`. Obviously, we assume that `X` wants to win, which means maximize the "goodness" of the next state. We will lock down exactly how this value is calculated in the future.
 
@@ -43,21 +43,22 @@ The algorithm goes something like this: construct a tree of all possible states 
 
 To better understand this process, let's go through a visual example with the values being propagated up from the leaves. Below is the first step, where determine for any given row whether we are computing a minimum or maximum over the next states:
 
-Abstract-Step-1
+![Step1](/static/minimax/Abstract-Step-1.png "Detailed tree step 1")
 
 Once this is done, we calculate a min over these nodes to get the value of the nodes the next layer up:
 
-Abstract-Step-1.1-1
+![Step2](/static/minimax/Abstract-Step-1.png "Detailed tree step 2")
 
 Finally, we compute the minimax value of the root node. We choose to take the path that corresponds to that value - in this case the left path. Assuming that player "O" plays optimally, they will also choose the path outlined in green, which minimizes player `X`'s value. However, if player "O" chooses to play less than optimally, this is even better for X. In this case, player `X` can actually win the game instead of just being able to tie.
 
-Abstract-Step-1.2-1
+![Step3](/static/minimax/Abstract-Step-1.png "Detailed tree step 3")
 
 ## Implementation
 
 We will first define an interface for the type of games that we will be working with. This interface will allow us to design algorithms that are agnostic to the exact details of a particular game. Below is the interface we will use:
 
 ```python
+# python
 class Game:
   def initial_state(self):
     '''
@@ -113,6 +114,7 @@ class Game:
 Now let's implement Tic Tac Toe using this interface.
 
 ```python
+# python
 class TicTacToe(Game):
   def initial_state(self):
     return [-1 for i in range(9)]
@@ -146,7 +148,7 @@ class TicTacToe(Game):
     board = ""
     for i, player in enumerate(s):
         end_of_line = (i + 1) % math.sqrt(len(s)) != 0
-        row_line = "\n-----------\n" if i != len(s) - 1 else ""
+        row_line = "\\n-----------\\n" if i != len(s) - 1 else ""
         board += " {} {}".format(self.stringify_player(player), "|" if end_of_line else row_line)
     return board
   
@@ -175,6 +177,7 @@ class TicTacToe(Game):
 Minimax can be implemented quite elegantly with recursion. For simplicity, we define a player with either a 1 or a 0. The implementation makes no assumptions about the way state is stored - this decision takes place within the Game class logic.
 
 ```python
+# python
 def minimax(g, s, p):
   actions = g.action_space(s)
   rewards = [min_play(g, g.next_state(s, a, p), 1-p) for a in actions]

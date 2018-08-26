@@ -9,7 +9,7 @@ const Footer = ({ author }) => (
         <Text>{author} © 2018</Text>
       </Flex>
       <Flex>
-        <NavLink href="#">Latest Posts</NavLink>
+        <NavLink href="">Latest Posts</NavLink>
         <NavLink href="#">Twitter</NavLink>
         <NavLink href="#">Facebook</NavLink>
       </Flex>
