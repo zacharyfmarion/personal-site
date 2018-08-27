@@ -12,18 +12,14 @@ class RelatedPosts extends React.Component {
   }
 
   render() {
-    return (
-      this.relatedPost && (
-        <PostsContainer py={4}>
-          <PostPreviewsWrapper
-            px={4}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <PostPreview noMargin {...this.relatedPost} />
-          </PostPreviewsWrapper>
-        </PostsContainer>
-      )
+    return this.relatedPost ? (
+      <PostsContainer py={4}>
+        <PostPreviewsWrapper px={4} alignItems="center" justifyContent="center">
+          <PostPreview noMargin {...this.relatedPost} />
+        </PostPreviewsWrapper>
+      </PostsContainer>
+    ) : (
+      <div />
     );
   }
 }

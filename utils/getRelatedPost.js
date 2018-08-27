@@ -1,9 +1,7 @@
 export default (posts, title) => {
   const sortedPosts = posts;
   sortedPosts.sort((a, b) => new Date(a.date) - new Date(b.date))[0];
-  console.log(sortedPosts);
   const postIndex = sortedPosts.findIndex(post => post.title === title);
-  console.log(postIndex);
   // If there is a post after this one
   if (sortedPosts.length > postIndex + 1) {
     return sortedPosts[postIndex + 1];
