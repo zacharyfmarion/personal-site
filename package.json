@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start -p 8080",
-    "test": "jest"
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@mdx-js/loader": "^0.15.0-2",
