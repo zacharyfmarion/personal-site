@@ -18,7 +18,11 @@ const Layout = ({ children }) => (
     <Head>
       <style>{globalStyles}</style>
     </Head>
-    <Header title="Zachary Marion" subtitle="Thoughts, code and ideas." />
+    <Header
+      hideTitleBackground
+      title="Zachary Marion"
+      subtitle="Thoughts, code and ideas."
+    />
     <PostContainer>{children}</PostContainer>
     <Footer author="Zachary Marion" />
   </Wrapper>

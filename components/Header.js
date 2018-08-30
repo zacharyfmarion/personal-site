@@ -5,7 +5,14 @@ import media from 'utils/media';
 
 import BackIcon from './assets/arrow-left.svg';
 
-const Header = ({ title, subtitle, image, onBack, ...props }) => {
+const Header = ({
+  title,
+  subtitle,
+  image,
+  hideTitleBackground,
+  onBack,
+  ...props
+}) => {
   const Wrapper = image ? ImageWrapper : FlexWrapper;
   return (
     <Wrapper px={4} py={5} ratio={3 / 4} src={image} color="white" {...props}>
@@ -15,12 +22,17 @@ const Header = ({ title, subtitle, image, onBack, ...props }) => {
           <Text>Back to posts</Text>
         </BackContainer>
       )}
-      <TitleHeading is="h1" textAlign="center">
-        {title}
-      </TitleHeading>
-      <SubtitleHeading is="h6" textAlign="center" fontWeight={400}>
-        {subtitle}
-      </SubtitleHeading>
+      <TitleContainer
+        flexDirection="column"
+        hideTitleBackground={hideTitleBackground}
+      >
+        <TitleHeading is="h1" textAlign="center">
+          {title}
+        </TitleHeading>
+        <SubtitleHeading is="h6" textAlign="center" fontWeight={400}>
+          {subtitle}
+        </SubtitleHeading>
+      </TitleContainer>
     </Wrapper>
   );
 };
@@ -45,11 +57,24 @@ const SubtitleHeading = styled(Heading)`
   `};
 `;
 
+const TitleContainer = styled(Flex)`
+  ${p =>
+    !p.hideTitleBackground &&
+    `
+    background: rgba(100, 100, 100, 0.4);
+    padding: 5px 17px;
+    border-radius: 12px;
+  `};
+`;
+
 const BackContainer = styled(Flex)`
   position: absolute;
   left: 15px;
   top: 15px;
   cursor: pointer;
+  background: rgba(100, 100, 100, 0.4);
+  padding: 5px 17px;
+  border-radius: 12px;
 `;
 
 const StyledBackIcon = styled(BackIcon)`
@@ -64,6 +89,11 @@ const backgroundStyles = css`
   flex-direction: column;
   ${p => !p.src && `background-color: #0e1b25`};
   height: 500px;
+
+  ${media.mobile`
+    height: 350px;
+    padding-top: 0;
+  `};
 `;
 
 const ImageWrapper = styled(BackgroundImage)`

@@ -2,7 +2,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import { Flex, Heading, Text, BackgroundImage } from 'rebass';
 import styled from 'styled-components';
-import trimDescription from '../utils/trimDescription';
+import trimDescription from 'utils/trimDescription';
+import media from 'utils/media';
 
 const PostPreview = ({
   title,
@@ -34,6 +35,10 @@ const PostPreview = ({
 
 const ContentWrapper = styled(Flex)`
   flex: 0 1 350px;
+
+  ${media.mobile`
+    flex: 1 1 auto;
+  `};
 `;
 
 const MainContent = styled(Flex)`
@@ -67,6 +72,10 @@ const FlexImage = styled(Flex)`
   background: #c5d2d9 no-repeat 50%;
   background-size: cover;
   background-image: url(${p => p.src});
+
+  ${media.mobile`
+    display: none;
+  `};
 `;
 
 export default PostPreview;
