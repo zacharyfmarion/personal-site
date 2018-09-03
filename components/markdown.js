@@ -112,7 +112,7 @@ const BlockQuote = styled(components.blockquote)`
   }
 `;
 
-const Paragraph = styled.p`
+export const Paragraph = styled.p`
   font-family: 'Frank Ruhl Libre', serif;
   margin: 0px;
   margin-bottom: 30px;

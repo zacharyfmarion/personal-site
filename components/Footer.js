@@ -8,7 +8,9 @@ const Footer = ({ author }) => (
   <Flex justifyContent="center" px={4} py={4}>
     <FooterContainer>
       <Flex alignItems="center">
-        <Text>{author} © 2018</Text>
+        <Text>
+          <a href="http://zacharyfmarion.io">{author}</a> © 2018
+        </Text>
       </Flex>
       <LinkContainer alignItems="center">
         <Link href="/">Latest Posts</Link>

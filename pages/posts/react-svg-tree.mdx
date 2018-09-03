@@ -6,12 +6,12 @@ import Tree from 'react-svg-tree';
 
 export const meta = {
   author: 'Zachary Marion',
-  title: 'React Svg Tree',
+  title: 'Rendering an SVG Tree in React',
   date: '09-03-2018',
   description: "So in between my last post and this one, I realized that I wanted to create some tree animations to show some common tree operations and explain more gracefully how the minimax algorithm worked.",
   image: 'https://images.unsplash.com/photo-1515863149848-223cbed59017?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=58d13630d6c133bb32e0c7dc48eb4216',
   link: '/react-svg-tree',
-  readTime: 10,
+  readTime: 25,
 }
 
 export default ({ children }) => <Post {...meta}>{children}</Post>
@@ -63,7 +63,7 @@ const vertices = new Map([
 <Tree rootId={0} vertices={vertices} />
 ```
 
-I thought that this would make for a pretty flexible component, but I quickly ran into issues. For example, in one of the posts I was working on, I wanted to make a visualization of an depth first search using this component. Essentially all of the nodes would be grayed out initially and then once they were visited they would change to a brighter color. This seemed like a simple thing to do, but it quickly became extremely messy. Every node had to have a check to test whether or not it had been visited, and my render function became extremely messy. Also, I was having to iterate over the children and essentially construct the same map that the vertex prop was giving me, so the children API was just a more verbase and slightly more customizable way of presenting the same data.
+I thought that this would make for a pretty flexible component, but I quickly ran into issues. For example, in one of the posts I was working on, I wanted to make a visualization of an depth first search using this component. Essentially all of the nodes would be grayed out initially and then once they were visited they would change to a brighter color. This seemed like a simple thing to do, but it quickly became extremely messy. Every node had to have a check to test whether or not it had been visited, and my render function became incredibly hard to read. Also, I was having to iterate over the children and essentially construct the same map that the vertex prop was giving me, so the children API was just a more verbose and slightly more customizable way of presenting the same data.
 
 ## Having my Cake and Eating it too
 
@@ -89,7 +89,7 @@ const vertices = new Map([
 </Tree>
 ```
 
-Now, conditionally rendering the color of the node would just involve adding a fill prop to the `<circle />` component and either rending gray or blue based on whether the node's id was in the visited set. The child is also passed in the entire `TreeMap` object, which contains the calculated positions of all this nodes. This allows for the arbitrary rendering of the tree, if you have enough imagination. For example, if you wanted to add an arrow showing the direction of the node
+Now, conditionally rendering the color of the node would just involve adding a fill prop to the `<circle />` component and either rending gray or blue based on whether the node's id was in the visited set. The child is also passed in the entire `TreeMap` object, which contains the calculated positions of all this nodes. This allows for the arbitrary rendering of the tree, if you have enough imagination. For example, you could add an arrow showing the direction of a traversal, or modify a nodes position based on the position of its neighbor.
 
 The final API looks like this:
 
@@ -125,7 +125,7 @@ return <Tree
 
 ## Implementation
 
-The component renders an svg, so the render method is wrapped in a n `svg` tag. The children of the svg are rendered in a separate function to keep the render method clean. This function, `renderTree`, creates an `TreeGraph`, which is a helper class I created that conatins all of the operations necessary for the algorithm described in the referenced paper. Once this obejct is created, the function `positionTree` is called, which actually runs the positioning algorithm and stores the resulting information in the `TreeGraph` object. This information is then used to actually render the nodes and their connections in `renderFromVerteMap`:
+The component renders an svg, so the render method is wrapped in a n `svg` tag. The children of the svg are rendered in a separate function to keep the render method clean. This function, `renderTree`, creates a `TreeGraph`, which is a helper class I created that conatins all of the operations necessary for the algorithm described in the referenced paper. Once this obejct is created, the function `positionTree` is called, which actually runs the positioning algorithm and stores the resulting information in the `TreeGraph` object. This information is then used to actually render the nodes and their connections in `renderFromVerteMap`:
 
 ```js
 // jsx
@@ -134,6 +134,7 @@ renderFromVertexMap = (
   ): Array<React.ReactNode> | null => {
     const { vertices, children } = this.props;
     if (!vertices) return null;
+
     const svgElements: Array<React.ReactNode> = [];
     vertices.forEach((childNodes: Array<TreeNode>, node: TreeNode) => {
       // Get the final position of the node after the algorithm has been run
@@ -161,7 +162,7 @@ renderFromVertexMap = (
   };
 ```
 
-The complete `<Tree />` component definition:
+The array of svg nodes is then returned from `renderTree` and becomes the children of the root `svg` element. The complete `<Tree />` component definition is shown below:
 
 ```js
 // jsx
@@ -202,7 +203,7 @@ export interface Props extends Options {
   className?: string;
 }
 
-const DEFAULT_NODE_SIZE = 10;
+const DEFAULT_NODE_SIZE = 5;
 
 /**
  * Tree component
@@ -378,19 +379,74 @@ I love the idea of code as a living source of documentation, so when I saw [docz
 
 ![Docz](/static/minimax-continued/docz.png "Example of docz playground component")
 
-They also provide a component called `<PropsTable />` that renders a table of the component's props without you really having to do anything:
+They also provide a component called `<PropsTable />` that renders a table of the component's props without you really having to do anything. Setting it up was as simple as running `yarn add docz docz-theme-default` and aliasing `yarn docz:start` to `docz dev`. Add a file with a `.mdx` extension anywhere in the project and viola - you now have component docs!
 
 Docz was so good that I actually deleted my webpack-dev-server and just used it's hot-reloading environment for development. Moving forward I'm definitely going to use it in all of my projects. Once my component was documented, I ran `yarn add --dev gh-pages` and added the following lines to my `package.json`:
 
 ```json
 // json
   "scripts": {
+    ...
     "docz:build": "docz build",
     "deploy": "yarn docz:build && gh-pages -d .docz/dist"
   }
 ```
 
 Running this command builds a prod version of the docz pages, and then the `gh-pages` package checks out the build directory into the `gh-pages` branch of the repo, which github automatically deploys to `http://[username].github.io/[repo-name]`.
+
+## Publishing the package
+
+I'm not super experienced with webpack, so it took me a while to get builds to work properly. One important gotcha is that you should always specify `react` and `react-dom` as externals so that they don't get bundled into your code, as they will always be available:
+
+```js
+// js
+// webpack.config.js
+const path = require('path');
+
+module.exports = {
+  entry: './src/index.ts',
+  mode: 'production',
+  ...
+  externals: {
+    // Don't bundle react or react-dom
+    react: {
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'React',
+      root: 'React',
+    },
+    'react-dom': {
+      commonjs: 'react-dom',
+      commonjs2: 'react-dom',
+      amd: 'ReactDOM',
+      root: 'ReactDOM',
+    },
+  },
+};
+```
+
+You also need to specify them as peer-dependencies in your `package.json`:
+
+```json
+// json
+  "peerDependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+```
+
+Another annoying issue as that umd bundling doesn't work like you would expect with webpack. I was trying to render the component on this blog, which uses [next.js](https://nextjs.org/) to server-render react. But every time I imported the bundle it would give me an error saying that window was not defined. This was because the package was being attached to the window object for loading in a browser environment, but the window object does not exist on the server, where the page is initially rendered. To get around this, I needed to add the following to my output config:
+
+```js
+// js
+  "output": {
+    ...
+    libraryTarget: 'umd',
+    globalObject: 'this',
+  }
+```
+
+Then everything worked as expected in both the server and browser environments. After getting builds to work it was as simple as ignore files I didn't want to include in my `.npmignore` and specifying `"main": "dist/index.js"` in my `package.json`. Running `yarn publish` allowed my to publish the package under `react-svg-tree`. With that, I had a 19 KiB react component published on npm for rendering a general n-ary tree. Phew. The component will most likely be used heavily in my future posts. Speaking on which, I need to get on that.
 
 --------
 

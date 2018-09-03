@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from 'rebass';
+import { Paragraph } from 'components/markdown';
 import styled from 'styled-components';
 
 /**
@@ -7,25 +7,22 @@ import styled from 'styled-components';
  */
 
 const OpeningParagraph = ({ children, ...props }) => (
-  <OpeningText fontSize={25} lineHeight={1.5} {...props}>
-    {children}
-  </OpeningText>
+  <OpeningText {...props}>{children}</OpeningText>
 );
 
-const OpeningText = styled(Text)`
+const OpeningText = styled(Paragraph)`
   word-break: break-word;
   word-wrap: break-word;
   margin-bottom: 25px;
-  font-style: italic;
 
   &:first-child:first-letter {
     float: left;
-    font-family: Georgia;
+    font-family: cursive, Georgia;
     font-style: normal;
     font-size: 78px;
-    line-height: 66px;
+    line-height: 60px;
     padding-top: 4px;
-    padding-right: 5px;
+    padding-right: 9px;
     padding-left: 3px;
   }
 `;
