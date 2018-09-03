@@ -1,9 +1,11 @@
 import Post, { OpeningParagraph } from 'components/Post';
+import TreeAnimation from 'components/TreeAnimation';
+import MinimaxAnimation from 'components/MinimaxAnimation';
 
 export const meta = {
   author: 'Zachary Marion',
   title: 'Minimax Continued',
-  date: '08/26/2018',
+  date: '08-26-2018',
   description: "So in between my last post and this one, I realized that I wanted to create some tree animations to show some common tree operations and explain more gracefully how the minimax algorithm worked.",
   image: 'https://images.unsplash.com/photo-1465487862947-ded619a2a9ab?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=68130b7d4392394e1876bbd54c82f427',
   link: '/minimax-continued',
@@ -27,11 +29,16 @@ The game is over (win, loss, or draw) - OR -
 The maximum depth from the current state was reached
 From here we score the leaf nodes based on a heuristic function, and perform the exact same minimax algorithm based on these values. It is important to note that a heuristic function's value for a given state does not necessary map correctly to the true minimax value of the state (assuming the entire state tree had been traversed). This means that suboptimal play could be produced by a depth-limited minimax algorithm. However, limiting the depth does allow us to apply minimax to a much broader set of games (such as chess) and still produce relatively good agents.
 
-Alpha Beta Pruning
-It turns out that the minimax algorithm visits a lot of unnnecessary states during its traversal. To be precise, it visits many states that could not correspond to the optimal play, given the current information available. To understand why this is, we first need to __ the recursive execution of the algorithm. When explaining it before, I made it seem as though we found all the leaf nodes first, and then computed the next layer of values from these nodes. However, this is not actually how the algorithm executes. Minimax is recursive by nature, and so its execution essentially maps to a depth-first traversal of the state tree. If this is not familiar, a depth first seach can be explained best visually:
+## Alpha Beta Pruning
+
+It turns out that the minimax algorithm visits a lot of unnnecessary states during its traversal. To be precise, it visits many states that could not correspond to the optimal play, given the current information available. To understand why this is, we first need to parse out the recursive execution of the algorithm. When explaining it before, I made it seem as though we found all the leaf nodes first, and then computed the next layer of values from these nodes. However, this is not actually how the algorithm executes. Minimax is recursive by nature, and so its execution essentially maps to a depth-first traversal of the state tree. If this is not familiar, a depth first seach can be explained best visually:
+
+<TreeAnimation />
 
 Assuming we are going left to right, we essentially go all the way down the left side of the tree until we reach a leaf node. Once we reach that node, we go back up until we find a node that has other unvisited children. Once that node is found we repeat our previous step on that subtree, going all the way down the left until we reach a leaf, and then back up until we find a node with more univisted children. Eventually we will have reached all of the nodes in the tree, completing our traversal.
 
-Minimax essentially does this traversal, with the following modification: we go down the left of the tree until we reach a leaf. Score that leaf based on the outcome of the game (or the heuristic if we are doing a depth limited search). Then go back up the parent. If the parent's children have all been visited, then set the parent's value to the min or max of its children (depending on which player it is). If the parent has unvisited children, visit the leftmost child and repeat the above process. Eventually the value of the root will be set and the traversal is complete.
+Minimax essentially does this traversal, with the following modification: we go down the left of the tree until we reach a leaf. Score that leaf based on the outcome of the game (or the heuristic if we are doing a depth limited search). Then go back up the parent. If the parent's children have all been visited, then set the parent's value to the min or max of its children (depending on which player it is). If the parent has unvisited children, visit the leftmost child and repeat the above process. Eventually the value of the root will be set and the traversal is complete. Feel free to play around with the animation of this process to get a feel for how it works:
+
+<MinimaxAnimation />
 
 Knowing this, we can now jump into alpha-beta pruning. The best way to show this is through an example:

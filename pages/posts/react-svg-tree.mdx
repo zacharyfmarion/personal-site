@@ -1,10 +1,12 @@
 import Post, { OpeningParagraph } from 'components/Post';
 import { Link } from 'components/markdown';
+import TextLabel from 'components/TextLabel';
+import Tree from 'react-svg-tree';
 
 export const meta = {
   author: 'Zachary Marion',
   title: 'React Svg Tree',
-  date: '08/26/2018',
+  date: '08-26-2018',
   description: "So in between my last post and this one, I realized that I wanted to create some tree animations to show some common tree operations and explain more gracefully how the minimax algorithm worked.",
   image: 'https://images.unsplash.com/photo-1515863149848-223cbed59017?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=58d13630d6c133bb32e0c7dc48eb4216',
   link: '/react-svg-tree',
@@ -21,9 +23,153 @@ Well, turns out it isn't so simple. Rendering a general tree is actually quite a
 
 EXAMPLE
 
-Fortunately, I'm not the only person who has had this problem. After another quick google search I came across this paper, written by a UNC professor from my home state. It was written in 1989, well before I was born, but I figured trees hadn't really changed a whole lot since then so it should be alright. The paper describes an algorithm for finding the optimal aesthetic positioning of x-coordinates in a general tree (DEFINE THIS TERM). The basic algorithm takes part in two steps:
-Do a first-pass traversal of the tree and save preliminary x-coordinate values for each node
-Do a second path and determine the final positions of the nodes.
+Fortunately, I'm not the only person who has had this problem. After another quick google search I came across this paper, written by a UNC professor from my home state. It was written in 1989, well before I was born, but I figured trees hadn't really changed a whole lot since then so it should be alright. The paper describes an algorithm for finding the optimal aesthetic positioning of x-coordinates in a general n-ary tree (DEFINE THIS TERM). The basic algorithm takes part in two steps:
+
+1. Do a first-pass traversal of the tree and save preliminary x-coordinate values for each node
+2. Do a second path and determine the final positions of the nodes.
+
 Wow, super easy right? Wrong again. The algorithm itself is much more complicated and outside of the scope of this post. I'd rather focus on my implementation of it, because I think that is less boring and way easier to explain.
 
-At my company, we use Flow, which is a type checker for javascript code. Essentially it is a superset of javascript that get's compiled down into code that can be run in the browser. It adds the ability to define types for variables and functions in your code, which catches a lot of errors that a browser won't catch because of the loosely-typed nature of js code. For this component, I decided to use Typescript, which is essentially the same thing as Flow, just better in every way. Okay so I'm opinionated, deal with it. I set up a basic create-react-app project with typescript and started by thinking about the shape of the component I was building. I wanted the ability to specify nodes as children of the `<Tree />` component, but this quickly becomes verbose for large trees, so I also wanted the ability to specify a data structure. I settled on just supporting both approaches - if there are children then they are rendered, otherwise a `vertices` prop is required which the component uses to render the positioned nodes.
+At my company, we use Flow, which is a type checker for javascript code. Essentially it is a superset of javascript that get's compiled down into code that can be run in the browser. It adds the ability to define types for variables and functions in your code, which catches a lot of errors that a browser won't catch because of the loosely-typed nature of js code. For this component, I decided to use Typescript, which is essentially the same thing as Flow, just better in every way. Okay so I'm opinionated, deal with it. I set up a basic create-react-app project with typescript and started by thinking about the shape of the component I was building. I wanted the ability to specify nodes as children of the `<Tree />` component, but this quickly becomes verbose for large trees, so I also wanted the ability to specify a data structure. 
+
+I intially settled on supporting both approaches - if there are children then they are rendered, otherwise a `vertices` prop is required which the component uses to render the positioned nodes. For example, using the children API, you could render a tree like this:
+
+```js
+// javascript
+<Tree rootId={0}>
+  <Node id={0} children={[1,2,3]}/>
+  <Node id={1} />
+  <Node id={2} />
+  <Node id={3} />
+</Tree>
+```
+
+Where `<Node />` would be a component exposed by the library that essentially rendered an svg `<circle/>`. With the `vertices` prop API, you could render the tree like this:
+
+```js
+// javascript
+const vertices = new Map([
+  [0, [1,2,3]],
+  [1, []],
+  [2, []],
+  [3, []],
+]);
+
+<Tree rootId={0} vertices={vertices} />
+```
+
+I thought that this would make for a pretty flexible component, but I quickly ran into issues. For example, in one of the posts I was working on, I wanted to make a visualization of an depth first search using this component. Essentially all of the nodes would be grayed out initially and then once they were visited they would change to a brighter color. This seemed like a simple thing to do, but it quickly became extremely messy. Every node had to have a check to test whether or not it had been visited, and my render function became extremely messy. Also, I was having to iterate over the children and essentially construct the same map that the vertex prop was giving me, so the children API was just a more verbase and slightly more customizable way of presenting the same data.
+
+## Having my Cake and Eating it too
+
+So what was the solution? After giving it some more thought, this seemed like the perfect component for using the function-as-child approach. Essentially, the `<Tree />` component would accept a function as its child, and that function would be called to render each of the nodes in the tree. For example:
+
+
+```js
+/// javascript
+const vertices = new Map([
+  [0, [1,2,3]],
+  [1, []],
+  [2, []],
+  [3, []],
+]);
+
+<Tree rootId={0} vertices={vertices}>
+  {({ x, y, id }) => (
+    <circle
+      cx={x}
+      cy={y}
+      r={5}
+    />
+  )}
+</Tree>
+```
+
+Now, conditionally rendering the color of the node would just involve adding a fill prop to the `<circle />` component and either rending gray or blue based on whether the node's id was in the visited set. The child is also passed in the entire `TreeMap` object, which contains the calculated positions of all this nodes. This allows for the arbitrary rendering of the tree, if you have enough imagination. For example, if you wanted to add an arrow showing the direction of the node
+
+The final API looks like this:
+
+```js
+// javascript
+const vertices = new Map([
+  [0, [1,2,3]],
+  [1, []],
+  [2, []],
+  [3, []],
+]);
+
+return <Tree
+  width={200}
+  height={40}
+  rootId={0}
+  nodeSize={5}
+  vertices={vertexMap}
+>
+  {({x, y, id}) => (
+    <g>
+      <circle
+        cx={x}
+        cy={y}
+        r={5}
+        fill="rgb(15, 98, 189)"
+      />
+      <TextLabel x={x} y={y} label={id} />
+    </g>
+  )}
+</Tree>
+```
+
+And the rendered output:
+
+<Tree
+  width={200}
+  height={40}
+  rootId={0}
+  nodeSize={5}
+  vertices={
+    new Map([
+      [0, [1,2,3]],
+      [1, []],
+      [2, []],
+      [3, []],
+    ])
+  }
+>
+  {({x, y, id}) => (
+    <g>
+      <circle
+        cx={x}
+        cy={y}
+        r={5}
+        fill="rgb(15, 98, 189)"
+      />
+      <TextLabel x={x} y={y} label={id} />
+    </g>
+  )}
+</Tree>
+
+## Documenting the component
+
+> You can have the coolest component in the world, but if there isn't any documentation no one is going to use it - Confucious, probably.
+
+I love the idea of code as a living source of documentation, so when I saw [docz](TODO), it seemed like the perfect place to start. Docz allows you to display your components using [MDX](TODO), a document format that allows you to write markdown and render React components inline. The main component the package exposes is called `Playground`, which both renders any component that is passed in as a child and displays the markup for that component. For example: 
+
+![Docz](/static/minimax-continued/docz.png "Example of docz playground component")
+
+They also provide a component called `<PropsTable />` that renders a table of the component's props without you really having to do anything:
+
+Docz was so good that I actually deleted my webpack-dev-server and just used it's hot-reloading environment for development. Moving forward I'm definitely going to use it in all of my projects. Once my component was documented, I ran `yarn add --dev gh-pages` and added the following lines to my `package.json`:
+
+```json
+// json
+  "scripts": {
+    "docz:build": "docz build",
+    "deploy": "yarn docz:build && gh-pages -d .docz/dist"
+  }
+```
+
+Running this command builds a prod version of the docz pages, and then the `gh-pages` package checks out the build directory into the `gh-pages` branch of the repo, which github automatically deploys to `http://[username].github.io/[repo-name]`.
+
+--------
+
+You can find the component source [here](TODO), and its documentation [here](http://zacharyfmarion.io/react-svg-tree). Feel free to open a PR if you find an issue!

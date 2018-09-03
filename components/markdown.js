@@ -1,6 +1,6 @@
 import createComponents from '@rebass/markdown';
 import styled from 'styled-components';
-import { Flex } from 'rebass';
+import { Flex, Image } from 'rebass';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 
 const fontSize = 22;
@@ -135,6 +135,13 @@ export const HorizontalRule = styled.hr`
 
 export const Link = components.a;
 
+const MarkdownImage = styled(Image)`
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+`;
+
 export default {
   ...components,
   code: Code,
@@ -142,4 +149,5 @@ export default {
   blockquote: BlockQuote,
   p: Paragraph,
   hr: HorizontalRule,
+  img: MarkdownImage,
 };
