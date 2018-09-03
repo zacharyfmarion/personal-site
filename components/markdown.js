@@ -57,6 +57,9 @@ const Token = styled.span`
   &.punctuation {
     color: #24292e;
   }
+  &.comment {
+    color: #657b83;
+  }
   &.keyword,
   &.operator {
     color: #d73a49;
