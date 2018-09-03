@@ -34,6 +34,7 @@ export default class _Document extends Document {
       <html lang="en">
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>Zachary Marion - Blog</title>
           {styleTags}
           <link
             href="https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre"
