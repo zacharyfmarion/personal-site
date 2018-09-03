@@ -11,17 +11,16 @@ const fontSize = 22;
  */
 const processCode = children => {
   const firstLine = children.split('\n')[0];
-  let language, code;
-  if (firstLine && typeof firstLine === 'string') {
-    language = firstLine ? firstLine.trim().substring(2) : 'python';
-    code = children
-      .split('\n')
-      .filter((line, i) => i !== 0)
-      .join('\n');
-  } else {
-    language = 'python';
-    code = children;
-  }
+  const language = firstLine
+    ? firstLine
+        .trim()
+        .substring(2)
+        .trim()
+    : 'python';
+  const codeArray = children.split('\n');
+  const code = codeArray
+    .filter((line, i) => i !== 0 && i !== codeArray.length - 1)
+    .join('\n');
   return { code, language };
 };
 

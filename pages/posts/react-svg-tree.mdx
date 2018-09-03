@@ -1,16 +1,17 @@
 import Post, { OpeningParagraph } from 'components/Post';
 import { Link } from 'components/markdown';
+import TreeDemo from 'components/TreeDemo';
 import TextLabel from 'components/TextLabel';
 import Tree from 'react-svg-tree';
 
 export const meta = {
   author: 'Zachary Marion',
   title: 'React Svg Tree',
-  date: '08-26-2018',
+  date: '09-03-2018',
   description: "So in between my last post and this one, I realized that I wanted to create some tree animations to show some common tree operations and explain more gracefully how the minimax algorithm worked.",
   image: 'https://images.unsplash.com/photo-1515863149848-223cbed59017?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=58d13630d6c133bb32e0c7dc48eb4216',
   link: '/react-svg-tree',
-  readTime: 12,
+  readTime: 10,
 }
 
 export default ({ children }) => <Post {...meta}>{children}</Post>
@@ -21,9 +22,11 @@ export default ({ children }) => <Post {...meta}>{children}</Post>
 
 Well, turns out it isn't so simple. Rendering a general tree is actually quite a difficult problem. More specifically, determining the x-coordinates for a particular node at a given depth in the tree is annoyingly nontrivial. The y-coordinates are just evenly spaced at a given depth separation value, so figuring them out is as simple as multiplying the depth of the node by the depth separation constant. Let's look at an example.
 
-EXAMPLE
+<TreeDemo />
 
-Fortunately, I'm not the only person who has had this problem. After another quick google search I came across this paper, written by a UNC professor from my home state. It was written in 1989, well before I was born, but I figured trees hadn't really changed a whole lot since then so it should be alright. The paper describes an algorithm for finding the optimal aesthetic positioning of x-coordinates in a general n-ary tree (DEFINE THIS TERM). The basic algorithm takes part in two steps:
+## But there's hope!
+
+Fortunately, I'm not the only person who has had this problem. After another quick google search I came across [this paper](http://www.cs.unc.edu/techreports/89-034.pdf), written by a UNC professor from my home state. It was written in 1989, well before I was born, but I figured trees hadn't really changed a whole lot since then so it should be alright. The paper describes an algorithm for finding the optimal aesthetic positioning of x-coordinates in a general n-ary tree (meaning a graph with one root, no cycles, and nodes with any number of children). The basic algorithm takes part in two steps:
 
 1. Do a first-pass traversal of the tree and save preliminary x-coordinate values for each node
 2. Do a second path and determine the final positions of the nodes.
@@ -35,7 +38,7 @@ At my company, we use Flow, which is a type checker for javascript code. Essenti
 I intially settled on supporting both approaches - if there are children then they are rendered, otherwise a `vertices` prop is required which the component uses to render the positioned nodes. For example, using the children API, you could render a tree like this:
 
 ```js
-// javascript
+// jsx 
 <Tree rootId={0}>
   <Node id={0} children={[1,2,3]}/>
   <Node id={1} />
@@ -47,7 +50,7 @@ I intially settled on supporting both approaches - if there are children then th
 Where `<Node />` would be a component exposed by the library that essentially rendered an svg `<circle/>`. With the `vertices` prop API, you could render the tree like this:
 
 ```js
-// javascript
+// jsx
 const vertices = new Map([
   [0, [1,2,3]],
   [1, []],
@@ -66,7 +69,7 @@ So what was the solution? After giving it some more thought, this seemed like th
 
 
 ```js
-/// javascript
+// jsx
 const vertices = new Map([
   [0, [1,2,3]],
   [1, []],
@@ -90,7 +93,7 @@ Now, conditionally rendering the color of the node would just involve adding a f
 The final API looks like this:
 
 ```js
-// javascript
+// jsx
 const vertices = new Map([
   [0, [1,2,3]],
   [1, []],
@@ -152,7 +155,7 @@ And the rendered output:
 
 > You can have the coolest component in the world, but if there isn't any documentation no one is going to use it - Confucious, probably.
 
-I love the idea of code as a living source of documentation, so when I saw [docz](TODO), it seemed like the perfect place to start. Docz allows you to display your components using [MDX](TODO), a document format that allows you to write markdown and render React components inline. The main component the package exposes is called `Playground`, which both renders any component that is passed in as a child and displays the markup for that component. For example: 
+I love the idea of code as a living source of documentation, so when I saw [docz](https://www.docz.site/), it seemed like the perfect place to start. Docz allows you to display your components using [MDX](https://github.com/mdx-js/mdx), a document format that allows you to write markdown and render React components inline. The main component the package exposes is called `Playground`, which both renders any component that is passed in as a child and displays the markup for that component. For example: 
 
 ![Docz](/static/minimax-continued/docz.png "Example of docz playground component")
 
@@ -172,4 +175,4 @@ Running this command builds a prod version of the docz pages, and then the `gh-p
 
 --------
 
-You can find the component source [here](TODO), and its documentation [here](http://zacharyfmarion.io/react-svg-tree). Feel free to open a PR if you find an issue!
+You can find the component source [here](https://github.com/zacharyfmarion/react-svg-tree), and its documentation [here](http://zacharyfmarion.io/react-svg-tree). Feel free to open a PR if you find an issue!

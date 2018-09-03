@@ -25,7 +25,7 @@ const OpeningText = styled(Text)`
     font-size: 78px;
     line-height: 66px;
     padding-top: 4px;
-    padding-right: 12px;
+    padding-right: 5px;
     padding-left: 3px;
   }
 `;
