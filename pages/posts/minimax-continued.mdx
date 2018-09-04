@@ -14,7 +14,6 @@ export const meta = {
 
 export default ({ children }) => <Post {...meta}>{children}</Post>
 
-
 <OpeningParagraph>
   Our minimax algorithm covered in the previous blog post will consistently produce the optimal play for each player. There's only one problem - it's extremely slow. For a game of tic-tac-toe, with a relatively small state space, this isn't a problem. However, for games like Chess and even Othello, the state space becomes so large that running minimax quickly becomes impractical. Running minimax on the opening state of a chess board would take hundreds of thousands if not millions of years to complete on consumer hardware. And you would run out of memory long before that. So how do we get around the problem of indeterminate runtimes due to game complexity? There are many improvements that can be made to the base minimax algorithm. In this post, I will discuss two at length. Firstly, we will explore limiting the depth of the algorithm, and secondly we will investigate alpha-beta pruning, an optimization of minimax that still ensures the algorithm's optimality.
 </OpeningParagraph>

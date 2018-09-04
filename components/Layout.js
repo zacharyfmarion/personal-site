@@ -1,7 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import Header from './Header';
+import Paginate from './Paginate';
 import Footer from './Footer';
+import PostPreview from './Post/PostPreview';
 import styled from 'styled-components';
 import { Flex, Container } from 'rebass';
 
@@ -13,7 +15,9 @@ const globalStyles = `
   }
 `;
 
-const Layout = ({ children }) => (
+const storePageNumber = () => {};
+
+const Layout = ({ posts }) => (
   <Wrapper flexDirection="column">
     <Head>
       <style>{globalStyles}</style>
@@ -23,7 +27,19 @@ const Layout = ({ children }) => (
       title="Zachary Marion"
       subtitle="Thoughts, code and ideas."
     />
-    <PostContainer>{children}</PostContainer>
+    <PostContainer>
+      <Paginate
+        items={posts}
+        itemsPerPage={2}
+        backText="Newer Posts"
+        forwardText="Older Posts"
+      >
+        {({ activeItems, pageNumber }) => {
+          storePageNumber(pageNumber);
+          return activeItems.map(post => <PostPreview {...post} />);
+        }}
+      </Paginate>
+    </PostContainer>
     <Footer author="Zachary Marion" />
   </Wrapper>
 );

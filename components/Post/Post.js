@@ -46,13 +46,16 @@ const PostContainer = styled(Container)`
   min-height: 230px;
   width: 100%;
   padding: 40px !important;
-  &:before {
-    ${psuedoStyles} left: -5px;
-    transform: rotate(-5deg);
-  }
-  &:after {
-    ${psuedoStyles} right: -5px;
-    transform: rotate(5deg);
+
+  @media (min-width: 32em) {
+    &:before {
+      ${psuedoStyles} left: -5px;
+      transform: rotate(-5deg);
+    }
+    &:after {
+      ${psuedoStyles} right: -5px;
+      transform: rotate(5deg);
+    }
   }
 `;
 

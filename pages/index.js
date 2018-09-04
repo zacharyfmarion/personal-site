@@ -1,17 +1,19 @@
+import * as React from 'react';
 import Layout from '../components/Layout';
-import PostPreview from '../components/PostPreview';
+import posts from './posts';
 
-// Posts
-import { welcomeMeta, minimaxMeta, reactSvgTreeMeta } from './posts';
+class Home extends React.Component {
+  static async getInitialProps({ query }) {
+    return { query };
+  }
 
-const Home = () => {
-  return (
-    <Layout>
-      <PostPreview {...reactSvgTreeMeta} />
-      <PostPreview {...minimaxMeta} />
-      <PostPreview {...welcomeMeta} />
-    </Layout>
-  );
-};
+  get orderedPosts() {
+    return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
+  render() {
+    return <Layout posts={this.orderedPosts} />;
+  }
+}
 
 export default Home;

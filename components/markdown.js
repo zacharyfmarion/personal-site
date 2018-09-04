@@ -93,7 +93,8 @@ const InlineCode = styled.code`
   font-size: 85%;
   background-color: rgba(27, 31, 35, 0.05);
   border-radius: 3px;
-  white-space: pre;
+  word-break: break-word;
+  word-wrap: break-word;
 `;
 
 const components = createComponents({

@@ -14,7 +14,7 @@ const PostPreview = ({
   noMargin,
 }) => {
   return (
-    <Link href={`/posts${link}` || '/not-found'}>
+    <Link href={`/posts${link}` || '/'}>
       <PostWrapper bg="white" noMargin={noMargin}>
         <FlexImage src={image} />
         <ContentWrapper flexDirection="column" p={4}>

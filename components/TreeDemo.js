@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Tree from 'react-svg-tree';
+import Button from './Button';
 
 // Component to create a tree, used in docz as a demo of the component
 class TreeDemo extends React.Component {
@@ -65,18 +66,7 @@ class TreeDemo extends React.Component {
   render() {
     return (
       <div>
-        <button
-          onClick={this.resetState}
-          style={{
-            cursor: 'pointer',
-            background: 'none',
-            border: '1px solid lightgray',
-            padding: 10,
-            borderRadius: 4,
-          }}
-        >
-          Reset Tree
-        </button>
+        <Button onClick={this.resetState}>Reset Tree</Button>
         {!this.state.error ? (
           <Tree
             width={200}

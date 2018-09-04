@@ -2,13 +2,13 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'rebass';
 
-import * as postMetas from 'pages/posts';
-import PostPreview from '../PostPreview';
+import posts from 'pages/posts';
+import PostPreview from './PostPreview';
 import getRelatedPost from '../../utils/getRelatedPost';
 
 class RelatedPosts extends React.Component {
   get relatedPost() {
-    return getRelatedPost(Object.values(postMetas), this.props.title);
+    return getRelatedPost(posts, this.props.title);
   }
 
   render() {
