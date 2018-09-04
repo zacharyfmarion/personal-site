@@ -30,7 +30,7 @@ const Layout = ({ posts }) => (
     <PostContainer>
       <Paginate
         items={posts}
-        itemsPerPage={2}
+        itemsPerPage={5}
         backText="Newer Posts"
         forwardText="Older Posts"
       >
