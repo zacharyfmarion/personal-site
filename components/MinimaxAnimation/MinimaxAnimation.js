@@ -72,7 +72,6 @@ class MinimaxAnimation extends React.Component {
 
   runMinimax = () => {
     const res = minimax(vertexMap, this.state.rewards, 'O');
-    console.log(res);
   };
 
   render() {
