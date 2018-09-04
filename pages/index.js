@@ -3,10 +3,6 @@ import Layout from '../components/Layout';
 import posts from './posts';
 
 class Home extends React.Component {
-  static async getInitialProps({ query }) {
-    return { query };
-  }
-
   get orderedPosts() {
     return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
   }

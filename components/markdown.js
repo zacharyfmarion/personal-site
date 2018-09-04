@@ -94,7 +94,7 @@ const LineNumber = styled.td`
 const InlineCode = styled.code`
   padding: 0.2em 0.4em;
   margin: 0;
-  font-size: 85%;
+  font-size: 14px;
   background-color: rgba(27, 31, 35, 0.05);
   border-radius: 3px;
   word-break: break-word;
