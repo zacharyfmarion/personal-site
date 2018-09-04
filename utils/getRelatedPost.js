@@ -1,5 +1,5 @@
 export default (posts, title) => {
-  if (posts.length === 0) return null;
+  if (!posts || posts.length === 0) return null;
   const sortedPosts = posts;
   sortedPosts.sort((a, b) => new Date(a.date) - new Date(b.date))[0];
   const postIndex = sortedPosts.findIndex(p => p && p.title === title);
