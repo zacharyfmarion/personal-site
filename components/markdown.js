@@ -32,7 +32,7 @@ const Code = ({ children }) => {
         <table className={className}>
           <tbody>
             {tokens.map((line, i) => (
-              <tr {...getLineProps({ line, key: i })}>
+              <Line {...getLineProps({ line, key: i })}>
                 <LineNumber data-line-number={i} />
                 <td>
                   {line.map((token, key) => {
@@ -43,7 +43,7 @@ const Code = ({ children }) => {
                     return <Token className={className}>{children}</Token>;
                   })}
                 </td>
-              </tr>
+              </Line>
             ))}
           </tbody>
         </table>
@@ -51,6 +51,10 @@ const Code = ({ children }) => {
     </Highlight>
   );
 };
+
+const Line = styled.tr`
+  font-size: 14px !important;
+`;
 
 const Token = styled.span`
   &.plain,
