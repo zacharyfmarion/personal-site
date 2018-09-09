@@ -45,33 +45,6 @@ class TreeAnimation extends React.Component {
     root: 'O',
   };
 
-  get states() {
-    return LETTERS.reduce(
-      (acc, letter, index) => {
-        return [...acc, LETTERS.slice(0, index + 1)];
-      },
-      [[]],
-    );
-  }
-
-  getLineShiftDirection = (deltaX, deltaY, up) => {
-    let xDirection, yDirection;
-    if (deltaX < 0 && deltaY > 0) {
-      xDirection = -1;
-      yDirection = -1;
-    } else if (deltaX > 0 && deltaY > 0) {
-      xDirection = -1;
-      yDirection = 1;
-    } else if (deltaX < 0 && deltaY < 0) {
-      xDirection = 1;
-      yDirection = 1;
-    } else {
-      xDirection = 1;
-      yDirection = -1;
-    }
-    return { xDirection, yDirection };
-  };
-
   getArrowCoordinates = (graph, node1, node2, up) => {
     let x1 = graph.xCoord(node1);
     let y1 = graph.yCoord(node1);
@@ -81,32 +54,29 @@ class TreeAnimation extends React.Component {
     const deltaX = x2 - x1;
     const deltaY = y2 - y1;
     const theta = Math.abs(Math.atan(deltaY / deltaX));
-    // these variables decide whether the x and y coords are moved up or
-    // down for the line shift
-    const { xDirection, yDirection } = this.getLineShiftDirection(
-      deltaX,
-      deltaY,
-      up,
-    );
     // first we shift the entire line up or down so that it
     // is visible and not on top of the tree edge line
-    const lineShiftAmount = 5;
-    let xShift = lineShiftAmount * Math.abs(Math.cos(Math.PI / 2 - theta));
-    let yShift = lineShiftAmount * Math.abs(Math.sin(Math.PI / 2 - theta));
-    x1 += xShift * xDirection;
-    y1 += yShift * yDirection;
-    x2 += xShift * xDirection;
-    y2 += yShift * yDirection;
+    const lineShiftAmount = 2;
+    const xDirection = up ? 1 : -1;
+    const yDirection = Math.sign(deltaX);
+    let xShift =
+      lineShiftAmount * Math.abs(Math.cos(Math.PI / 2 - theta)) * xDirection;
+    let yShift =
+      lineShiftAmount * Math.abs(Math.sin(Math.PI / 2 - theta)) * yDirection;
+    x1 += xShift;
+    y1 += yShift;
+    x2 += xShift;
+    y2 += yShift;
     // we now find the x and y shifts
-    // const endShiftAmount = 3;
-    // xShift = Math.abs(endShiftAmount * Math.cos(theta));
-    // yShift = Math.abs(endShiftAmount * Math.sin(theta));
-    // // Compute the new coordinates taking these shift values
-    // // into account
-    // x1 += xShift * Math.sign(deltaX);
-    // y1 += yShift * Math.sign(deltaY);
-    // x2 -= xShift * Math.sign(deltaX);
-    // y2 -= yShift * Math.sign(deltaY);
+    const endShiftAmount = 7;
+    xShift = Math.abs(endShiftAmount * Math.cos(theta));
+    yShift = Math.abs(endShiftAmount * Math.sin(theta));
+    // Compute the new coordinates taking these shift values
+    // into account
+    x1 += xShift * Math.sign(deltaX);
+    y1 += yShift * Math.sign(deltaY);
+    x2 -= xShift * Math.sign(deltaX);
+    y2 -= yShift * Math.sign(deltaY);
     return { x1, y1, x2, y2 };
   };
 
