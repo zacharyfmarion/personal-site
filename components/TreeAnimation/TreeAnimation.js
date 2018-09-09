@@ -1,4 +1,6 @@
 import * as React from 'react';
+import memoize from 'lodash.memoize';
+
 import Tree from 'react-svg-tree';
 import TextLabel from '../TextLabel';
 import PlayBar from '../PlayBar';
@@ -96,14 +98,14 @@ class TreeAnimation extends React.Component {
     return states;
   };
 
-  renderArrows = (graph, arrows) => {
+  renderArrows = memoize((graph, arrows) => {
     return arrows.map(({ node1, node2, up }) => (
       <Arrow
         {...this.getArrowCoordinates(graph, node1, node2, up)}
         color="lightgray"
       />
     ));
-  };
+  });
 
   render() {
     return (
