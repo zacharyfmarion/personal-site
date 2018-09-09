@@ -25,8 +25,9 @@ As a quick reminder, the term "heuristic" is used to describe a function that ap
 
 Assuming that we cannot actually traverse the entire state tree, we can simply traverse a fixed depth instead. Now our termination condition is either of the following:
 
-The game is over (win, loss, or draw) - OR -
-The maximum depth from the current state was reached
+- The game is over (win, loss, or draw)
+- The maximum depth from the current state was reached
+
 From here we score the leaf nodes based on a heuristic function, and perform the exact same minimax algorithm based on these values. It is important to note that a heuristic function's value for a given state does not necessary map correctly to the true minimax value of the state (assuming the entire state tree had been traversed). This means that suboptimal play could be produced by a depth-limited minimax algorithm. However, limiting the depth does allow us to apply minimax to a much broader set of games (such as chess) and still produce relatively good agents.
 
 ## Alpha Beta Pruning
