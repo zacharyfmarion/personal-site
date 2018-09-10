@@ -1,6 +1,7 @@
 import * as React from 'react';
 import memoize from 'lodash.memoize';
 import Tree from 'react-svg-tree';
+import styled from 'styled-components';
 
 import getArrowCoordinates from 'utils/getArrowCoordinates';
 import TextLabel from 'components/TextLabel';
@@ -28,10 +29,6 @@ const vertexMap = new Map([
 ]);
 
 class MinimaxAnimation extends React.Component {
-  state = {
-    rewards: new Map(),
-  };
-
   getStates = () => {
     const rewards = new Map([
       ['F', 1],
@@ -45,10 +42,19 @@ class MinimaxAnimation extends React.Component {
       ['K', -9],
       ['L', 9],
     ]);
-    const states = [{ rewards, active: [], arrows: [] }];
-    minimax({ tree: vertexMap, rewards, states, parent: null, node: 'O' });
+    const states = [{ rewards, active: [], depth: 0, arrows: [] }];
+    const depths = ['O'];
+    minimax({
+      rewards,
+      states,
+      depths,
+      tree: vertexMap,
+      parent: null,
+      node: 'O',
+    });
     console.log(states);
-    return states;
+    console.log(depths);
+    return { states, depths };
   };
 
   renderArrows = memoize((graph, arrows) => {
@@ -62,15 +68,22 @@ class MinimaxAnimation extends React.Component {
 
   // render either min or max at each level to indicate
   // the operation that is taking place
-  renderLayerLabels = () => {};
+  renderLayerLabels = (graph, depths) => {
+    return depths.map((node, i) => (
+      <LayerText x={5} y={graph.yCoord(node) + 2}>
+        {i % 2 === 0 ? 'MAX' : 'MIN'}
+      </LayerText>
+    ));
+  };
 
   render() {
+    const { states, depths } = this.getStates();
     return (
-      <PlayBar states={this.getStates()}>
+      <PlayBar states={states}>
         {({ rewards, active, arrows }) => (
           <Tree
             width={200}
-            height={75}
+            height={85}
             rootId="O"
             nodeSize={5}
             vertices={vertexMap}
@@ -82,6 +95,7 @@ class MinimaxAnimation extends React.Component {
             {({ x, y, id, graph }) => (
               <g>
                 {id === 'O' && this.renderArrows(graph, arrows)}
+                {id === 'O' && this.renderLayerLabels(graph, depths)}
                 <circle
                   cx={x}
                   cy={y}
@@ -105,5 +119,9 @@ class MinimaxAnimation extends React.Component {
     );
   }
 }
+
+const LayerText = styled.text`
+  font-size: 5px;
+`;
 
 export default MinimaxAnimation;
