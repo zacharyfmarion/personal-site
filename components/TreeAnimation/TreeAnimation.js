@@ -1,29 +1,13 @@
 import * as React from 'react';
 import memoize from 'lodash.memoize';
-
 import Tree from 'react-svg-tree';
-import TextLabel from '../TextLabel';
-import PlayBar from '../PlayBar';
-import Arrow from '../Arrow';
-import dfs from './dfs';
 
-const LETTERS = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-];
+import getArrowCoordinates from 'utils/getArrowCoordinates';
+
+import dfs from './dfs';
+import Arrow from '../Arrow';
+import PlayBar from '../PlayBar';
+import TextLabel from '../TextLabel';
 
 class TreeAnimation extends React.Component {
   state = {
@@ -47,41 +31,6 @@ class TreeAnimation extends React.Component {
     root: 'O',
   };
 
-  getArrowCoordinates = (graph, node1, node2, up) => {
-    let x1 = graph.xCoord(node1);
-    let y1 = graph.yCoord(node1);
-    let x2 = graph.xCoord(node2);
-    let y2 = graph.yCoord(node2);
-    // we find the angle of the line
-    const deltaX = x2 - x1;
-    const deltaY = y2 - y1;
-    const theta = Math.abs(Math.atan(deltaY / deltaX));
-    // first we shift the entire line up or down so that it
-    // is visible and not on top of the tree edge line
-    const lineShiftAmount = 2;
-    const xDirection = up ? 1 : -1;
-    const yDirection = Math.sign(deltaX);
-    let xShift =
-      lineShiftAmount * Math.abs(Math.cos(Math.PI / 2 - theta)) * xDirection;
-    let yShift =
-      lineShiftAmount * Math.abs(Math.sin(Math.PI / 2 - theta)) * yDirection;
-    x1 += xShift;
-    y1 += yShift;
-    x2 += xShift;
-    y2 += yShift;
-    // we now find the x and y shifts
-    const endShiftAmount = 7;
-    xShift = Math.abs(endShiftAmount * Math.cos(theta));
-    yShift = Math.abs(endShiftAmount * Math.sin(theta));
-    // Compute the new coordinates taking these shift values
-    // into account
-    x1 += xShift * Math.sign(deltaX);
-    y1 += yShift * Math.sign(deltaY);
-    x2 -= xShift * Math.sign(deltaX);
-    y2 -= yShift * Math.sign(deltaY);
-    return { x1, y1, x2, y2 };
-  };
-
   getStates = () => {
     let states = [{ active: [], arrows: [] }];
     const { vertexMap, root } = this.state;
@@ -94,14 +43,13 @@ class TreeAnimation extends React.Component {
       active: [],
       arrows: [],
     });
-    console.log(states);
     return states;
   };
 
   renderArrows = memoize((graph, arrows) => {
     return arrows.map(({ node1, node2, up }) => (
       <Arrow
-        {...this.getArrowCoordinates(graph, node1, node2, up)}
+        {...getArrowCoordinates(graph, node1, node2, up)}
         color="lightgray"
       />
     ));
