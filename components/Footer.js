@@ -4,8 +4,8 @@ import { Text, Flex, Container } from 'rebass';
 import styled, { css } from 'styled-components';
 import media from 'utils/media';
 
-const Footer = ({ author }) => (
-  <Flex justifyContent="center" px={4} py={4}>
+const Footer = ({ author, dark }) => (
+  <FooterWrapper justifyContent="center" px={4} py={4} dark={dark}>
     <FooterContainer>
       <Flex alignItems="center">
         <Text>
@@ -22,8 +22,17 @@ const Footer = ({ author }) => (
         </a>
       </LinkContainer>
     </FooterContainer>
-  </Flex>
+  </FooterWrapper>
 );
+
+const FooterWrapper = styled(Flex)`
+  ${p =>
+    p.dark &&
+    `
+    background: #0e1b25;
+    color: #fff;
+  `};
+`;
 
 const LinkContainer = styled(Flex)`
   a {

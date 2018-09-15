@@ -32,6 +32,8 @@ From here we score the leaf nodes based on a heuristic function, and perform the
 
 ## Alpha Beta Pruning
 
+### Background
+
 It turns out that the minimax algorithm visits a lot of unnnecessary states during its traversal. To be precise, it visits many states that could not correspond to the optimal play, given the current information available. To understand why this is, we first need to parse out the recursive execution of the algorithm. When explaining it before, I made it seem as though we found all the leaf nodes first, and then computed the next layer of values from these nodes. However, this is not actually how the algorithm executes. Minimax is recursive by nature, and so its execution essentially maps to a depth-first traversal of the state tree. If this is not familiar, a depth first seach can be explained best visually:
 
 <TreeAnimation />
@@ -42,4 +44,12 @@ Minimax essentially does this traversal, with the following modification: we go 
 
 <MinimaxAnimation />
 
-Knowing this, we can now jump into alpha-beta pruning. The best way to show this is through an example:
+Note that we are computing the max and min of the children in a subtly different way here. Instead of creating an array of the child values and taking the min or mad of that, we iterate over the children of a node in some specific order. For example when computing the max of the nodes in the bottom right ([-4, 1, 2, -9, 9]), we go from left to right, keeping track of the highest value we have seen. 
+
+### The Algorithm
+
+With this in mind, we can now jump into alpha-beta pruning. Looking at the same example, we are actually visiting some states unnnecessarily. Here is 
+
+<MinimaxAnimation alphaBeta />
+
+NOTE ABOUT THIS BEING ORDER DEPENDENT.

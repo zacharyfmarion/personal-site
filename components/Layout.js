@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Header from './Header';
 import Paginate from './Paginate';
 import Footer from './Footer';
-import PostPreview from './Post/PostPreview';
+import Card from './Card';
 import styled from 'styled-components';
 import { Flex, Container } from 'rebass';
 
@@ -36,7 +36,7 @@ const Layout = ({ posts }) => (
       >
         {({ activeItems, pageNumber }) => {
           storePageNumber(pageNumber);
-          return activeItems.map(post => <PostPreview {...post} />);
+          return activeItems.map(post => <Card {...post} />);
         }}
       </Paginate>
     </PostContainer>

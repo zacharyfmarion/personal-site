@@ -28,6 +28,7 @@ const vertexMap = new Map([
   ['L', []],
 ]);
 
+// props: alphaBeta (Boolean)
 class MinimaxAnimation extends React.Component {
   getStates = () => {
     const rewards = new Map([
@@ -37,10 +38,10 @@ class MinimaxAnimation extends React.Component {
       ['B', -1],
       ['C', 3],
       ['H', -4],
-      ['I', 1],
+      ['I', 9],
       ['J', 2],
       ['K', -9],
-      ['L', 9],
+      ['L', 1],
     ]);
     const states = [{ rewards, active: [], depth: 0, arrows: [] }];
     const depths = ['O'];
@@ -52,8 +53,6 @@ class MinimaxAnimation extends React.Component {
       parent: null,
       node: 'O',
     });
-    console.log(states);
-    console.log(depths);
     return { states, depths };
   };
 
@@ -98,18 +97,17 @@ class MinimaxAnimation extends React.Component {
                 {id === 'O' && this.renderLayerLabels(graph, depths)}
                 <circle
                   cx={x}
-                  cy={y}
+                  cy={id === 'O' ? y + 1 : y}
                   r={5}
-                  fill={active.includes(id) ? 'rgb(15, 98, 189)' : 'gray'}
+                  fill={active.includes(id) ? 'rgb(15, 98, 189)' : 'white'}
+                  stroke="black"
+                  stroke-width={0.5}
                 />
                 <TextLabel
                   x={x}
-                  y={y}
-                  label={
-                    !rewards || rewards.get(id) === undefined
-                      ? '?'
-                      : rewards.get(id)
-                  }
+                  y={id === 'O' ? y + 1 : y}
+                  label={rewards.get(id) === undefined ? '?' : rewards.get(id)}
+                  color={active.includes(id) ? 'white' : 'black'}
                 />
               </g>
             )}
@@ -122,6 +120,7 @@ class MinimaxAnimation extends React.Component {
 
 const LayerText = styled.text`
   font-size: 5px;
+  font-family: monospace;
 `;
 
 export default MinimaxAnimation;

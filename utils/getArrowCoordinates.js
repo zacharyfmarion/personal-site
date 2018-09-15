@@ -2,7 +2,7 @@
  * Shorten and offset an arrow from the edge of a graph vertex in order to
  * display an arrow representing the direction of the traversal
  */
-export default (graph, node1, node2, up) => {
+export default (graph, node1, node2, up, yOffset = 2) => {
   let x1 = graph.xCoord(node1);
   let y1 = graph.yCoord(node1);
   let x2 = graph.xCoord(node2);

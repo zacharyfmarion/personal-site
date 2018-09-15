@@ -5,14 +5,7 @@ import styled from 'styled-components';
 import trimDescription from 'utils/trimDescription';
 import media from 'utils/media';
 
-const PostPreview = ({
-  title,
-  description,
-  image,
-  link,
-  readTime,
-  noMargin,
-}) => {
+const Card = ({ title, description, image, link, readTime, noMargin }) => {
   return (
     <Link href={`/posts${link}` || '/'}>
       <PostWrapper bg="white" noMargin={noMargin}>
@@ -78,4 +71,4 @@ const FlexImage = styled(Flex)`
   `};
 `;
 
-export default PostPreview;
+export default Card;

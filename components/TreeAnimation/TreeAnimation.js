@@ -75,11 +75,18 @@ class TreeAnimation extends React.Component {
                 {id === 'O' && this.renderArrows(graph, arrows)}
                 <circle
                   cx={x}
-                  cy={y}
+                  cy={id === 'O' ? y + 1 : y}
                   r={5}
-                  fill={active.includes(id) ? 'rgb(15, 98, 189)' : 'gray'}
+                  fill={active.includes(id) ? 'rgb(15, 98, 189)' : 'white'}
+                  stroke="black"
+                  stroke-width={0.5}
                 />
-                <TextLabel x={x} y={y} label={id} />
+                <TextLabel
+                  x={x}
+                  y={id === 'O' ? y + 1 : y}
+                  label={id}
+                  color={active.includes(id) ? 'white' : 'black'}
+                />
               </g>
             )}
           </Tree>
