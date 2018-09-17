@@ -10,10 +10,6 @@ injectGlobal`
   pre {
     border-radius: 3px;
   }
-
-  div {
-    font-family: 'Frank Ruhl Libre', serif;
-  }
 `;
 
 export default class _Document extends Document {

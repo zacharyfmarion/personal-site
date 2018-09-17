@@ -2,16 +2,19 @@ import * as React from 'react';
 import { Flex, Heading, Container } from 'rebass';
 import styled from 'styled-components';
 
-const Section = ({ title, dark, children, className }) => {
+const Section = ({ title, dark, primary, children, className }) => {
   return (
     <SectionWrapper
       className={className}
       dark={dark}
+      primary={primary}
       flexDirection="column"
       p={4}
     >
       <SectionContainer>
-        <SectionHeading>{title}</SectionHeading>
+        <SectionHeading is="h2" primary={primary}>
+          {title}
+        </SectionHeading>
         {children}
       </SectionContainer>
     </SectionWrapper>
@@ -28,6 +31,7 @@ const SectionHeading = styled(Heading)`
   font-weight: 300;
   margin: 0 0 30px 0;
   text-align: center;
+  color: ${p => (p.primary ? '#fff' : '#000')};
 
   &::after {
     position: absolute;
@@ -38,13 +42,17 @@ const SectionHeading = styled(Heading)`
     left: 0;
     right: 0;
     margin: 0 auto;
-    background: #3498db;
+    background: ${p => p.theme.colors.primary};
   }
 `;
 
 const SectionWrapper = styled(Flex)`
   flex-direction: column;
-  background: ${p => (p.dark ? '#f2f2f5' : '#fff')};
+  background: ${({ dark, primary, theme }) => {
+    if (dark) return theme.colors.gray;
+    if (primary) return theme.colors.primary;
+    return '#fff';
+  }};
   line-height: 1.5em;
 `;
 

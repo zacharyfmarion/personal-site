@@ -17,6 +17,7 @@
     "prism-react-renderer": "^0.1.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-particles-js": "^2.3.0",
     "react-svg-tree": "^0.4.1",
     "rebass": "^2.1.0",
     "remark-emoji": "^2.0.1",

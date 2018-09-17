@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'rebass';
 
-import posts from 'pages/posts';
+import { posts } from 'pages/posts';
 import Card from '../Card';
 import getRelatedPost from '../../utils/getRelatedPost';
 
