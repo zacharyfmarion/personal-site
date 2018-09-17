@@ -1,4 +1,6 @@
 import * as React from 'react';
+import ButtonGroup from 'components/ButtonGroup';
+import Button from 'components/Button';
 
 /**
  * Wrapper component that allows playing and pausing of content
@@ -32,6 +34,7 @@ class PlayBar extends React.Component {
   };
 
   onAutoPlay = () => {
+    if (this.interval) return;
     this.interval = setInterval(() => {
       this.onForward();
     }, this.props.stepInterval || 1000);
@@ -56,12 +59,12 @@ class PlayBar extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <button onClick={this.onBack}>Back</button>
-          <button onClick={this.onForward}>Forward</button>
-          <button onClick={this.onAutoPlay}>Autoplay</button>
-          <button onClick={this.resetState}>Reset</button>
-        </div>
+        <ButtonGroup>
+          <Button onClick={this.onBack}>Back</Button>
+          <Button onClick={this.onForward}>Forward</Button>
+          <Button onClick={this.onAutoPlay}>Autoplay</Button>
+          <Button onClick={this.resetState}>Reset</Button>
+        </ButtonGroup>
         {this.props.children(this.state.state)}
       </div>
     );

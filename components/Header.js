@@ -11,6 +11,7 @@ const Header = ({
   image,
   hideTitleBackground,
   onBack,
+  backText,
   ...props
 }) => {
   const Wrapper = image ? ImageWrapper : FlexWrapper;
@@ -19,7 +20,7 @@ const Header = ({
       {onBack && (
         <BackContainer alignItems="center" onClick={onBack}>
           <StyledBackIcon />
-          <Text>Back to posts</Text>
+          <Text>{backText || 'Back to posts'}</Text>
         </BackContainer>
       )}
       <TitleContainer

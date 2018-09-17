@@ -52,4 +52,4 @@ With this in mind, we can now jump into alpha-beta pruning. Looking at the same 
 
 <MinimaxAnimation alphaBeta />
 
-NOTE ABOUT THIS BEING ORDER DEPENDENT.
+It is important to note that the states that are considered unnnecessary are entirely dependent on the traversal order. For example, If we visited the children of node K [TODO THIS DOESN'T WORK HERE] (the one with the value 9) in the order `[-4, 2, -9, 1, 9]`, none of the would be unnecessary as the only value we find that is greater than 4 is the final value, 9.

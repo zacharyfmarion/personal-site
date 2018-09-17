@@ -14,7 +14,7 @@ const Footer = ({ author, dark }) => (
         </Text>
       </Flex>
       <LinkContainer alignItems="center">
-        <Link href="/">Latest Posts</Link>
+        <Link href="/posts">Latest Posts</Link>
         <BrowserLink href="https://github.com/zacharyfmarion" target="_blank">
           Github
         </BrowserLink>

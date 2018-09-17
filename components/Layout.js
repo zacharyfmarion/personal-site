@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import Router from 'next/router';
 import Header from './Header';
 import Paginate from './Paginate';
 import Footer from './Footer';
@@ -26,6 +27,8 @@ const Layout = ({ posts }) => (
       hideTitleBackground
       title="Zachary Marion"
       subtitle="Thoughts, code and ideas."
+      onBack={() => Router.push('/')}
+      backText="Back to home"
     />
     <PostContainer>
       <Paginate

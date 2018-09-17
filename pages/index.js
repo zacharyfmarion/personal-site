@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Flex } from 'rebass';
 import styled from 'styled-components';
 
-import { Banner, Section, EmailForm } from '../components/Home';
+import { BannerAlt, Section, EmailForm } from '../components/Home';
 import Footer from '../components/Footer';
 import Card from '../components/Card';
 import { Timeline, Event } from '../components/Timeline';
@@ -14,7 +14,7 @@ class Home extends React.Component {
   render() {
     return (
       <HomeWrapper flexDirection="column">
-        <Banner />
+        <BannerAlt />
         <Section title="About">
           Hey there! I'm a recent CS graduate with a love for web development. I
           am also becoming increasingly interested in machine learning and in my
@@ -29,7 +29,14 @@ class Home extends React.Component {
             ))}
           </Timeline>
         </Section>
-        <Section title="Education">Education here</Section>
+        <Section title="Education">
+          I recently graduated from Duke University, with a major in Computer
+          Science and minors in Mathematics and Philosophy. I was president of
+          club tennis and spent most of my free time learning web development
+          and working on ridiculously ambitious personal projects I never
+          finished. Below are some more recent projects I actually managed to
+          complete.
+        </Section>
         <Section dark title="Projects">
           {projects.map(project => (
             <Card key={project.title} {...project} />
