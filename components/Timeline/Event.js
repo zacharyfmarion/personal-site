@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { Text, Heading, Flex } from 'rebass';
 import styled from 'styled-components';
+import media from 'utils/media';
 
 import EventIcon from '../assets/event.svg';
 
 const Event = ({ title, subtitle, description, timeRange }) => {
   return (
     <EventWrapper>
-      <Flex>
+      <LeftContent>
         <TimeRange justifyContent="flex-end">{timeRange}</TimeRange>
         <EventIconContainer justifyContent="center" alignItems="center">
           <StyledEventIcon />
         </EventIconContainer>
-      </Flex>
+      </LeftContent>
       <EventContent flexDirection="column" p={3}>
         <Title is="h2" fontSize={4}>
           {title}
@@ -25,6 +26,12 @@ const Event = ({ title, subtitle, description, timeRange }) => {
     </EventWrapper>
   );
 };
+
+const LeftContent = styled(Flex)`
+  ${media.tablet`
+    display: none;
+  `};
+`;
 
 const Title = styled(Heading)`
   font-weight: 400;

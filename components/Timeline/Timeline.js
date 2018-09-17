@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Flex } from 'rebass';
 import styled from 'styled-components';
+import media from 'utils/media';
 
 const Timeline = ({ children }) => {
   return <TimelineWrapper flexDirection="column">{children}</TimelineWrapper>;
@@ -35,6 +36,14 @@ const TimelineWrapper = styled(Flex)`
     top: 100%;
     left: 303px;
   }
+  ${media.tablet`
+    &::before {
+      display: none;
+    }
+    &::after {
+      display: none;
+    }
+  `};
 `;
 
 export default Timeline;
