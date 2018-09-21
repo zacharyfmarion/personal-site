@@ -2,10 +2,12 @@ import * as React from 'react';
 import { Flex } from 'rebass';
 import styled from 'styled-components';
 
-import { Banner, Section, EmailForm } from '../components/Home';
+import { Menu, Banner, Section, EmailForm } from '../components/Home';
 import Footer from '../components/Footer';
 import Card from '../components/Card';
 import { Timeline, Event } from '../components/Timeline';
+import ModalTrigger from '../components/ModalTrigger';
+import Modal from '../components/Modal';
 
 import projects from '../constants/projects';
 import experiences from '../constants/experiences';
@@ -14,6 +16,7 @@ class Home extends React.Component {
   render() {
     return (
       <HomeWrapper flexDirection="column">
+        <Menu />
         <Banner />
         <Section title="About">
           Hey there! I'm a recent CS graduate with a love for web development. I
@@ -39,10 +42,12 @@ class Home extends React.Component {
         </Section>
         <Section dark title="Projects">
           {projects.map(project => (
-            <Card key={project.title} {...project} />
+            <ModalTrigger key={project.title} modal={<Modal {...project} />}>
+              <Card {...project} />
+            </ModalTrigger>
           ))}
         </Section>
-        <EmailForm />
+        <EmailForm id="contact" />
         <Footer author="Zachary Marion" dark />
       </HomeWrapper>
     );

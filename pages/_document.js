@@ -118,7 +118,7 @@ export default class _Document extends Document {
           />
           <meta name="theme-color" content="#ffffff" />
         </Head>
-        <body>
+        <body id="root">
           <Main />
           <NextScript />
         </body>

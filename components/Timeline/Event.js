@@ -70,7 +70,6 @@ const EventIconContainer = styled(Flex)`
   background: ${p => p.theme.colors.primary};
   border-radius: 50%;
   float: left;
-  z-index: 99;
   margin-left: 20px;
 `;
 

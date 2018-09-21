@@ -6,42 +6,40 @@ import Section from './Section';
 import Button from 'components/Button';
 import lightenColor from 'utils/lightenColor';
 
-class EmailForm extends React.Component {
-  render() {
-    return (
-      <Section title="Get in touch" primary>
-        <Form
-          method="POST"
-          action="https://formspree.io/zacharyfmarion@gmail.com"
-        >
+const EmailForm = props => {
+  return (
+    <Section title="Get in touch" primary {...props}>
+      <Form
+        method="POST"
+        action="https://formspree.io/zacharyfmarion@gmail.com"
+      >
+        <StyledInput
+          type="hidden"
+          name="_subject"
+          value="Contact request from personal website"
+        />
+        <FormRow>
           <StyledInput
-            type="hidden"
-            name="_subject"
-            value="Contact request from personal website"
+            type="email"
+            name="_replyto"
+            placeholder="Your email"
+            required=""
           />
-          <FormRow>
-            <StyledInput
-              type="email"
-              name="_replyto"
-              placeholder="Your email"
-              required=""
-            />
-          </FormRow>
-          <FormRow>
-            <StyledTextarea
-              name="message"
-              placeholder="Your message"
-              required=""
-            />
-          </FormRow>
-          <FormRow justifyContent="flex-end">
-            <SendButton type="submit">Send</SendButton>
-          </FormRow>
-        </Form>
-      </Section>
-    );
-  }
-}
+        </FormRow>
+        <FormRow>
+          <StyledTextarea
+            name="message"
+            placeholder="Your message"
+            required=""
+          />
+        </FormRow>
+        <FormRow justifyContent="flex-end">
+          <SendButton type="submit">Send</SendButton>
+        </FormRow>
+      </Form>
+    </Section>
+  );
+};
 
 const SendButton = styled(Button)`
   padding: 15px 50px !important;
