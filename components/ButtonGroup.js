@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Flex } from 'rebass';
 import styled from 'styled-components';
 
-const ButtonGroup = ({ children }) => {
-  return <ButtonWrapper>{children}</ButtonWrapper>;
+const ButtonGroup = ({ children, className }) => {
+  return <ButtonWrapper className={className}>{children}</ButtonWrapper>;
 };
 
 const ButtonWrapper = styled(Flex)`

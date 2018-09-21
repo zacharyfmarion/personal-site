@@ -61,7 +61,7 @@ class TreeAnimation extends React.Component {
         {({ arrows, active }) => (
           <Tree
             width={200}
-            height={75}
+            height={85}
             rootId="O"
             nodeSize={5}
             vertices={this.state.vertexMap}

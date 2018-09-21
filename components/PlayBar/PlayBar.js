@@ -1,6 +1,16 @@
 import * as React from 'react';
+import styled from 'styled-components';
+import { Flex } from 'rebass';
+
 import ButtonGroup from 'components/ButtonGroup';
 import Button from 'components/Button';
+
+// icons
+import BackIcon from './assets/left-arrow.svg';
+import ForwardIcon from './assets/right-arrow.svg';
+import ResetIcon from './assets/refresh.svg';
+import PlayIcon from './assets/play.svg';
+import PauseIcon from './assets/pause.svg';
 
 /**
  * Wrapper component that allows playing and pausing of content
@@ -11,6 +21,7 @@ class PlayBar extends React.Component {
     super(props);
     this.state = {
       index: 0,
+      isPlaying: false,
       state: props.states[props.initialIndex || 0],
     };
   }
@@ -34,7 +45,12 @@ class PlayBar extends React.Component {
   };
 
   onAutoPlay = () => {
-    if (this.interval) return;
+    if (this.state.isPlaying) {
+      clearInterval(this.interval);
+      this.setState({ isPlaying: false });
+      return;
+    }
+    this.setState({ isPlaying: true });
     this.interval = setInterval(() => {
       this.onForward();
     }, this.props.stepInterval || 1000);
@@ -58,17 +74,34 @@ class PlayBar extends React.Component {
 
   render() {
     return (
-      <div>
-        <ButtonGroup>
-          <Button onClick={this.onBack}>Back</Button>
-          <Button onClick={this.onForward}>Forward</Button>
-          <Button onClick={this.onAutoPlay}>Autoplay</Button>
-          <Button onClick={this.resetState}>Reset</Button>
-        </ButtonGroup>
+      <PlayBarWrapper>
+        <StyledButtonGroup>
+          <Button onClick={this.onBack}>
+            <BackIcon />
+          </Button>
+          <Button onClick={this.onForward}>
+            <ForwardIcon />
+          </Button>
+          <Button onClick={this.onAutoPlay}>
+            {this.state.isPlaying ? <PauseIcon /> : <PlayIcon />}
+          </Button>
+          <Button onClick={this.resetState}>
+            <ResetIcon />
+          </Button>
+        </StyledButtonGroup>
         {this.props.children(this.state.state)}
-      </div>
+      </PlayBarWrapper>
     );
   }
 }
+
+const StyledButtonGroup = styled(ButtonGroup)`
+  display: flex;
+  align-self: flex-end;
+`;
+
+const PlayBarWrapper = styled(Flex)`
+  flex-direction: column;
+`;
 
 export default PlayBar;

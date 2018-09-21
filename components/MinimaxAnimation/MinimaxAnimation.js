@@ -69,8 +69,8 @@ class MinimaxAnimation extends React.Component {
   // the operation that is taking place
   renderLayerLabels = (graph, depths) => {
     return depths.map((node, i) => (
-      <LayerText x={5} y={graph.yCoord(node) + 2}>
-        {i % 2 === 0 ? 'MAX' : 'MIN'}
+      <LayerText x={0} y={graph.yCoord(node) + 2}>
+        {i % 2 === 0 ? 'max' : 'min'}
       </LayerText>
     ));
   };
@@ -120,7 +120,6 @@ class MinimaxAnimation extends React.Component {
 
 const LayerText = styled.text`
   font-size: 5px;
-  font-family: monospace;
 `;
 
 export default MinimaxAnimation;
