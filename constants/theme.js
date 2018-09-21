@@ -5,4 +5,7 @@ export default {
     gray: '#f2f2f5',
     dark: '#0e1b25',
   },
+  fonts: {
+    sans: 'Montserrat',
+  },
 };

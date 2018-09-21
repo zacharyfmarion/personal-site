@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Flex } from 'rebass';
 import styled from 'styled-components';
 
-import { BannerAlt, Section, EmailForm } from '../components/Home';
+import { Banner, Section, EmailForm } from '../components/Home';
 import Footer from '../components/Footer';
 import Card from '../components/Card';
 import { Timeline, Event } from '../components/Timeline';
@@ -14,7 +14,7 @@ class Home extends React.Component {
   render() {
     return (
       <HomeWrapper flexDirection="column">
-        <BannerAlt />
+        <Banner />
         <Section title="About">
           Hey there! I'm a recent CS graduate with a love for web development. I
           am also becoming increasingly interested in machine learning and in my
@@ -49,8 +49,6 @@ class Home extends React.Component {
   }
 }
 
-const HomeWrapper = styled(Flex)`
-  font-family: 'Noto Sans', sans-serif !important;
-`;
+const HomeWrapper = styled(Flex)``;
 
 export default Home;

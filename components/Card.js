@@ -1,28 +1,23 @@
 import * as React from 'react';
-import Link from 'next/link';
 import { Flex, Heading, Text, BackgroundImage } from 'rebass';
 import styled from 'styled-components';
 import trimDescription from 'utils/trimDescription';
 import media from 'utils/media';
 
-const Card = ({ title, description, image, link, readTime, noMargin }) => {
+const Card = ({ title, description, image, children, onClick, noMargin }) => {
   return (
-    <Link href={`/posts${link}` || '/'}>
-      <PostWrapper bg="white" noMargin={noMargin}>
-        <FlexImage src={image} />
-        <ContentWrapper flexDirection="column" p={4}>
-          <MainContent flexDirection="column">
-            <Heading is="h4" pb={3}>
-              {title}
-            </Heading>
-            <Text fontSize={18}>{trimDescription(description, 100)}</Text>
-          </MainContent>
-          <Flex justifyContent="space-between">
-            <Text>{readTime} minute read</Text>
-          </Flex>
-        </ContentWrapper>
-      </PostWrapper>
-    </Link>
+    <PostWrapper bg="white" noMargin={noMargin} onClick={onClick}>
+      <FlexImage src={image} />
+      <ContentWrapper flexDirection="column" p={4}>
+        <MainContent flexDirection="column">
+          <Heading is="h4" fontSize={24} pb={3}>
+            {title}
+          </Heading>
+          <Text fontSize={18}>{trimDescription(description, 100)}</Text>
+        </MainContent>
+        <Flex justifyContent="space-between">{children}</Flex>
+      </ContentWrapper>
+    </PostWrapper>
   );
 };
 

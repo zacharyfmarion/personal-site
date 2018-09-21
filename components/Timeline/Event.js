@@ -49,7 +49,6 @@ const Description = styled(Text)`
 
 const EventWrapper = styled(Flex)`
   margin-bottom: 20px;
-  font-family: 'Noto Sans', sans-serif;
 `;
 
 const EventContent = styled(Flex)`

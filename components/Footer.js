@@ -65,11 +65,6 @@ const FooterContainer = styled(Container)`
   min-height: 75px;
   flex: 1 1 auto;
 
-  & > p,
-  div {
-    font-family: 'Noto Sans', sans-serif;
-  }
-
   ${media.mobile`
     flex-direction: column;
     align-items: center;

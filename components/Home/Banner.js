@@ -17,7 +17,8 @@ const Banner = () => {
       {/* <Header>
         <Logo />
       </Header> */}
-      <Title fontSize={8}>Z.</Title>
+      {/* <Title fontSize={8}>Z.</Title> */}
+      <Title fontSize={8}>Zachary Marion</Title>
       <DownIcon />
     </BannerWrapper>
   );
@@ -29,6 +30,7 @@ const DownIcon = styled(Down)`
   width: 40px;
   height: 40px;
   fill: #fff;
+  cursor: pointer;
 `;
 
 const StyledParticles = styled(Particles)`
@@ -53,8 +55,8 @@ const Header = styled(Flex)`
 `;
 
 const Title = styled(Text)`
-  font-family: 'Frank Ruhl Libre', serif;
   color: #fff;
+  font-weight: 700;
 `;
 
 const BannerWrapper = styled(Flex)`

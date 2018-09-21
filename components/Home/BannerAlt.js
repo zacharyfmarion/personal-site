@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import Particles from 'react-particles-js';
 
 import Link from 'components/Link';
+import BannerText from './BannerText';
 import config from './particles';
 import Down from '../assets/down.svg';
+import Logo from '../assets/logo.svg';
 
 class BannerAlt extends React.Component {
   state = {
@@ -41,23 +43,37 @@ class BannerAlt extends React.Component {
         <BannerContainer>
           <Header {...this.state}>
             <Links
-              justifyContent="flex-end"
+              justifyContent="space-between"
+              alignItems="center"
               noRadius={this.state.paddingVertical === 0}
             >
-              <Link href="/">Home</Link>
-              <Link href="/posts">Blog</Link>
+              {/* <Logo /> */}
+              <Flex />
+              <LinkContainer>
+                <Link href="/">Home</Link>
+                <Link href="/posts">Blog</Link>
+              </LinkContainer>
             </Links>
           </Header>
-          <Title fontSize={8}>Hello. I'm Zachary Marion</Title>
-          <SubtitleContainer>
-            <Text fontSize={2}>Resume | [Social icons here]</Text>
-          </SubtitleContainer>
+          <StyledBannerText />
+          <SubtitleContainer />
           {/* <DownIcon /> */}
         </BannerContainer>
       </BannerWrapper>
     );
   }
 }
+
+const StyledBannerText = styled(BannerText)`
+  position: absolute;
+  left: 50px;
+  right: 50px;
+
+  svg {
+    width: 100%;
+    height: 200px;
+  }
+`;
 
 const Links = styled(Flex)`
   flex: 1 1 auto;
@@ -68,6 +84,13 @@ const Links = styled(Flex)`
     1px 3px 8px rgba(39, 44, 49, 0.03);
   transition: all 0.2s linear;
 
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+`;
+
+const LinkContainer = styled(Flex)`
   > div {
     margin-right: 25px;
     &:last-child {

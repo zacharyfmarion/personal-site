@@ -4,7 +4,7 @@ import Router from 'next/router';
 import Header from './Header';
 import Paginate from './Paginate';
 import Footer from './Footer';
-import Card from './Card';
+import { PostPreview } from './Post';
 import styled from 'styled-components';
 import { Flex, Container } from 'rebass';
 
@@ -39,7 +39,7 @@ const Layout = ({ posts }) => (
       >
         {({ activeItems, pageNumber }) => {
           storePageNumber(pageNumber);
-          return activeItems.map(post => <Card {...post} />);
+          return activeItems.map(post => <PostPreview {...post} />);
         }}
       </Paginate>
     </PostContainer>
@@ -53,6 +53,7 @@ const Wrapper = styled(Flex)`
 
 const PostContainer = styled(Container)`
   margin-top: -100px;
+  max-width: 850px !important;
   flex: 1 1 auto;
   z-index: 1;
 `;

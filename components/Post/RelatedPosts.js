@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Flex } from 'rebass';
 
 import { posts } from 'pages/posts';
-import Card from '../Card';
+import PostPreview from './PostPreview';
 import getRelatedPost from '../../utils/getRelatedPost';
 
 class RelatedPosts extends React.Component {
@@ -15,7 +15,7 @@ class RelatedPosts extends React.Component {
     return this.relatedPost ? (
       <PostsContainer py={4}>
         <PostPreviewsWrapper px={4} alignItems="center" justifyContent="center">
-          <Card noMargin {...this.relatedPost} />
+          <PostPreview noMargin {...this.relatedPost} />
         </PostPreviewsWrapper>
       </PostsContainer>
     ) : (
