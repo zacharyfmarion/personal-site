@@ -19,10 +19,25 @@ const Banner = () => {
       </Header> */}
       {/* <Title fontSize={8}>Z.</Title> */}
       <Title fontSize={8}>Zachary Marion</Title>
+      {/* <SocialContainer>
+        <ResumeButton href="/static/home/resume.pdf" download>
+          Resume
+        </ResumeButton>
+      </SocialContainer> */}
       <DownIcon />
     </BannerWrapper>
   );
 };
+
+const ResumeButton = styled.a`
+  padding: 10px 20px;
+  text-decoration: none;
+  border: 1px solid #fff;
+  color: #fff;
+  border-radius: 4px;
+`;
+
+const SocialContainer = styled(Flex)``;
 
 const DownIcon = styled(Down)`
   position: absolute;
@@ -55,8 +70,17 @@ const Header = styled(Flex)`
 `;
 
 const Title = styled(Text)`
+  position: relative;
   color: #fff;
   font-weight: 700;
+  z-index: 1;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+`;
+
+const Subtitle = styled(Text)`
+  color: ${p => p.theme.colors.primary};
+  font-weight: 400;
   z-index: 1;
 `;
 
