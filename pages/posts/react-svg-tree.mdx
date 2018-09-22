@@ -89,7 +89,7 @@ const vertices = new Map([
 </Tree>
 ```
 
-Now, conditionally rendering the color of the node would just involve adding a fill prop to the `<circle />` component and either rending gray or blue based on whether the node's id was in the visited set. The child is also passed in the entire `TreeMap` object, which contains the calculated positions of all this nodes. This allows for the arbitrary rendering of the tree, if you have enough imagination. For example, you could add an arrow showing the direction of a traversal, or modify a nodes position based on the position of its neighbor.
+Now, conditionally rendering the color of the node would just involve adding a fill prop to the `<circle />` component and either rending gray or blue based on whether the node's id was in the visited set. The child is also passed in the entire `TreeMap` object, which contains the calculated positions of all this nodes. This allows for the arbitrary rendering of the tree, if you have enough imagination. For example, you could add an arrow showing the direction of a traversal, or modify a node's position based on the position of its neighbor.
 
 The final API looks like this:
 
@@ -125,7 +125,7 @@ return <Tree
 
 ## Implementation
 
-The component renders an svg, so the render method is wrapped in a n `svg` tag. The children of the svg are rendered in a separate function to keep the render method clean. This function, `renderTree`, creates a `TreeGraph`, which is a helper class I created that conatins all of the operations necessary for the algorithm described in the referenced paper. Once this obejct is created, the function `positionTree` is called, which actually runs the positioning algorithm and stores the resulting information in the `TreeGraph` object. This information is then used to actually render the nodes and their connections in `renderFromVerteMap`:
+The component renders an svg, so the render method is wrapped in an `svg` tag. The children of the svg are rendered in a separate function to keep the render method clean. This function, `renderTree`, creates a `TreeGraph`, which is a helper class I created that conatins all of the operations necessary for the algorithm described in the referenced paper. Once this obejct is created, the function `positionTree` is called, which actually runs the positioning algorithm and stores the resulting information in the `TreeGraph` object. This information is then used to actually render the nodes and their connections in `renderFromVertexMap`:
 
 ```js
 // jsx
@@ -446,7 +446,7 @@ Another annoying issue as that umd bundling doesn't work like you would expect w
   }
 ```
 
-Then everything worked as expected in both the server and browser environments. After getting builds to work it was as simple as ignore files I didn't want to include in my `.npmignore` and specifying `"main": "dist/index.js"` in my `package.json`. Running `yarn publish` allowed my to publish the package under `react-svg-tree`. With that, I had a 19 KiB react component published on npm for rendering a general n-ary tree. Phew. The component will most likely be used heavily in my future posts. Speaking on which, I need to get on that.
+Then everything worked as expected in both the server and browser environments. After getting builds to work it was as simple as ignoring files I didn't want to include in my `.npmignore` and specifying `"main": "dist/index.js"` in my `package.json`. Running `yarn publish` allowed me to publish the package under `react-svg-tree`. With that, I had a 19 KiB react component published on npm for rendering a general n-ary tree. Phew. The component will most likely be used heavily in my future posts. Speaking on which, I need to get on that.
 
 --------
 

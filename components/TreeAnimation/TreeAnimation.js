@@ -1,27 +1,13 @@
 import * as React from 'react';
+import memoize from 'lodash.memoize';
 import Tree from 'react-svg-tree';
-import TextLabel from '../TextLabel';
-import PlayBar from '../PlayBar';
-import Arrow from '../Arrow';
-import dfs from './dfs';
 
-const LETTERS = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-];
+import getArrowCoordinates from 'utils/getArrowCoordinates';
+
+import dfs from './dfs';
+import Arrow from '../Arrow';
+import PlayBar from '../PlayBar';
+import TextLabel from '../TextLabel';
 
 class TreeAnimation extends React.Component {
   state = {
@@ -45,25 +31,8 @@ class TreeAnimation extends React.Component {
     root: 'O',
   };
 
-  get states() {
-    return LETTERS.reduce(
-      (acc, letter, index) => {
-        return [...acc, LETTERS.slice(0, index + 1)];
-      },
-      [[]],
-    );
-  }
-
-  getPositionPair = (graph, node1, node2, up) => {
-    const x1 = graph.xCoord(node1) + (up ? 5 : -5);
-    const y1 = graph.yCoord(node1);
-    const x2 = graph.xCoord(node2) + (up ? 5 : -5);
-    const y2 = graph.yCoord(node2);
-    return { x1, y1, x2, y2 };
-  };
-
   getStates = () => {
-    let states = [];
+    let states = [{ active: [], arrows: [] }];
     const { vertexMap, root } = this.state;
     dfs({
       states,
@@ -74,18 +43,17 @@ class TreeAnimation extends React.Component {
       active: [],
       arrows: [],
     });
-    console.log(states);
     return states;
   };
 
-  renderArrows = (graph, arrows) => {
+  renderArrows = memoize((graph, arrows) => {
     return arrows.map(({ node1, node2, up }) => (
       <Arrow
-        {...this.getPositionPair(graph, node1, node2, up)}
+        {...getArrowCoordinates(graph, node1, node2, up)}
         color="lightgray"
       />
     ));
-  };
+  });
 
   render() {
     return (
@@ -93,7 +61,7 @@ class TreeAnimation extends React.Component {
         {({ arrows, active }) => (
           <Tree
             width={200}
-            height={75}
+            height={85}
             rootId="O"
             nodeSize={5}
             vertices={this.state.vertexMap}
@@ -107,11 +75,18 @@ class TreeAnimation extends React.Component {
                 {id === 'O' && this.renderArrows(graph, arrows)}
                 <circle
                   cx={x}
-                  cy={y}
+                  cy={id === 'O' ? y + 1 : y}
                   r={5}
-                  fill={active.includes(id) ? 'rgb(15, 98, 189)' : 'gray'}
+                  fill={active.includes(id) ? 'rgb(15, 98, 189)' : 'white'}
+                  stroke="black"
+                  stroke-width={0.5}
                 />
-                <TextLabel x={x} y={y} label={id} />
+                <TextLabel
+                  x={x}
+                  y={id === 'O' ? y + 1 : y}
+                  label={id}
+                  color={active.includes(id) ? 'white' : 'black'}
+                />
               </g>
             )}
           </Tree>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-const Arrow = ({ x1, y1, x2, y2, color = 'black' }) => {
+const Arrow = ({ x1, y1, x2, y2, className, color = 'black' }) => {
   return (
     <g>
       <defs>
@@ -23,6 +23,7 @@ const Arrow = ({ x1, y1, x2, y2, color = 'black' }) => {
         y2={y2}
         markerEnd="url(#head)"
         stroke={color}
+        className={className}
       />
     </g>
   );

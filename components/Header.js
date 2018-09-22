@@ -11,6 +11,7 @@ const Header = ({
   image,
   hideTitleBackground,
   onBack,
+  backText,
   ...props
 }) => {
   const Wrapper = image ? ImageWrapper : FlexWrapper;
@@ -19,7 +20,7 @@ const Header = ({
       {onBack && (
         <BackContainer alignItems="center" onClick={onBack}>
           <StyledBackIcon />
-          <Text>Back to posts</Text>
+          <Text>{backText || 'Back to posts'}</Text>
         </BackContainer>
       )}
       <TitleContainer
@@ -87,7 +88,7 @@ const backgroundStyles = css`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  ${p => !p.src && `background-color: #0e1b25`};
+  ${p => !p.src && `background-color: ${p.theme.colors.dark}`};
   height: 500px;
 
   ${media.mobile`

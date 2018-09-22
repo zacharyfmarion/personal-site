@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'rebass';
 
-import posts from 'pages/posts';
+import { posts } from 'pages/posts';
 import PostPreview from './PostPreview';
 import getRelatedPost from '../../utils/getRelatedPost';
 

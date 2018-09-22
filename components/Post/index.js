@@ -1,5 +1,5 @@
 import Post from './Post';
-import OpeningParagraph from './OpeningParagraph';
+export { default as OpeningParagraph } from './OpeningParagraph';
+export { default as PostPreview } from './PostPreview';
 
-export { OpeningParagraph };
 export default Post;

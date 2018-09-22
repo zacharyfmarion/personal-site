@@ -5,14 +5,11 @@ import { ServerStyleSheet, injectGlobal } from 'styled-components';
 injectGlobal`
   body {
     margin: 0;
+    font-family: Montserrat, sans-serif;
   }
 
   pre {
     border-radius: 3px;
-  }
-
-  div {
-    font-family: 'Frank Ruhl Libre', serif;
   }
 `;
 
@@ -41,7 +38,7 @@ export default class _Document extends Document {
             rel="stylesheet"
           />
           <link
-            href="https://fonts.googleapis.com/css?family=Noto+Sans"
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,600"
             rel="stylesheet"
           />
           <link
@@ -121,7 +118,7 @@ export default class _Document extends Document {
           />
           <meta name="theme-color" content="#ffffff" />
         </Head>
-        <body>
+        <body id="root">
           <Main />
           <NextScript />
         </body>

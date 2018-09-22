@@ -1,9 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
+import Router from 'next/router';
 import Header from './Header';
 import Paginate from './Paginate';
 import Footer from './Footer';
-import PostPreview from './Post/PostPreview';
+import { PostPreview } from './Post';
 import styled from 'styled-components';
 import { Flex, Container } from 'rebass';
 
@@ -26,6 +27,8 @@ const Layout = ({ posts }) => (
       hideTitleBackground
       title="Zachary Marion"
       subtitle="Thoughts, code and ideas."
+      onBack={() => Router.push('/')}
+      backText="Back to home"
     />
     <PostContainer>
       <Paginate
@@ -50,6 +53,7 @@ const Wrapper = styled(Flex)`
 
 const PostContainer = styled(Container)`
   margin-top: -100px;
+  max-width: 850px !important;
   flex: 1 1 auto;
   z-index: 1;
 `;

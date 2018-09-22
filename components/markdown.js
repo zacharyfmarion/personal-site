@@ -57,6 +57,7 @@ const Line = styled.tr`
 `;
 
 const Token = styled.span`
+  font-family: 'SF Mono', 'Roboto Mono', Menlo, monospace;
   &.plain,
   &.punctuation {
     color: #24292e;
@@ -95,6 +96,7 @@ const InlineCode = styled.code`
   padding: 0.2em 0.4em;
   margin: 0;
   font-size: 14px;
+  font-family: 'SF Mono', 'Roboto Mono', Menlo, monospace;
   background-color: rgba(27, 31, 35, 0.05);
   border-radius: 3px;
   word-break: break-word;
@@ -118,7 +120,7 @@ const BlockQuote = styled(components.blockquote)`
 `;
 
 export const Paragraph = styled.p`
-  font-family: 'Frank Ruhl Libre', serif;
+  font-family: 'Frank Ruhl Libre', Times, serif;
   margin: 0px;
   margin-bottom: 30px;
   font-size: 22px;
@@ -149,6 +151,10 @@ const MarkdownImage = styled(Image)`
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 `;
 
+const ListItem = styled(components.li)`
+  font-family: 'Frank Ruhl Libre', Times, serif;
+`;
+
 export default {
   ...components,
   code: Code,
@@ -157,4 +163,5 @@ export default {
   p: Paragraph,
   hr: HorizontalRule,
   img: MarkdownImage,
+  li: ListItem,
 };
