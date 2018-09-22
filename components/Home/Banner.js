@@ -15,14 +15,9 @@ const Banner = () => {
       justifyContent="center"
       flexDirection="column"
     >
-      {/* <StyledParticles params={config} /> */}
+      <StyledParticles params={config} />
       <Title fontSize={8}>Zachary Marion</Title>
       <Subtitle fontSize={5}>Software Engineer</Subtitle>
-      {/* <SocialContainer>
-        <ResumeButton href="/static/home/resume.pdf" download>
-          Resume
-        </ResumeButton>
-      </SocialContainer> */}
       <DownIcon onClick={scrollDown} />
     </BannerWrapper>
   );
