@@ -8,7 +8,14 @@ import Close from './assets/close.svg';
 import media from 'utils/media';
 
 // TODO: Use React Portal here
-const Modal = ({ onClose, title, description, image, children }) => {
+const Modal = ({
+  onClose,
+  title,
+  description,
+  footerContent,
+  image,
+  children,
+}) => {
   const modalContent = (
     <ModalWrapper flexDirection="column">
       <ModalOverlay onClick={onClose} />
@@ -23,14 +30,24 @@ const Modal = ({ onClose, title, description, image, children }) => {
           <FlexImage src={image} />
           <DescriptionText>{description}</DescriptionText>
         </ModalBody>
+        <ModalFooter justifyContent="flex-end" alignItems="center">
+          {footerContent}
+        </ModalFooter>
       </ModalContainer>
     </ModalWrapper>
   );
   return ReactDOM.createPortal(modalContent, document.getElementById('root'));
 };
 
+const ModalFooter = styled(Flex)`
+  border-top: 1px solid #ddd;
+  height: 50px;
+  padding: 0 20px;
+`;
+
 const DescriptionText = styled(Text)`
   padding: 20px;
+  line-height: 1.5em;
 `;
 
 const FlexImage = styled(Flex)`
@@ -62,12 +79,16 @@ const CloseIcon = styled(Close)`
 `;
 
 const ModalContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border-radius: 4px;
   padding: 0;
   overflow: hidden;
   z-index: 3;
   width: 780px;
+  box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
+    1px 3px 8px rgba(39, 44, 49, 0.03);
 
   ${media.tablet`
     width: 100%;
@@ -82,7 +103,11 @@ const ModalHeading = styled(Heading)`
   margin-right: 15px;
 `;
 
-const ModalBody = styled.div``;
+const ModalBody = styled.div`
+  ${media.tablet`
+    flex: 1 1 auto;
+  `};
+`;
 
 const ModalHeader = styled(Flex)`
   height: 50px;

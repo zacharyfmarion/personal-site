@@ -42,8 +42,23 @@ class Home extends React.Component {
         </Section>
         <Section dark title="Projects">
           {projects.map(project => (
-            <ModalTrigger key={project.title} modal={<Modal {...project} />}>
-              <Card {...project} />
+            <ModalTrigger
+              key={project.title}
+              modal={
+                <Modal
+                  {...project}
+                  footerContent={
+                    <Flex>
+                      <FooterLink href={project.demoLink}>Demo</FooterLink>
+                      <FooterLink href={project.sourceCodeLink}>
+                        Source
+                      </FooterLink>
+                    </Flex>
+                  }
+                />
+              }
+            >
+              <Card {...project}>Click to learn more</Card>
             </ModalTrigger>
           ))}
         </Section>
@@ -53,6 +68,13 @@ class Home extends React.Component {
     );
   }
 }
+
+const FooterLink = styled.a`
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  margin-left: 10px;
+`;
 
 const HomeWrapper = styled(Flex)``;
 

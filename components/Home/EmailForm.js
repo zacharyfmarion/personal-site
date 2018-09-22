@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Section from './Section';
 import Button from 'components/Button';
 import lightenColor from 'utils/lightenColor';
+import media from 'utils/media';
 
 const EmailForm = props => {
   return (
@@ -45,6 +46,10 @@ const SendButton = styled(Button)`
   padding: 15px 50px !important;
   font-size: 1em;
   color: #fff;
+
+  ${media.mobile`
+    width: 100%; 
+  `};
 `;
 
 const StyledInput = styled(Input)`

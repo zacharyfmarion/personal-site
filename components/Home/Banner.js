@@ -57,6 +57,7 @@ const Header = styled(Flex)`
 const Title = styled(Text)`
   color: #fff;
   font-weight: 700;
+  z-index: 1;
 `;
 
 const BannerWrapper = styled(Flex)`
@@ -65,6 +66,7 @@ const BannerWrapper = styled(Flex)`
   min-height: 100vh;
   height: 100vh;
   background: ${p => p.theme.colors.dark};
+  text-align: center;
 `;
 
 export default Banner;
