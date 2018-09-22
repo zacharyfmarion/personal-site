@@ -69,7 +69,7 @@ class Home extends React.Component {
   }
 }
 
-const FooterLink = styled.a`
+const FooterLink = styled.a.attrs({ target: '_blank' })`
   text-decoration: none;
   color: black;
   cursor: pointer;

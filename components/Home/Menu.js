@@ -4,13 +4,14 @@ import styled from 'styled-components';
 import { Container, Flex, Heading } from 'rebass';
 
 const Menu = () => {
+  const scrollToBottom = () => window.scrollTo(0, document.body.scrollHeight);
   return (
     <MenuWrapper bg="#fff">
       <MenuContainer>
         <Heading fontSize={18}>Zachary Marion</Heading>
         <Flex alignItems="center">
           <MenuLink>
-            <a href="#contact">Contact</a>
+            <a onClick={scrollToBottom}>Contact</a>
           </MenuLink>
           <MenuLink>
             <Link href="/posts">Blog</Link>
