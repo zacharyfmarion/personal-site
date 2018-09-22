@@ -71,6 +71,10 @@ const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   background: rgba(107, 107, 107, 0.5);
+
+  ${media.tablet`
+    display: none; 
+  `};
 `;
 
 const CloseIcon = styled(Close)`

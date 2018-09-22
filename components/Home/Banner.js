@@ -15,7 +15,7 @@ const Banner = () => {
       justifyContent="center"
       flexDirection="column"
     >
-      {/* <StyledParticles params={config} /> */}
+      <StyledParticles params={config} />
       <Title fontSize={8}>Zachary Marion</Title>
       <Subtitle fontSize={5}>Software Engineer</Subtitle>
       <DownIcon onClick={scrollDown} />
