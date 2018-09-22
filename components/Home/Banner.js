@@ -3,10 +3,12 @@ import { Flex, Text, Container } from 'rebass';
 import styled from 'styled-components';
 import Particles from 'react-particles-js';
 
+import media from 'utils/media';
 import config from './particles';
 import Down from '../assets/down.svg';
 
 const Banner = () => {
+  const scrollDown = () => window.scrollTo(0, window.innerHeight - 60);
   return (
     <BannerWrapper
       alignItems="center"
@@ -14,17 +16,14 @@ const Banner = () => {
       flexDirection="column"
     >
       {/* <StyledParticles params={config} /> */}
-      {/* <Header>
-        <Logo />
-      </Header> */}
-      {/* <Title fontSize={8}>Z.</Title> */}
       <Title fontSize={8}>Zachary Marion</Title>
+      <Subtitle fontSize={5}>Software Engineer</Subtitle>
       {/* <SocialContainer>
         <ResumeButton href="/static/home/resume.pdf" download>
           Resume
         </ResumeButton>
       </SocialContainer> */}
-      <DownIcon />
+      <DownIcon onClick={scrollDown} />
     </BannerWrapper>
   );
 };
@@ -74,14 +73,25 @@ const Title = styled(Text)`
   color: #fff;
   font-weight: 700;
   z-index: 1;
-  padding-bottom: 15px;
-  margin-bottom: 25px;
+  padding-bottom: 10px;
+
+  ${media.tablet`
+    font-size: 48px; 
+  `};
+
+  ${media.mobile`
+    font-size: 38px; 
+  `};
 `;
 
 const Subtitle = styled(Text)`
-  color: ${p => p.theme.colors.primary};
+  color: #888;
   font-weight: 400;
   z-index: 1;
+
+  ${media.mobile`
+    font-size: 24px; 
+  `};
 `;
 
 const BannerWrapper = styled(Flex)`
@@ -91,6 +101,7 @@ const BannerWrapper = styled(Flex)`
   height: 100vh;
   background: ${p => p.theme.colors.dark};
   text-align: center;
+  z-index: 0;
 `;
 
 export default Banner;
