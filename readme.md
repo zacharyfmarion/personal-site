@@ -10,3 +10,13 @@ My personal website, built using [Next.js](https://nextjs.org/) and [MDX](https:
 npm install
 npm run dev
 ```
+
+## Roadmap
+
+- [x] Integrate personal site
+- [ ] Integrate typescript
+- [ ] Integrate jest for testing
+- [ ] Integrate comments or some form of blog interactivity
+- [ ] Improve SEO with sitemap.xml and robots.txt
+- [ ] Make homepage banner less generic
+- [ ] Add social media icons and resume to homepage
