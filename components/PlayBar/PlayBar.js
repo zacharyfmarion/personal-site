@@ -27,6 +27,14 @@ class PlayBar extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const state =
+      this.props.states !== nextProps.states
+        ? nextProps.states[nextProps.initialIndex || 0]
+        : this.state.state;
+    this.setState({ state });
+  }
+
   onBack = () => {
     if (this.state.index === 0) {
       clearInterval(this.interval);
