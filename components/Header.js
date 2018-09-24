@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Flex, Text, BackgroundImage, Heading } from 'rebass';
 import styled, { css } from 'styled-components';
-import media from 'utils/media';
 
+import { Menu } from 'components/Home';
+import media from 'utils/media';
 import BackIcon from './assets/arrow-left.svg';
 
 const Header = ({
@@ -23,6 +24,7 @@ const Header = ({
           <Text>{backText || 'Back to posts'}</Text>
         </BackContainer>
       )}
+      <Menu />
       <TitleContainer
         flexDirection="column"
         hideTitleBackground={hideTitleBackground}

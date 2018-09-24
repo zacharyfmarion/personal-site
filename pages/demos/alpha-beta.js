@@ -83,7 +83,7 @@ class Demos extends React.Component {
     const { tree, rewards } = this.state;
     return (
       <DemoWrapper flexDirection="column">
-        <Menu />
+        <Menu dark />
         <SubMenu>
           <SubMenuContainer p={3}>
             <span>

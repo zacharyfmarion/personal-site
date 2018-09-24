@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import Router from 'next/router';
 import Header from './Header';
 import Paginate from './Paginate';
 import Footer from './Footer';
@@ -27,7 +26,6 @@ const Layout = ({ children, title, subtitle, posts = [] }) => (
       hideTitleBackground
       title={title}
       subtitle={subtitle}
-      onBack={() => Router.push('/')}
       backText="Back to home"
     />
     <PostContainer>
@@ -57,7 +55,7 @@ const PostContainer = styled(Container)`
   max-width: 850px !important;
   flex: 1 1 auto;
   width: 100%;
-  z-index: 1;
+  z-index: 0;
 `;
 
 export default Layout;
