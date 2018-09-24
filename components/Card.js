@@ -10,22 +10,43 @@ const Card = ({ title, description, image, children, onClick, noMargin }) => {
       <FlexImage src={image} />
       <ContentWrapper flexDirection="column" p={4}>
         <MainContent flexDirection="column">
-          <Heading is="h4" fontSize={24} pb={3}>
+          <CardTitle is="h4" fontSize={24} pb={3}>
             {title}
-          </Heading>
-          <Text fontSize={18}>{trimDescription(description, 100)}</Text>
+          </CardTitle>
+          <Description fontSize={18}>
+            {trimDescription(description, 100)}
+          </Description>
         </MainContent>
-        <Flex justifyContent="space-between">{children}</Flex>
+        <ChildContent justifyContent="space-between">{children}</ChildContent>
       </ContentWrapper>
     </PostWrapper>
   );
 };
+
+const ChildContent = styled(Flex)`
+  ${media.mobile`
+    display: none;
+  `};
+`;
+
+const CardTitle = styled(Heading)`
+  ${media.mobile`
+    padding-bottom: 12px; 
+  `};
+`;
+
+const Description = styled(Text)`
+  ${media.mobile`
+    font-size: 16px;
+  `};
+`;
 
 const ContentWrapper = styled(Flex)`
   flex: 0 1 350px;
 
   ${media.mobile`
     flex: 1 1 auto;
+    padding: 15px;
   `};
 `;
 
@@ -52,6 +73,10 @@ const PostWrapper = styled(Flex)`
     transition: all 0.4s ease;
     transform: translate3D(0, -1px, 0) scale(1.02);
   }
+
+  ${media.mobile`
+    flex-direction: column;
+  `};
 `;
 
 const FlexImage = styled(Flex)`
@@ -62,7 +87,8 @@ const FlexImage = styled(Flex)`
   background-image: url(${p => p.src});
 
   ${media.mobile`
-    display: none;
+    border-radius: 0;
+    min-height: 140px;
   `};
 `;
 
