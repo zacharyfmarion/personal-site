@@ -20,7 +20,13 @@ class Home extends React.Component {
   }
 
   render() {
-    return <Layout posts={this.orderedPosts} />;
+    return (
+      <Layout
+        title="Blog"
+        subtitle="Thoughts, code, & ideas"
+        posts={this.orderedPosts}
+      />
+    );
   }
 }
 

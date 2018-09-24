@@ -59,7 +59,7 @@ class MinimaxAnimation extends React.Component {
     const { vertexMap, rootNode, treeOptions } = this.props;
     const { states, depths } = this.getStates();
     return (
-      <PlayBar states={states}>
+      <StyledPlayBar states={states}>
         {({ rewards, active, arrows }) => (
           <Tree
             width={200}
@@ -95,10 +95,14 @@ class MinimaxAnimation extends React.Component {
             )}
           </Tree>
         )}
-      </PlayBar>
+      </StyledPlayBar>
     );
   }
 }
+
+const StyledPlayBar = styled(PlayBar)`
+  width: 100%;
+`;
 
 const LayerText = styled.text`
   font-size: 5px;

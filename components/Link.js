@@ -9,6 +9,8 @@ const Link = ({ color, ...props }) => (
 );
 
 const LinkContainer = styled.div`
+  display: inline-flex;
+  cursor: pointer;
   a {
     text-decoration: none;
     color: ${p => p.color || '#fff'};

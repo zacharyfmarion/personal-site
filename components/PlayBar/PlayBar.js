@@ -83,7 +83,7 @@ class PlayBar extends React.Component {
 
   render() {
     return (
-      <PlayBarWrapper>
+      <PlayBarWrapper className={this.props.className}>
         <StyledButtonGroup>
           <Button onClick={this.onBack}>
             <BackIcon />

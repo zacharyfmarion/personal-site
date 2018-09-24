@@ -18,15 +18,15 @@ const globalStyles = `
 
 const storePageNumber = () => {};
 
-const Layout = ({ posts }) => (
+const Layout = ({ children, title, subtitle, posts = [] }) => (
   <Wrapper flexDirection="column">
     <Head>
       <style>{globalStyles}</style>
     </Head>
     <Header
       hideTitleBackground
-      title="Zachary Marion"
-      subtitle="Thoughts, code and ideas."
+      title={title}
+      subtitle={subtitle}
       onBack={() => Router.push('/')}
       backText="Back to home"
     />
@@ -42,6 +42,7 @@ const Layout = ({ posts }) => (
           return activeItems.map(post => <PostPreview {...post} />);
         }}
       </Paginate>
+      {children}
     </PostContainer>
     <Footer author="Zachary Marion" />
   </Wrapper>
@@ -55,6 +56,7 @@ const PostContainer = styled(Container)`
   margin-top: -100px;
   max-width: 850px !important;
   flex: 1 1 auto;
+  width: 100%;
   z-index: 1;
 `;
 

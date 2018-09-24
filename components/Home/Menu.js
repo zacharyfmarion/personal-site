@@ -8,10 +8,17 @@ const Menu = () => {
   return (
     <MenuWrapper bg="#fff">
       <MenuContainer>
-        <Heading fontSize={18}>Zachary Marion</Heading>
+        <Heading fontSize={18}>
+          <MenuLink>
+            <Link href="/">Zachary Marion</Link>
+          </MenuLink>
+        </Heading>
         <Flex alignItems="center">
           <MenuLink>
             <a onClick={scrollToBottom}>Contact</a>
+          </MenuLink>
+          <MenuLink>
+            <Link href="/demos">Demos</Link>
           </MenuLink>
           <MenuLink>
             <Link href="/posts">Blog</Link>
