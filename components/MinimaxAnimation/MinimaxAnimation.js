@@ -10,48 +10,27 @@ import Arrow from '../Arrow';
 
 import minimax from './minimax';
 
-const vertexMap = new Map([
-  ['O', ['E', 'F', 'N']],
-  ['E', ['A', 'D']],
-  ['F', []],
-  ['N', ['G', 'M']],
-  ['A', []],
-  ['D', ['B', 'C']],
-  ['G', []],
-  ['M', ['H', 'I', 'J', 'K', 'L']],
-  ['B', []],
-  ['C', []],
-  ['H', []],
-  ['I', []],
-  ['J', []],
-  ['K', []],
-  ['L', []],
-]);
-
 // props: alphaBeta (Boolean)
+// rewards: Map<string, number>
+// vertexMap: Map<any, Array<any>>
+// minStart: boolean (start with min instead of max)
+// treeOptions: Object
 class MinimaxAnimation extends React.Component {
   getStates = () => {
-    const rewards = new Map([
-      ['F', 1],
-      ['A', 5],
-      ['G', 4],
-      ['B', -1],
-      ['C', 3],
-      ['H', -4],
-      ['I', 9],
-      ['J', 2],
-      ['K', -9],
-      ['L', 1],
-    ]);
-    const states = [{ rewards, active: [], depth: 0, arrows: [] }];
-    const depths = ['O'];
+    const { rewards, vertexMap, rootNode, alphaBeta, minStart } = this.props;
+    const states = [{ rewards, active: [], pruned: [], depth: 0, arrows: [] }];
+    const depths = [rootNode];
     minimax({
-      rewards,
       states,
       depths,
+      rewards,
+      minStart,
+      alphaBeta,
       tree: vertexMap,
       parent: null,
-      node: 'O',
+      node: rootNode,
+      alpha: -Infinity,
+      beta: Infinity,
     });
     return { states, depths };
   };
@@ -68,14 +47,16 @@ class MinimaxAnimation extends React.Component {
   // render either min or max at each level to indicate
   // the operation that is taking place
   renderLayerLabels = (graph, depths) => {
+    const compareDepth = this.props.minStart ? 1 : 0;
     return depths.map((node, i) => (
       <LayerText x={0} y={graph.yCoord(node) + 2}>
-        {i % 2 === 0 ? 'max' : 'min'}
+        {i % 2 === compareDepth ? 'max' : 'min'}
       </LayerText>
     ));
   };
 
   render() {
+    const { vertexMap, rootNode, treeOptions } = this.props;
     const { states, depths } = this.getStates();
     return (
       <PlayBar states={states}>
@@ -83,21 +64,22 @@ class MinimaxAnimation extends React.Component {
           <Tree
             width={200}
             height={85}
-            rootId="O"
+            rootId={rootNode}
             nodeSize={5}
             vertices={vertexMap}
             levelSeparation={20}
             maxDepth={Infinity}
             siblingSeparation={15}
             subtreeSeparation={15}
+            {...treeOptions}
           >
             {({ x, y, id, graph }) => (
               <g>
-                {id === 'O' && this.renderArrows(graph, arrows)}
-                {id === 'O' && this.renderLayerLabels(graph, depths)}
+                {id === rootNode && this.renderArrows(graph, arrows)}
+                {id === rootNode && this.renderLayerLabels(graph, depths)}
                 <circle
                   cx={x}
-                  cy={id === 'O' ? y + 1 : y}
+                  cy={id === rootNode ? y + 1 : y}
                   r={5}
                   fill={active.includes(id) ? 'rgb(15, 98, 189)' : 'white'}
                   stroke="black"
@@ -105,7 +87,7 @@ class MinimaxAnimation extends React.Component {
                 />
                 <TextLabel
                   x={x}
-                  y={id === 'O' ? y + 1 : y}
+                  y={id === rootNode ? y + 1 : y}
                   label={rewards.get(id) === undefined ? '?' : rewards.get(id)}
                   color={active.includes(id) ? 'white' : 'black'}
                 />

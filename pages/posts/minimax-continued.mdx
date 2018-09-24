@@ -42,14 +42,77 @@ Assuming we are going left to right, we essentially go all the way down the left
 
 Minimax essentially does this traversal, with the following modification: we go down the left of the tree until we reach a leaf. Score that leaf based on the outcome of the game (or the heuristic if we are doing a depth limited search). Then go back up the parent. If the parent's children have all been visited, then set the parent's value to the min or max of its children (depending on which player it is). If the parent has unvisited children, visit the leftmost child and repeat the above process. Eventually the value of the root will be set and the traversal is complete. Feel free to play around with the animation of this process to get a feel for how it works:
 
-<MinimaxAnimation />
+<MinimaxAnimation 
+  rootNode="O"
+  vertexMap={new Map([
+    ['O', ['E', 'F', 'N']],
+    ['E', ['A', 'D']],
+    ['F', []],
+    ['N', ['G', 'M']],
+    ['A', []],
+    ['D', ['B', 'C']],
+    ['G', []],
+    ['M', ['H', 'I', 'J', 'K', 'L']],
+    ['B', []],
+    ['C', []],
+    ['H', []],
+    ['I', []],
+    ['J', []],
+    ['K', []],
+    ['L', []],
+  ])} 
+  rewards={new Map([
+    ['F', 1],
+    ['A', 5],
+    ['G', 4],
+    ['B', -1],
+    ['C', 3],
+    ['H', -4],
+    ['I', 9],
+    ['J', 2],
+    ['K', -9],
+    ['L', 1],
+  ])} 
+/>
 
-Note that we are computing the max and min of the children in a subtly different way here. Instead of creating an array of the child values and taking the min or mad of that, we iterate over the children of a node in some specific order. For example when computing the max of the nodes in the bottom right ([-4, 1, 2, -9, 9]), we go from left to right, keeping track of the highest value we have seen. 
+Note that we are computing the max and min of the children in a subtly different way here. Instead of creating an array of the child values and taking the min or max of that, we iterate over the children of a node in some specific order. For example when computing the max of the nodes in the bottom right ([-4, 1, 2, -9, 9]), we go from left to right, keeping track of the highest value we have seen. 
 
 ### The Algorithm
 
-With this in mind, we can now jump into alpha-beta pruning. Looking at the same example, we are actually visiting some states unnnecessarily. Here is 
+With this in mind, we can now jump into alpha-beta pruning. Looking at the same example, we are actually visiting some states unnnecessarily. Zooming in on the left subtree of our graph, 
 
-<MinimaxAnimation alphaBeta />
+<MinimaxAnimation 
+  alphaBeta
+  rootNode="O"
+  vertexMap={new Map([
+    ['O', ['E', 'F', 'N']],
+    ['E', ['A', 'D']],
+    ['F', []],
+    ['N', ['G', 'M']],
+    ['A', []],
+    ['D', ['B', 'C']],
+    ['G', []],
+    ['M', ['H', 'I', 'J', 'K', 'L']],
+    ['B', []],
+    ['C', []],
+    ['H', []],
+    ['I', []],
+    ['J', []],
+    ['K', []],
+    ['L', []],
+  ])} 
+  rewards={new Map([
+    ['F', 1],
+    ['A', 5],
+    ['G', 4],
+    ['B', -1],
+    ['C', 3],
+    ['H', -4],
+    ['I', 9],
+    ['J', 2],
+    ['K', -9],
+    ['L', 1],
+  ])} 
+/>
 
 It is important to note that the states that are considered unnnecessary are entirely dependent on the traversal order. For example, If we visited the children of node K [TODO THIS DOESN'T WORK HERE] (the one with the value 9) in the order `[-4, 2, -9, 1, 9]`, none of the would be unnecessary as the only value we find that is greater than 4 is the final value, 9.

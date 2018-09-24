@@ -4,6 +4,7 @@ import { Flex } from 'rebass';
 
 import ButtonGroup from 'components/ButtonGroup';
 import Button from 'components/Button';
+import media from 'utils/media';
 
 // icons
 import BackIcon from './assets/left-arrow.svg';
@@ -98,6 +99,16 @@ class PlayBar extends React.Component {
 const StyledButtonGroup = styled(ButtonGroup)`
   display: flex;
   align-self: flex-end;
+
+  ${media.mobile`
+    margin-bottom: 15px;
+    width: 100%;
+
+    button {
+      display: flex;
+      flex: 1 1 auto;
+    }
+  `};
 `;
 
 const PlayBarWrapper = styled(Flex)`
