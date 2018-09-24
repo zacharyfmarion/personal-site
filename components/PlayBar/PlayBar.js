@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'rebass';
+import equal from 'fast-deep-equal';
 
 import ButtonGroup from 'components/ButtonGroup';
 import Button from 'components/Button';
@@ -28,11 +29,13 @@ class PlayBar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const state =
-      this.props.states !== nextProps.states
-        ? nextProps.states[nextProps.initialIndex || 0]
-        : this.state.state;
-    this.setState({ state });
+    if (!equal(this.props.states, nextProps.states)) {
+      clearInterval(this.interval);
+      this.setState({
+        isPlaying: false,
+        state: nextProps.states[nextProps.initialIndex || 0],
+      });
+    }
   }
 
   onBack = () => {
@@ -47,6 +50,7 @@ class PlayBar extends React.Component {
   onForward = () => {
     if (this.state.index >= this.props.states.length - 1) {
       clearInterval(this.interval);
+      this.setState({ isPlaying: false });
       return;
     }
     const index = this.state.index + 1;
