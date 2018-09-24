@@ -2,12 +2,13 @@ import * as React from 'react';
 import { Flex } from 'rebass';
 import styled from 'styled-components';
 
-import { Menu, Banner, Section, EmailForm } from '../components/Home';
-import Footer from '../components/Footer';
-import Card from '../components/Card';
-import { Timeline, Event } from '../components/Timeline';
-import ModalTrigger from '../components/ModalTrigger';
-import Modal from '../components/Modal';
+import { Banner, Section, EmailForm } from '../components/Home';
+import Menu from 'components/Menu';
+import Footer from 'components/Footer';
+import Card from 'components/Card';
+import { Timeline, Event } from 'components/Timeline';
+import ModalTrigger from 'components/ModalTrigger';
+import Modal from 'components/Modal';
 
 import projects from '../constants/projects';
 import experiences from '../constants/experiences';

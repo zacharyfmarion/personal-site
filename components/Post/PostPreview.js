@@ -4,7 +4,7 @@ import Card from 'components/Card';
 
 const PostPreview = props => (
   <Card {...props} onClick={() => Router.push(props.link)}>
-    {props.readTime} minute read
+    {props.readTime && `${props.readTime} minute read`}
   </Card>
 );
 

@@ -3,9 +3,7 @@
  */
 
 export default (description, length) => {
-  const shortened =
-    description.length < length
-      ? description
-      : description.substring(0, length);
-  return `${shortened}...`;
+  return description.length > length
+    ? `${description.substring(0, length)}...`
+    : description;
 };

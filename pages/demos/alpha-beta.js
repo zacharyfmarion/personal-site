@@ -3,17 +3,19 @@ import { Flex, Text, Heading, Container } from 'rebass';
 import styled from 'styled-components';
 
 import getRandomInt from 'utils/getRandomInt';
-import { Menu } from 'components/Home';
+import Menu from 'components/Menu';
 import Footer from 'components/Footer';
 import Button from 'components/Button';
 import Link from 'components/Link';
 import MinimaxAnimation from 'components/MinimaxAnimation';
+import media from 'utils/media';
 
 export const meta = {
   author: 'Zachary Marion',
   title: 'Alpha Beta Pruning',
   date: '09-23-2018',
-  description: 'This is a test',
+  description:
+    'Explore the Alpha-Beta Pruning algorithm using randomly generated svg trees',
   image:
     'https://images.unsplash.com/photo-1465487862947-ded619a2a9ab?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=68130b7d4392394e1876bbd54c82f427',
   link: '/demos/alpha-beta',
@@ -144,6 +146,12 @@ const PageTitle = styled(Heading)`
 
 const GenerateButton = styled(Button)`
   max-width: 300px;
+
+  ${media.mobile`
+    margin-bottom: 15px; 
+    width: 100%;
+    max-width: inherit;
+  `};
 `;
 
 const Content = styled(Container)`
