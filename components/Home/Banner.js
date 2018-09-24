@@ -48,6 +48,10 @@ const StyledParticles = styled(Particles)`
   right: 0;
   top: 0;
   bottom: 0;
+
+  ${media.mobile`
+    display: none; 
+  `};
 `;
 
 const Header = styled(Flex)`

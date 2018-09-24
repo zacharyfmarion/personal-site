@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Flex, Heading, Container } from 'rebass';
 import styled from 'styled-components';
+import media from 'utils/media';
 
 const Section = ({ title, dark, primary, children, className }) => {
   return (
@@ -54,6 +55,10 @@ const SectionWrapper = styled(Flex)`
     return '#fff';
   }};
   line-height: 1.5em;
+
+  ${media.mobile`
+    padding: 30px 15px; 
+  `};
 `;
 
 export default Section;

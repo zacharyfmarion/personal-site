@@ -72,7 +72,7 @@ const StyledTextarea = styled(Textarea)`
   }
 `;
 
-const FormRow = styled(Flex).attrs({ p: 3 })``;
+const FormRow = styled(Flex).attrs({ py: 3 })``;
 
 const Form = styled.form`
   display: flex;

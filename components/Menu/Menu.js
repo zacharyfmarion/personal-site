@@ -1,11 +1,13 @@
 import * as React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { css } from 'styled-components';
 import { Container, Flex, Heading } from 'rebass';
 
 import media from 'utils/media';
 import ScrollOffset from 'components/ScrollOffset';
-import MenuIcon from './assets/menu.svg';
+import OpenIcon from './assets/menu.svg';
+import CloseIcon from './assets/close.svg';
 
 class Menu extends React.Component {
   state = {
@@ -21,7 +23,7 @@ class Menu extends React.Component {
   render() {
     const { light, dark } = this.props;
     const getBackground = offset => {
-      if (light || offset > 0) return 'light';
+      if (light || this.state.open || offset > 0) return 'light';
       if (dark) return 'dark';
       return 'transparent';
     };
@@ -35,10 +37,18 @@ class Menu extends React.Component {
                   <Link href="/">Zachary Marion</Link>
                 </MenuLink>
               </Heading>
-              <MobileMenuIcon
-                background={getBackground(offsetTop)}
-                onClick={this.toggleMenu}
-              />
+              {!this.state.open && (
+                <OpenMenuIcon
+                  background={getBackground(offsetTop)}
+                  onClick={this.toggleMenu}
+                />
+              )}
+              {this.state.open && (
+                <CloseMenuIcon
+                  background={getBackground(offsetTop)}
+                  onClick={this.toggleMenu}
+                />
+              )}
               <LinksContainer
                 alignItems="center"
                 open={this.state.open}
@@ -62,7 +72,7 @@ class Menu extends React.Component {
   }
 }
 
-const MobileMenuIcon = styled(MenuIcon)`
+const iconStyles = css`
   display: none;
   cursor: pointer;
 
@@ -82,6 +92,14 @@ const MobileMenuIcon = styled(MenuIcon)`
   `};
 `;
 
+const OpenMenuIcon = styled(OpenIcon)`
+  ${iconStyles};
+`;
+
+const CloseMenuIcon = styled(CloseIcon)`
+  ${iconStyles};
+`;
+
 const LinksContainer = styled(Flex)`
   ${media.mobile`
     display: ${p => (p.open ? 'block' : 'none')};
@@ -96,6 +114,7 @@ const LinksContainer = styled(Flex)`
 
     & > div > a {
       color: #000 !important;
+      width: 100%;
     }
   `};
 `;

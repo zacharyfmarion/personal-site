@@ -59,6 +59,10 @@ const EventContent = styled(Flex)`
   overflow: hidden;
   box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
     1px 3px 8px rgba(39, 44, 49, 0.03);
+
+  ${media.mobile`
+    margin-left: 0; 
+  `};
 `;
 
 const EventIconContainer = styled(Flex)`
