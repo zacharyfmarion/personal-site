@@ -15,7 +15,7 @@ export const meta = {
   description:
     'Explore the Depth First Search (DFS) algorithm using randomly generated svg trees',
   image:
-    'https://images.unsplash.com/photo-1465487862947-ded619a2a9ab?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=68130b7d4392394e1876bbd54c82f427',
+    'https://images.unsplash.com/photo-1538102894545-170c37b51c3d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e8118f51819521b487bd264308d18667&auto=format&fit=crop&w=1950&q=80',
   link: '/demos/depth-first-search',
 };
 

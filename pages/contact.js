@@ -6,7 +6,7 @@ import EmailForm from 'components/EmailForm';
 
 const Contact = () => {
   return (
-    <StyledLayout title="Contact Me">
+    <StyledLayout title="Contact Me" subtitle="Get in touch!">
       <StyledEmailForm hideTitle />
     </StyledLayout>
   );

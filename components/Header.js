@@ -51,7 +51,8 @@ const TitleHeading = styled(Heading)`
 `;
 
 const SubtitleHeading = styled(Heading)`
-  font-size: 2em;
+  font-size: 1.8em;
+  margin-top: 5px;
   ${media.tablet`
     font-size: 1.5em; 
   `};
