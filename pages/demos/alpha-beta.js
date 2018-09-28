@@ -38,6 +38,13 @@ class AlphaBeta extends React.Component {
     this.setState({ tree, rewards });
   };
 
+  handleError = () => {
+    // If the component throws an error because the random
+    // tree generated was too large to fit in the viewbox we
+    // simply regenerate another random tree until one works
+    this.getTree();
+  };
+
   render() {
     const { tree, rewards } = this.state;
     return (
@@ -51,6 +58,7 @@ class AlphaBeta extends React.Component {
             rootNode={0}
             vertexMap={tree}
             rewards={rewards}
+            onError={this.handleError}
             treeOptions={{
               width: 250,
               height: 85,

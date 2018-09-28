@@ -36,7 +36,7 @@ class TreeAnimation extends React.Component {
   });
 
   render() {
-    const { vertexMap, rootNode, treeOptions } = this.props;
+    const { vertexMap, rootNode, onError, treeOptions } = this.props;
     return (
       <StyledPlayBar states={this.getStates()}>
         {({ arrows, active }) => (
@@ -50,6 +50,7 @@ class TreeAnimation extends React.Component {
             maxDepth={Infinity}
             siblingSeparation={15}
             subtreeSeparation={15}
+            onError={onError}
             {...treeOptions}
           >
             {({ x, y, id, graph }) => (

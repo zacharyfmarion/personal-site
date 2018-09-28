@@ -56,7 +56,7 @@ class MinimaxAnimation extends React.Component {
   };
 
   render() {
-    const { vertexMap, rootNode, treeOptions } = this.props;
+    const { vertexMap, rootNode, onError, treeOptions } = this.props;
     const { states, depths } = this.getStates();
     return (
       <StyledPlayBar states={states}>
@@ -71,6 +71,7 @@ class MinimaxAnimation extends React.Component {
             maxDepth={Infinity}
             siblingSeparation={15}
             subtreeSeparation={15}
+            onError={onError}
             {...treeOptions}
           >
             {({ x, y, id, graph }) => (
