@@ -36,7 +36,26 @@ From here we score the leaf nodes based on a heuristic function, and perform the
 
 It turns out that the minimax algorithm visits a lot of unnnecessary states during its traversal. To be precise, it visits many states that could not correspond to the optimal play, given the current information available. To understand why this is, we first need to parse out the recursive execution of the algorithm. When explaining it before, I made it seem as though we found all the leaf nodes first, and then computed the next layer of values from these nodes. However, this is not actually how the algorithm executes. Minimax is recursive by nature, and so its execution essentially maps to a depth-first traversal of the state tree. If this is not familiar, a depth first seach can be explained best visually:
 
-<TreeAnimation />
+<TreeAnimation
+  rootNode="O"
+  vertexMap={new Map([
+    ['O', ['E', 'F', 'N']],
+    ['E', ['A', 'D']],
+    ['F', []],
+    ['N', ['G', 'M']],
+    ['A', []],
+    ['D', ['B', 'C']],
+    ['G', []],
+    ['M', ['H', 'I', 'J', 'K', 'L']],
+    ['B', []],
+    ['C', []],
+    ['H', []],
+    ['I', []],
+    ['J', []],
+    ['K', []],
+    ['L', []],
+  ])}
+ />
 
 Assuming we are going left to right, we essentially go all the way down the left side of the tree until we reach a leaf node. Once we reach that node, we go back up until we find a node that has other unvisited children. Once that node is found we repeat our previous step on that subtree, going all the way down the left until we reach a leaf, and then back up until we find a node with more univisted children. Eventually we will have reached all of the nodes in the tree, completing our traversal.
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import memoize from 'lodash.memoize';
+import styled from 'styled-components';
 import Tree from 'react-svg-tree';
 
 import getArrowCoordinates from 'utils/getArrowCoordinates';
@@ -10,34 +11,13 @@ import PlayBar from '../PlayBar';
 import TextLabel from '../TextLabel';
 
 class TreeAnimation extends React.Component {
-  state = {
-    vertexMap: new Map([
-      ['O', ['E', 'F', 'N']],
-      ['E', ['A', 'D']],
-      ['F', []],
-      ['N', ['G', 'M']],
-      ['A', []],
-      ['D', ['B', 'C']],
-      ['G', []],
-      ['M', ['H', 'I', 'J', 'K', 'L']],
-      ['B', []],
-      ['C', []],
-      ['H', []],
-      ['I', []],
-      ['J', []],
-      ['K', []],
-      ['L', []],
-    ]),
-    root: 'O',
-  };
-
   getStates = () => {
     let states = [{ active: [], arrows: [] }];
-    const { vertexMap, root } = this.state;
+    const { vertexMap, rootNode } = this.props;
     dfs({
       states,
       vertexMap,
-      node: root,
+      node: rootNode,
       parent: null,
       visited: new Map(),
       active: [],
@@ -56,26 +36,28 @@ class TreeAnimation extends React.Component {
   });
 
   render() {
+    const { vertexMap, rootNode, treeOptions } = this.props;
     return (
-      <PlayBar states={this.getStates()}>
+      <StyledPlayBar states={this.getStates()}>
         {({ arrows, active }) => (
           <Tree
             width={200}
             height={85}
-            rootId="O"
+            rootId={rootNode}
             nodeSize={5}
-            vertices={this.state.vertexMap}
+            vertices={vertexMap}
             levelSeparation={20}
             maxDepth={Infinity}
             siblingSeparation={15}
             subtreeSeparation={15}
+            {...treeOptions}
           >
             {({ x, y, id, graph }) => (
               <g>
-                {id === 'O' && this.renderArrows(graph, arrows)}
+                {id === rootNode && this.renderArrows(graph, arrows)}
                 <circle
                   cx={x}
-                  cy={id === 'O' ? y + 1 : y}
+                  cy={id === rootNode ? y + 1 : y}
                   r={5}
                   fill={active.includes(id) ? 'rgb(15, 98, 189)' : 'white'}
                   stroke="black"
@@ -83,7 +65,7 @@ class TreeAnimation extends React.Component {
                 />
                 <TextLabel
                   x={x}
-                  y={id === 'O' ? y + 1 : y}
+                  y={id === rootNode ? y + 1 : y}
                   label={id}
                   color={active.includes(id) ? 'white' : 'black'}
                 />
@@ -91,9 +73,13 @@ class TreeAnimation extends React.Component {
             )}
           </Tree>
         )}
-      </PlayBar>
+      </StyledPlayBar>
     );
   }
 }
+
+const StyledPlayBar = styled(PlayBar)`
+  width: 100%;
+`;
 
 export default TreeAnimation;
