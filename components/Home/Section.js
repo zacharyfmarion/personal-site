@@ -3,7 +3,7 @@ import { Flex, Heading, Container } from 'rebass';
 import styled from 'styled-components';
 import media from 'utils/media';
 
-const Section = ({ title, dark, primary, children, className }) => {
+const Section = ({ title, dark, primary, children, className, hideTitle }) => {
   return (
     <SectionWrapper
       className={className}
@@ -13,9 +13,11 @@ const Section = ({ title, dark, primary, children, className }) => {
       p={4}
     >
       <SectionContainer>
-        <SectionHeading is="h2" primary={primary}>
-          {title}
-        </SectionHeading>
+        {!hideTitle && (
+          <SectionHeading is="h2" primary={primary}>
+            {title}
+          </SectionHeading>
+        )}
         {children}
       </SectionContainer>
     </SectionWrapper>

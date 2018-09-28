@@ -18,8 +18,6 @@ class Menu extends React.Component {
     this.setState({ open: !this.state.open });
   };
 
-  scrollToBottom = () => window.scrollTo(0, document.body.scrollHeight);
-
   render() {
     const { light, dark } = this.props;
     const getBackground = offset => {
@@ -55,13 +53,13 @@ class Menu extends React.Component {
                 onClick={this.toggleMenu}
               >
                 <MenuLink>
-                  <a onClick={this.scrollToBottom}>Contact</a>
-                </MenuLink>
-                <MenuLink>
                   <Link href="/demos">Demos</Link>
                 </MenuLink>
                 <MenuLink>
                   <Link href="/posts">Blog</Link>
+                </MenuLink>
+                <MenuLink>
+                  <Link href="/contact">Contact</Link>
                 </MenuLink>
               </LinksContainer>
             </MenuContainer>

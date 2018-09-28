@@ -17,8 +17,8 @@ const globalStyles = `
 
 const storePageNumber = () => {};
 
-const Layout = ({ children, title, subtitle, posts = [] }) => (
-  <Wrapper flexDirection="column">
+const Layout = ({ children, title, subtitle, className, posts = [] }) => (
+  <Wrapper flexDirection="column" className={className}>
     <Head>
       <style>{globalStyles}</style>
     </Head>
@@ -28,7 +28,7 @@ const Layout = ({ children, title, subtitle, posts = [] }) => (
       subtitle={subtitle}
       backText="Back to home"
     />
-    <PostContainer>
+    <PostContainer className="layout__post-container">
       <Paginate
         items={posts}
         itemsPerPage={5}

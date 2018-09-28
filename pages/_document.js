@@ -1,12 +1,19 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import getConfig from 'next/config';
 import { ServerStyleSheet, injectGlobal } from 'styled-components';
+import theme from 'constants/theme';
 
 injectGlobal`
   body {
     margin: 0;
     font-family: Montserrat, sans-serif;
   }
+    p,span,h1,h2,h3,h4,h5,h6,div,a {
+      &::selection {
+        background: ${theme.colors.primary};
+        color: #fff;
+      }
+    }
 
   pre {
     border-radius: 3px;

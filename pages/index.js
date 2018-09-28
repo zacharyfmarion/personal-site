@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Flex } from 'rebass';
 import styled from 'styled-components';
 
-import { Banner, Section, EmailForm } from '../components/Home';
+import { Banner, Section } from 'components/Home';
+import EmailForm from 'components/EmailForm';
 import Menu from 'components/Menu';
 import Footer from 'components/Footer';
 import Card from 'components/Card';
