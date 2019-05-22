@@ -24,8 +24,10 @@ class Home extends React.Component {
           Hey there! I'm a recent CS graduate with a love for web development. I
           am also becoming increasingly interested in machine learning and in my
           free time I mess around in Keras and Tensorflow. I currently work as a
-          frontend engineer at Coinbase. Please get in touch if you want to work
-          together, or simply have any questions!
+          frontend engineer at{' '}
+          <a href="https://www.coinbase.com/price/ethereum">Coinbase</a>. Please
+          get in touch if you want to work together, or simply have any
+          questions!
         </Section>
         <Section dark title="Experience">
           <Timeline>

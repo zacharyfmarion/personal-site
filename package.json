@@ -5,7 +5,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start -p $PORT",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "now-build": "next build"
   },
   "dependencies": {
     "@mdx-js/loader": "^0.15.0",
