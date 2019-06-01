@@ -9,8 +9,7 @@ const Footer = ({ author, dark }) => (
     <FooterContainer>
       <Flex alignItems="center">
         <Text fontSize={1}>
-          <BrowserLink href="http://zacharyfmarion.io">{author}</BrowserLink>©
-          2018
+          <BrowserLink href="http://zacharyfmarion.io">{author}</BrowserLink>© {new Date().getFullYear()}
         </Text>
       </Flex>
       <LinkContainer alignItems="center">
