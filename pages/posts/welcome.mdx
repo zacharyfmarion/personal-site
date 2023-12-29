@@ -1,23 +1,28 @@
-import Post, { OpeningParagraph } from 'components/Post';
+import Post, { OpeningParagraph } from "@/components/Post";
 
 export const meta = {
-  author: 'Zachary Marion',
-  title: 'Welcome',
-  date: '08-15-2018',
-  description: "Welcome to my blog! I've been meaning to create one for a while, and finally got around to actually doing it! In case you were wondering, it was made using Ghost, a wonderful open source blogging platform. I hosted it on a DigitalOcean droplet, created a subdomain, and voila! A blog for $5 a month.",
-  image: 'https://images.unsplash.com/photo-1489533119213-66a5cd877091?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=19cb3f8faa546e028839b6985ee2491d',
-  link: '/posts/welcome',
+  author: "Zachary Marion",
+  title: "Welcome",
+  date: "08-15-2018",
+  description:
+    "Welcome to my blog! I've been meaning to create one for a while, and finally got around to actually doing it! In case you were wondering, it was made using Ghost, a wonderful open source blogging platform. I hosted it on a DigitalOcean droplet, created a subdomain, and voila! A blog for $5 a month.",
+  image:
+    "https://images.unsplash.com/photo-1489533119213-66a5cd877091?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=19cb3f8faa546e028839b6985ee2491d",
+  link: "/posts/welcome",
   readTime: 2,
-}
+};
 
-export default ({ children }) => <Post {...meta}>{children}</Post>
+export default ({ children }) => <Post {...meta}>{children}</Post>;
 
 <OpeningParagraph>
-  Welcome to my blog! I've been meaning to create one for a while, and finally got around to actually doing it! In case you were wondering, it was made using Ghost, a wonderful open source blogging platform. I hosted it on a DigitalOcean droplet, created a subdomain, and voila! A blog for $5 a month.
+  Welcome to my blog! I've been meaning to create one for a while, and finally
+  got around to actually doing it! In case you were wondering, it was made using
+  Ghost, a wonderful open source blogging platform. I hosted it on a
+  DigitalOcean droplet, created a subdomain, and voila! A blog for $5 a month.
 </OpeningParagraph>
 
 As far as content goes, this will probably be a place for all of my ponderings and ideas. Primarily I am a web developer, so I can see myself posting about React components or webpack techniques that I find interesting and useful. I have also started getting into machine learning as a hobby, so I might post some explanations to algorithms or network architectures as it will help me learn them myself. I hope you enjoy!
 
---------
+---
 
 **EDIT**: I recently started a post where I wanted to use a react component that I had built, but Ghost doesn't really let you use react components unless you want to be extra hacky. I got frustrated and decided to make my own blog from scratch, using [next.js](https://nextjs.org/) and [MDX](). I started trying to dockerize the app and deploy it myself but I got a bunch of errors, raged, and then just used Heroku. Typical developer workflow. Anyways, so far I'm loving it - I'll probably write a post about the transition shortly.

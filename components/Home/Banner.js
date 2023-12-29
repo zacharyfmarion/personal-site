@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Flex, Text, Container } from 'rebass';
+import { Flex, Text } from 'rebass';
 import styled from 'styled-components';
 import Particles from 'react-particles-js';
 
-import media from 'utils/media';
+import media from '@/utils/media';
 import config from './particles';
 import Down from '../assets/down.svg';
 
@@ -16,22 +16,12 @@ const Banner = () => {
       flexDirection="column"
     >
       <StyledParticles params={config} />
-      <Title fontSize={8}>Zachary Marion</Title>
-      <Subtitle fontSize={5}>Software Engineer</Subtitle>
+      <Title fontSize={8}>Welcome!</Title>
+      {/* <Subtitle fontSize={5}></Subtitle> */}
       <DownIcon onClick={scrollDown} />
     </BannerWrapper>
   );
 };
-
-const ResumeButton = styled.a`
-  padding: 10px 20px;
-  text-decoration: none;
-  border: 1px solid #fff;
-  color: #fff;
-  border-radius: 4px;
-`;
-
-const SocialContainer = styled(Flex)``;
 
 const DownIcon = styled(Down)`
   position: absolute;
@@ -52,19 +42,6 @@ const StyledParticles = styled(Particles)`
   ${media.mobile`
     display: none; 
   `};
-`;
-
-const Header = styled(Flex)`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  flex: 1 1 auto;
-  padding: 25px 50px;
-
-  svg {
-    width: 40px;
-    height: 40px;
-  }
 `;
 
 const Title = styled(Text)`

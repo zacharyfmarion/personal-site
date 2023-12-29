@@ -4,41 +4,37 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start -p $PORT",
-    "heroku-postbuild": "npm run build",
-    "now-build": "next build"
+    "start": "next start -p $PORT"
   },
   "dependencies": {
-    "@mdx-js/loader": "^0.15.0",
+    "@mdx-js/loader": "^3.0.0",
     "@mdx-js/mdx": "^0.15.0",
+    "@mdx-js/react": "^3.0.0",
+    "@next/mdx": "^14.0.4",
     "@rebass/markdown": "^1.0.0-1",
-    "@zeit/next-mdx": "^1.2.0",
     "fast-deep-equal": "^2.0.1",
     "lodash.memoize": "^4.1.2",
-    "next": "^7.0.0",
+    "next": "14.0.4",
     "next-ga": "^2.3.1",
     "prism-react-renderer": "^0.1.2",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-hot-loader": "^4.3.8",
-    "react-mt-svg-lines": "^0.9.0",
+    "react": "^18",
+    "react-dom": "^18",
     "react-particles-js": "^2.3.0",
     "react-svg-tree": "^0.4.1",
     "rebass": "^2.1.0",
     "remark-emoji": "^2.0.1",
     "remark-images": "^0.8.1",
-    "styled-components": "^3.4.2"
+    "styled-components": "6.1.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-rc.2",
-    "babel-core": "^7.0.0-0",
-    "babel-jest": "^23.4.2",
-    "babel-plugin-inline-react-svg": "^0.5.4",
-    "babel-plugin-module-resolver": "^3.1.1",
-    "babel-plugin-styled-components": "^1.5.1",
-    "gh-pages": "^1.2.0",
+    "@svgr/webpack": "^8.1.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/rebass": "^4.0.14",
+    "gh-pages": "6.1.1",
     "jest": "^23.5.0",
     "react-svg-loader": "^2.1.0",
-    "regenerator-runtime": "^0.12.1"
+    "typescript": "^5"
   }
 }

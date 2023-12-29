@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Flex, Text, BackgroundImage, Heading } from 'rebass';
 import styled, { css } from 'styled-components';
 
-import Menu from 'components/Menu';
-import media from 'utils/media';
+import Menu from '@/components/Menu';
+import media from '@/utils/media';
 import BackIcon from './assets/arrow-left.svg';
 
 const Header = ({

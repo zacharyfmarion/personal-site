@@ -3,7 +3,7 @@ import memoize from 'lodash.memoize';
 import styled from 'styled-components';
 import Tree from 'react-svg-tree';
 
-import getArrowCoordinates from 'utils/getArrowCoordinates';
+import getArrowCoordinates from '@/utils/getArrowCoordinates';
 
 import dfs from './dfs';
 import Arrow from '../Arrow';

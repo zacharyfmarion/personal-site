@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Flex } from 'rebass';
 import equal from 'fast-deep-equal';
 
-import ButtonGroup from 'components/ButtonGroup';
-import Button from 'components/Button';
-import media from 'utils/media';
+import ButtonGroup from '@/components/ButtonGroup';
+import Button from '@/components/Button';
+import media from '@/utils/media';
 
 // icons
 import BackIcon from './assets/left-arrow.svg';

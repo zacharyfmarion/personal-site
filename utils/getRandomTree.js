@@ -1,4 +1,4 @@
-import getRandomInt from 'utils/getRandomInt';
+import getRandomInt from '@/utils/getRandomInt';
 
 /**
  * Generate a random tree and perform minimax. We recursively

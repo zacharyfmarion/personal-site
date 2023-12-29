@@ -1,23 +1,33 @@
-import Post, { OpeningParagraph } from 'components/Post';
-import { Link } from 'components/markdown';
-import TreeDemo from 'components/TreeDemo';
-import TextLabel from 'components/TextLabel';
-import Tree from 'react-svg-tree';
+import Post, { OpeningParagraph } from "@/components/Post";
+import { Link } from "@/mdx-components";
+import TreeDemo from "@/components/TreeDemo";
+import TextLabel from "@/components/TextLabel";
+import Tree from "react-svg-tree";
 
 export const meta = {
-  author: 'Zachary Marion',
-  title: 'Rendering an SVG Tree in React',
-  date: '09-03-2018',
-  description: "So in between my last post and this one, I realized that I wanted to create some tree animations to show some common tree operations and explain more gracefully how the minimax algorithm worked.",
-  image: 'https://images.unsplash.com/photo-1515863149848-223cbed59017?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=58d13630d6c133bb32e0c7dc48eb4216',
-  link: '/posts/react-svg-tree',
+  author: "Zachary Marion",
+  title: "Rendering an SVG Tree in React",
+  date: "09-03-2018",
+  description:
+    "So in between my last post and this one, I realized that I wanted to create some tree animations to show some common tree operations and explain more gracefully how the minimax algorithm worked.",
+  image:
+    "https://images.unsplash.com/photo-1515863149848-223cbed59017?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=58d13630d6c133bb32e0c7dc48eb4216",
+  link: "/posts/react-svg-tree",
   readTime: 25,
-}
+};
 
-export default ({ children }) => <Post {...meta}>{children}</Post>
+export default ({ children }) => <Post {...meta}>{children}</Post>;
 
 <OpeningParagraph>
-  So in between my last post and this one, I realized that I wanted to create some tree animations to show some common tree operations and explain more gracefully how the minimax algorithm worked. Because I'm a react addict, I wanted a react component that could render easily animatable svg paths. After an admittedly short time googling this, I didn't come across any great options. One component, <Link href="https://github.com/bkrem/react-d3-tree">React d3 Tree</Link>, did do most of what I wanted, but I didn't really want to bring in d3 as a dependency for something so simple.
+  So in between my last post and this one, I realized that I wanted to create
+  some tree animations to show some common tree operations and explain more
+  gracefully how the minimax algorithm worked. Because I'm a react addict, I
+  wanted a react component that could render easily animatable svg paths. After
+  an admittedly short time googling this, I didn't come across any great
+  options. One component,{" "}
+  <Link href="https://github.com/bkrem/react-d3-tree">React d3 Tree</Link>, did
+  do most of what I wanted, but I didn't really want to bring in d3 as a
+  dependency for something so simple.
 </OpeningParagraph>
 
 Well, turns out it isn't so simple. Rendering a general tree is actually quite a difficult problem. More specifically, determining the x-coordinates for a particular node at a given depth in the tree is annoyingly nontrivial. The y-coordinates are just evenly spaced at a given depth separation value, so figuring them out is as simple as multiplying the depth of the node by the depth separation constant. To get an idea as to why this is, feel free to click around in the demo below. Clicking on a node will add a child. Note how adding a bunch of children in a different subtree can affect the subtrees to the left or right.
@@ -35,14 +45,14 @@ Wow, super easy right? Wrong again. The algorithm itself is much more complicate
 
 ## Making the component
 
-At my company, we use Flow, which is a type checker for javascript code. Essentially it is a superset of javascript that get's compiled down into code that can be run in the browser. It adds the ability to define types for variables and functions in your code, which catches a lot of errors that a browser won't catch because of the loosely-typed nature of js code. For this component, I decided to use Typescript, which is essentially the same thing as Flow, just better in every way. Okay so I'm opinionated, deal with it. I set up a basic create-react-app project with typescript and started by thinking about the shape of the component I was building. I wanted the ability to specify nodes as children of the `<Tree />` component, but this quickly becomes verbose for large trees, so I also wanted the ability to specify a data structure. 
+At my company, we use Flow, which is a type checker for javascript code. Essentially it is a superset of javascript that get's compiled down into code that can be run in the browser. It adds the ability to define types for variables and functions in your code, which catches a lot of errors that a browser won't catch because of the loosely-typed nature of js code. For this component, I decided to use Typescript, which is essentially the same thing as Flow, just better in every way. Okay so I'm opinionated, deal with it. I set up a basic create-react-app project with typescript and started by thinking about the shape of the component I was building. I wanted the ability to specify nodes as children of the `<Tree />` component, but this quickly becomes verbose for large trees, so I also wanted the ability to specify a data structure.
 
 I intially settled on supporting both approaches - if there are children then they are rendered, otherwise a `vertices` prop is required which the component uses to render the positioned nodes. For example, using the children API, you could render a tree like this:
 
 ```js
-// jsx 
+// jsx
 <Tree rootId={0}>
-  <Node id={0} children={[1,2,3]}/>
+  <Node id={0} children={[1, 2, 3]} />
   <Node id={1} />
   <Node id={2} />
   <Node id={3} />
@@ -54,13 +64,13 @@ Where `<Node />` would be a component exposed by the library that essentially re
 ```js
 // jsx
 const vertices = new Map([
-  [0, [1,2,3]],
+  [0, [1, 2, 3]],
   [1, []],
   [2, []],
   [3, []],
 ]);
 
-<Tree rootId={0} vertices={vertices} />
+<Tree rootId={0} vertices={vertices} />;
 ```
 
 I thought that this would make for a pretty flexible component, but I quickly ran into issues. For example, in one of the posts I was working on, I wanted to make a visualization of an depth first search using this component. Essentially all of the nodes would be grayed out initially and then once they were visited they would change to a brighter color. This seemed like a simple thing to do, but it quickly became extremely messy. Every node had to have a check to test whether or not it had been visited, and my render function became incredibly hard to read. Also, I was having to iterate over the children and essentially construct the same map that the vertex prop was giving me, so the children API was just a more verbose and slightly more customizable way of presenting the same data.
@@ -72,21 +82,15 @@ So what was the solution? After giving it some more thought, this seemed like th
 ```js
 // jsx
 const vertices = new Map([
-  [0, [1,2,3]],
+  [0, [1, 2, 3]],
   [1, []],
   [2, []],
   [3, []],
 ]);
 
 <Tree rootId={0} vertices={vertices}>
-  {({ x, y, id }) => (
-    <circle
-      cx={x}
-      cy={y}
-      r={5}
-    />
-  )}
-</Tree>
+  {({ x, y, id }) => <circle cx={x} cy={y} r={5} />}
+</Tree>;
 ```
 
 Now, conditionally rendering the color of the node would just involve adding a fill prop to the `<circle />` component and either rending gray or blue based on whether the node's id was in the visited set. The child is also passed in the entire `TreeMap` object, which contains the calculated positions of all this nodes. This allows for the arbitrary rendering of the tree, if you have enough imagination. For example, you could add an arrow showing the direction of a traversal, or modify a node's position based on the position of its neighbor.
@@ -96,31 +100,22 @@ The final API looks like this:
 ```js
 // jsx
 const vertices = new Map([
-  [0, [1,2,3]],
+  [0, [1, 2, 3]],
   [1, []],
   [2, []],
   [3, []],
 ]);
 
-return <Tree
-  width={200}
-  height={40}
-  rootId={0}
-  nodeSize={5}
-  vertices={vertexMap}
->
-  {({x, y, id}) => (
-    <g>
-      <circle
-        cx={x}
-        cy={y}
-        r={5}
-        fill="rgb(15, 98, 189)"
-      />
-      <TextLabel x={x} y={y} label={id} />
-    </g>
-  )}
-</Tree>
+return (
+  <Tree width={200} height={40} rootId={0} nodeSize={5} vertices={vertexMap}>
+    {({ x, y, id }) => (
+      <g>
+        <circle cx={x} cy={y} r={5} fill="rgb(15, 98, 189)" />
+        <TextLabel x={x} y={y} label={id} />
+      </g>
+    )}
+  </Tree>
+);
 ```
 
 ## Implementation
@@ -129,47 +124,43 @@ The component renders an svg, so the render method is wrapped in an `svg` tag. T
 
 ```js
 // jsx
-renderFromVertexMap = (
-    treeGraph: TreeGraph,
-  ): Array<React.ReactNode> | null => {
-    const { vertices, children } = this.props;
-    if (!vertices) return null;
+renderFromVertexMap = (treeGraph: TreeGraph): Array<React.ReactNode> | null => {
+  const { vertices, children } = this.props;
+  if (!vertices) return null;
 
-    const svgElements: Array<React.ReactNode> = [];
-    vertices.forEach((childNodes: Array<TreeNode>, node: TreeNode) => {
-      // Get the final position of the node after the algorithm has been run
-      const [x, y] = treeGraph.getCoordinates(node);
-      // Create a node using the function-as-child. Note that we also pass in
-      // the entire treeGraph as a parameter as an escape hatch to render arbitrary
-      // svg elements based on the final positions of the nodes
-      const createdNode = children({
-        x,
-        y,
-        id: node,
-        r: this.nodeSizeMap.get(node) || DEFAULT_NODE_SIZE,
-        graph: treeGraph,
-      });
-      // First we push the line between a node and it's children, because of the
-      // way svg layer ordering works
-      svgElements.push(
-        this.createChildConnections(treeGraph, node, childNodes),
-      );
-      // Then we push the node
-      svgElements.push(createdNode);
+  const svgElements: Array<React.ReactNode> = [];
+  vertices.forEach((childNodes: Array<TreeNode>, node: TreeNode) => {
+    // Get the final position of the node after the algorithm has been run
+    const [x, y] = treeGraph.getCoordinates(node);
+    // Create a node using the function-as-child. Note that we also pass in
+    // the entire treeGraph as a parameter as an escape hatch to render arbitrary
+    // svg elements based on the final positions of the nodes
+    const createdNode = children({
+      x,
+      y,
+      id: node,
+      r: this.nodeSizeMap.get(node) || DEFAULT_NODE_SIZE,
+      graph: treeGraph,
     });
+    // First we push the line between a node and it's children, because of the
+    // way svg layer ordering works
+    svgElements.push(this.createChildConnections(treeGraph, node, childNodes));
+    // Then we push the node
+    svgElements.push(createdNode);
+  });
 
-    return svgElements;
-  };
+  return svgElements;
+};
 ```
 
 The array of svg nodes is then returned from `renderTree` and becomes the children of the root `svg` element. The complete `<Tree />` component definition is shown below:
 
 ```js
 // jsx
-import * as React from 'react';
+import * as React from "react";
 
-import TreeGraph, { TreeNode, Position } from './helpers/TreeGraph';
-import positionTree, { Options } from './helpers/positionTree';
+import TreeGraph, { TreeNode, Position } from "./helpers/TreeGraph";
+import positionTree, { Options } from "./helpers/positionTree";
 
 interface NodeProps {
   x: number;
@@ -236,7 +227,7 @@ class Tree extends React.Component<Props> {
    * Render the node from the vertices map prop
    */
   renderFromVertexMap = (
-    treeGraph: TreeGraph,
+    treeGraph: TreeGraph
   ): Array<React.ReactNode> | null => {
     const { vertices, children } = this.props;
     if (!vertices) return null;
@@ -251,7 +242,7 @@ class Tree extends React.Component<Props> {
         graph: treeGraph,
       });
       svgElements.push(
-        this.createChildConnections(treeGraph, node, childNodes),
+        this.createChildConnections(treeGraph, node, childNodes)
       );
       svgElements.push(createdNode);
     });
@@ -265,7 +256,7 @@ class Tree extends React.Component<Props> {
   createChildConnections = (
     treeGraph: TreeGraph,
     node: TreeNode,
-    childNodes: Array<TreeNode>,
+    childNodes: Array<TreeNode>
   ): Array<React.ReactNode> => {
     const connectionNodes: Array<React.ReactNode> = [];
     if (node === undefined) return [];
@@ -281,7 +272,7 @@ class Tree extends React.Component<Props> {
           stroke="#000"
           strokeWidth={1}
           key={`${node}-${childNode}`}
-        />,
+        />
       );
     });
     return connectionNodes;
@@ -300,7 +291,7 @@ class Tree extends React.Component<Props> {
     const treeGraph = new TreeGraph(
       this.props.vertices,
       this.nodeSizeMap,
-      rootPosition,
+      rootPosition
     );
     const res = positionTree(treeGraph, rootPosition[0], {
       width: this.props.width,
@@ -311,7 +302,7 @@ class Tree extends React.Component<Props> {
       subtreeSeparation: this.props.subtreeSeparation,
     });
     if (!res && this.props.onError)
-      this.props.onError('Tree could not be rendered in the viewing rect');
+      this.props.onError("Tree could not be rendered in the viewing rect");
     return res ? treeGraph : null;
   };
 
@@ -351,21 +342,16 @@ The final rendered output looks like this (you might recognize it from the demo 
   nodeSize={5}
   vertices={
     new Map([
-      [0, [1,2,3]],
+      [0, [1, 2, 3]],
       [1, []],
       [2, []],
       [3, []],
     ])
   }
 >
-  {({x, y, id}) => (
+  {({ x, y, id }) => (
     <g>
-      <circle
-        cx={x}
-        cy={y}
-        r={5}
-        fill="rgb(15, 98, 189)"
-      />
+      <circle cx={x} cy={y} r={5} fill="rgb(15, 98, 189)" />
       <TextLabel x={x} y={y} label={id} />
     </g>
   )}
@@ -375,7 +361,7 @@ The final rendered output looks like this (you might recognize it from the demo 
 
 > You can have the coolest component in the world, but if there isn't any documentation no one is going to use it - Confucious, probably.
 
-I love the idea of code as a living source of documentation, so when I saw [docz](https://www.docz.site/), it seemed like the perfect place to start. Docz allows you to display your components using [MDX](https://github.com/mdx-js/mdx), a document format that allows you to write markdown and render React components inline. The main component the package exposes is called `Playground`, which both renders any component that is passed in as a child and displays the markup for that component. For example: 
+I love the idea of code as a living source of documentation, so when I saw [docz](https://www.docz.site/), it seemed like the perfect place to start. Docz allows you to display your components using [MDX](https://github.com/mdx-js/mdx), a document format that allows you to write markdown and render React components inline. The main component the package exposes is called `Playground`, which both renders any component that is passed in as a child and displays the markup for that component. For example:
 
 ![Docz](/static/minimax-continued/docz.png "Example of docz playground component")
 
@@ -448,6 +434,6 @@ Another annoying issue as that umd bundling doesn't work like you would expect w
 
 Then everything worked as expected in both the server and browser environments. After getting builds to work it was as simple as ignoring files I didn't want to include in my `.npmignore` and specifying `"main": "dist/index.js"` in my `package.json`. Running `yarn publish` allowed me to publish the package under `react-svg-tree`. With that, I had a 19 KiB react component published on npm for rendering a general n-ary tree. Phew. The component will most likely be used heavily in my future posts. Speaking on which, I need to get on that.
 
---------
+---
 
 You can find the component source [here](https://github.com/zacharyfmarion/react-svg-tree), and its documentation [here](https://zacharyfmarion.github.io/react-svg-tree/). Feel free to open a PR if you find an issue!

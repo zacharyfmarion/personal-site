@@ -1,5 +1,5 @@
 // config for particles.js
-import theme from 'constants/theme';
+import theme from '@/constants/theme';
 
 export default {
   particles: {

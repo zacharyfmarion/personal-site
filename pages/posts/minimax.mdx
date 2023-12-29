@@ -1,19 +1,28 @@
-import Post, { OpeningParagraph } from 'components/Post';
+import Post, { OpeningParagraph } from "@/components/Post";
 
 export const meta = {
-  author: 'Zachary Marion',
-  title: 'Minimax',
-  date: '08-19-2018',
-  description: "I've been playing a lot of chess recently, and it has gotten me interested in how the game should optimally be played. In college I took an intro to AI course, and one of the first things that we covered was an algorithm called minimax",
-  image: 'https://images.unsplash.com/photo-1523875194681-bedd468c58bf?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=a95f188182bee368ba7465de4dc3d8c4',
-  link: '/posts/minimax',
+  author: "Zachary Marion",
+  title: "Minimax",
+  date: "08-19-2018",
+  description:
+    "I've been playing a lot of chess recently, and it has gotten me interested in how the game should optimally be played. In college I took an intro to AI course, and one of the first things that we covered was an algorithm called minimax",
+  image:
+    "https://images.unsplash.com/photo-1523875194681-bedd468c58bf?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=a95f188182bee368ba7465de4dc3d8c4",
+  link: "/posts/minimax",
   readTime: 12,
-}
+};
 
-export default ({ children }) => <Post {...meta}>{children}</Post>
+export default ({ children }) => <Post {...meta}>{children}</Post>;
 
 <OpeningParagraph>
-  I have been playing a lot of chess recently, and it has gotten me interested in how the game should optimally be played. In college I took an intro to AI course, and one of the first things that we covered was an algorithm called minimax, which allows you to discover the optimal play for any two player, fully determined zero-sum game. This post will be the first in a series dedicated to understanding how to solve games such as this. Later on we will dive into Monte Carlo Tree Search (MCTS), reinforcement learning and the use of neural networks to determine policies. For now, let's start with minimax.
+  I have been playing a lot of chess recently, and it has gotten me interested
+  in how the game should optimally be played. In college I took an intro to AI
+  course, and one of the first things that we covered was an algorithm called
+  minimax, which allows you to discover the optimal play for any two player,
+  fully determined zero-sum game. This post will be the first in a series
+  dedicated to understanding how to solve games such as this. Later on we will
+  dive into Monte Carlo Tree Search (MCTS), reinforcement learning and the use
+  of neural networks to determine policies. For now, let's start with minimax.
 </OpeningParagraph>
 
 ## Terminology
@@ -86,13 +95,13 @@ class Game:
 
   def reward(self, s, p):
     '''
-    Returns the reward for a given state 
+    Returns the reward for a given state
     '''
     raise NotImplementedError
 
   def next_state(self, s, a, p):
     '''
-    Given a state, action, and player id, return the state resulting from the 
+    Given a state, action, and player id, return the state resulting from the
     player making that move
     '''
     raise NotImplementedError
@@ -102,10 +111,10 @@ class Game:
     Returns a pretty-formatted representation of the board
     '''
     return str(s)
-  
+
   def to_hash(self, s):
     '''
-    Returns a hash of the game state, which is necessary for some algorithms 
+    Returns a hash of the game state, which is necessary for some algorithms
     such as MCTS
     '''
     return hash(str(s))
@@ -123,7 +132,7 @@ class TicTacToe(Game):
     return [i for i in range(len(s)) if s[i] == -1]
 
   def terminal(self, s):
-    return self.is_winner(s, 0) or self.is_winner(s, 1) or len(self.action_space(s)) == 0 
+    return self.is_winner(s, 0) or self.is_winner(s, 1) or len(self.action_space(s)) == 0
 
   def winner(self, s):
     if self.is_winner(s, 0): return 0
@@ -134,13 +143,13 @@ class TicTacToe(Game):
     if self.is_winner(s, p): return 1
     if self.is_winner(s, 1-p): return -1
     return self.heuristic(s)
-  
+
   def heuristic(self, s):
     ''' Stubbed for now '''
     return 0
-  
+
   def next_state(self, s, a, p):
-    copy = s.copy() 
+    copy = s.copy()
     copy[a] = p
     return copy
 
@@ -151,7 +160,7 @@ class TicTacToe(Game):
         row_line = "\\n-----------\\n" if i != len(s) - 1 else ""
         board += " {} {}".format(self.stringify_player(player), "|" if end_of_line else row_line)
     return board
-  
+
   def to_hash(self, s):
     return hash(tuple(s))
 

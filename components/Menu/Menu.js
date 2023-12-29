@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { css } from 'styled-components';
 import { Container, Flex, Heading } from 'rebass';
 
-import media from 'utils/media';
-import ScrollOffset from 'components/ScrollOffset';
+import media from '@/utils/media';
+import ScrollOffset from '@/components/ScrollOffset';
 import OpenIcon from './assets/menu.svg';
 import CloseIcon from './assets/close.svg';
 

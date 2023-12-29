@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, Heading, Flex } from 'rebass';
 import styled from 'styled-components';
-import media from 'utils/media';
+import media from '@/utils/media';
 
 import EventIcon from '../assets/event.svg';
 

@@ -1,6 +1,7 @@
+import type { MDXComponents } from 'mdx/types'
 import createComponents from '@rebass/markdown';
 import styled from 'styled-components';
-import { Flex, Image } from 'rebass';
+import { Image } from 'rebass';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 
 const fontSize = 22;
@@ -9,7 +10,7 @@ const fontSize = 22;
  * Get rid of the first line, which has the language, and return the langauge
  * with the processed code
  */
-const processCode = children => {
+function processCode(children: string) {
   const firstLine = children.split('\n')[0];
   const language = firstLine
     ? firstLine
@@ -24,14 +25,19 @@ const processCode = children => {
   return { code, language };
 };
 
-const Code = ({ children }) => {
+function Code({ children }: { children: string }) {
+  if (children.split('\n').length === 1) {
+    return <InlineCode>{children}</InlineCode>
+  }
+
   const { code, language } = processCode(children);
+
   return (
     <Highlight {...defaultProps} code={code} language={language}>
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+      {({ className, tokens, getLineProps, getTokenProps }: any) => (
         <table className={className}>
           <tbody>
-            {tokens.map((line, i) => (
+            {tokens.map((line: string[], i: number) => (
               <Line {...getLineProps({ line, key: i })}>
                 <LineNumber data-line-number={i} />
                 <td>
@@ -51,6 +57,20 @@ const Code = ({ children }) => {
     </Highlight>
   );
 };
+
+// Allows customizing built-in components, e.g. to add styling.
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    ...components,
+    code: Code as any,
+    inlineCode: InlineCode,
+    blockquote: BlockQuote,
+    p: Paragraph,
+    hr: HorizontalRule,
+    img: MarkdownImage,
+    li: ListItem,
+  }
+}
 
 const Line = styled.tr`
   font-size: 14px !important;
@@ -155,13 +175,3 @@ const ListItem = styled(components.li)`
   font-family: 'Frank Ruhl Libre', Times, serif;
 `;
 
-export default {
-  ...components,
-  code: Code,
-  inlineCode: InlineCode,
-  blockquote: BlockQuote,
-  p: Paragraph,
-  hr: HorizontalRule,
-  img: MarkdownImage,
-  li: ListItem,
-};

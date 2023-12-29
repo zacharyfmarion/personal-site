@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Flex, Input, Textarea } from 'rebass';
 import styled from 'styled-components';
 
-import { Section } from 'components/Home';
-import Button from 'components/Button';
-import lightenColor from 'utils/lightenColor';
-import media from 'utils/media';
+import { Section } from '@/components/Home';
+import Button from '@/components/Button';
+import lightenColor from '@/utils/lightenColor';
+import media from '@/utils/media';
 
 const EmailForm = props => {
   return (

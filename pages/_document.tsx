@@ -1,45 +1,15 @@
-import Document, { Head, Main, NextScript } from 'next/document';
-import getConfig from 'next/config';
-import { ServerStyleSheet, injectGlobal } from 'styled-components';
-import theme from 'constants/theme';
-
-injectGlobal`
-  body {
-    margin: 0;
-    font-family: Montserrat, sans-serif;
-  }
-    p,span,h1,h2,h3,h4,h5,h6,div,a {
-      &::selection {
-        background: ${theme.colors.primary};
-        color: #fff;
-      }
-    }
-
-  pre {
-    border-radius: 3px;
-  }
-`;
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 
 export default class _Document extends Document {
-  static getInitialProps({ renderPage }) {
-    const sheet = new ServerStyleSheet();
-    const page = renderPage(App => props =>
-      sheet.collectStyles(<App {...props} />),
-    );
-    const styleTags = sheet.getStyleElement();
-
-    return { ...page, styleTags };
+  static async getInitialProps(ctx: DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
   }
 
   render() {
-    const { styleTags, title } = this.props;
-
     return (
-      <html lang="en">
+      <Html>
         <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <title>Zachary Marion</title>
-          {styleTags}
           <link
             href="https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre"
             rel="stylesheet"
@@ -129,7 +99,7 @@ export default class _Document extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { Text, Flex, Container } from 'rebass';
 import styled, { css } from 'styled-components';
-import media from 'utils/media';
+import media from '@/utils/media';
 
 const Footer = ({ author, dark }) => (
   <FooterWrapper justifyContent="center" px={4} py={4} dark={dark}>
@@ -17,7 +17,7 @@ const Footer = ({ author, dark }) => (
         <BrowserLink href="https://github.com/zacharyfmarion" target="_blank">
           Github
         </BrowserLink>
-        <BrowserLink href="https://twitter.com/ZacharyMarion3" target="_blank">
+        <BrowserLink href="https://twitter.com/zacfmarion" target="_blank">
           Twitter
         </BrowserLink>
       </LinkContainer>

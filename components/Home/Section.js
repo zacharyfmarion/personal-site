@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Flex, Heading, Container } from 'rebass';
 import styled from 'styled-components';
-import media from 'utils/media';
+import media from '@/utils/media';
 
 const Section = ({ title, dark, primary, children, className, hideTitle }) => {
   return (

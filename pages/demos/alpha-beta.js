@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Flex, Text, Heading, Container } from 'rebass';
 import styled from 'styled-components';
 
-import MinimaxAnimation from 'components/MinimaxAnimation';
-import Page from 'components/Page';
-import Button from 'components/Button';
-import media from 'utils/media';
-import getRandomTree from 'utils/getRandomTree';
+import MinimaxAnimation from '@/components/MinimaxAnimation';
+import Page from '@/components/Page';
+import Button from '@/components/Button';
+import media from '@/utils/media';
+import getRandomTree from '@/utils/getRandomTree';
 
 export const meta = {
   author: 'Zachary Marion',

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Paragraph } from 'components/markdown';
+import { Paragraph } from '@/mdx-components';
 import styled from 'styled-components';
 
 /**

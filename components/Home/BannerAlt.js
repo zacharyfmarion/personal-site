@@ -3,7 +3,7 @@ import { Flex, Text, Container } from 'rebass';
 import styled from 'styled-components';
 import Particles from 'react-particles-js';
 
-import Link from 'components/Link';
+import Link from '@/components/Link';
 import BannerText from './BannerText';
 import config from './particles';
 import Down from '../assets/down.svg';
@@ -55,7 +55,7 @@ class BannerAlt extends React.Component {
               </LinkContainer>
             </Links>
           </Header>
-          <StyledBannerText />
+          {/* <StyledBannerText /> */}
           <SubtitleContainer />
           {/* <DownIcon /> */}
         </BannerContainer>
@@ -64,16 +64,16 @@ class BannerAlt extends React.Component {
   }
 }
 
-const StyledBannerText = styled(BannerText)`
-  position: absolute;
-  left: 50px;
-  right: 50px;
+// const StyledBannerText = styled(BannerText)`
+//   position: absolute;
+//   left: 50px;
+//   right: 50px;
 
-  svg {
-    width: 100%;
-    height: 200px;
-  }
-`;
+//   svg {
+//     width: 100%;
+//     height: 200px;
+//   }
+// `;
 
 const Links = styled(Flex)`
   flex: 1 1 auto;

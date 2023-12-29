@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Layout from 'components/Layout';
+import Layout from '@/components/Layout';
 
 import { meta as alphaBetaMeta } from './alpha-beta';
 import { meta as dfsMeta } from './depth-first-search';

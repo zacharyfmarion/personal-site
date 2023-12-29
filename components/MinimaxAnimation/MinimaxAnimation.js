@@ -3,9 +3,9 @@ import memoize from 'lodash.memoize';
 import Tree from 'react-svg-tree';
 import styled from 'styled-components';
 
-import getArrowCoordinates from 'utils/getArrowCoordinates';
-import TextLabel from 'components/TextLabel';
-import PlayBar from 'components/PlayBar';
+import getArrowCoordinates from '@/utils/getArrowCoordinates';
+import TextLabel from '@/components/TextLabel';
+import PlayBar from '@/components/PlayBar';
 import Arrow from '../Arrow';
 
 import minimax from './minimax';

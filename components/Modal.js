@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { Flex, Text, Container, Heading } from 'rebass';
 
-import Button from 'components/Button';
+import Button from '@/components/Button';
 import Close from './assets/close.svg';
-import media from 'utils/media';
+import media from '@/utils/media';
 
 // TODO: Use React Portal here
 const Modal = ({

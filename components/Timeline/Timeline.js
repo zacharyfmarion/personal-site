@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Flex } from 'rebass';
 import styled from 'styled-components';
-import media from 'utils/media';
+import media from '@/utils/media';
 
 const Timeline = ({ children }) => {
   return <TimelineWrapper flexDirection="column">{children}</TimelineWrapper>;

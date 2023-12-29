@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Flex, Text, Heading, Container } from 'rebass';
 import styled from 'styled-components';
 
-import Menu from 'components/Menu';
-import Footer from 'components/Footer';
-import Link from 'components/Link';
-import media from 'utils/media';
+import Menu from '@/components/Menu';
+import Footer from '@/components/Footer';
+import Link from '@/components/Link';
+import media from '@/utils/media';
 
 class Page extends React.Component {
   render() {

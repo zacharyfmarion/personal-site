@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Flex, Heading, Text, BackgroundImage } from 'rebass';
 import styled from 'styled-components';
-import trimDescription from 'utils/trimDescription';
-import media from 'utils/media';
+import trimDescription from '@/utils/trimDescription';
+import media from '@/utils/media';
 
 const Card = ({ title, description, image, children, onClick, noMargin }) => {
   return (

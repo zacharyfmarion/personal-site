@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Router from 'next/router';
-import Card from 'components/Card';
+import Card from '@/components/Card';
 
 const PostPreview = props => (
   <Card {...props} onClick={() => Router.push(props.link)}>

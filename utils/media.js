@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import theme from 'constants/theme';
+import theme from '@/constants/theme';
 
 const [mobile, tablet, desktop, giant] = theme.breakpoints;
 const breakpoints = { mobile, tablet, desktop, giant };
