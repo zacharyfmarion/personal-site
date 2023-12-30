@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Layout from '@/components/Layout';
 
-import { meta as alphaBetaMeta } from './alpha-beta';
-import { meta as dfsMeta } from './depth-first-search';
+import { metadata as alphaBetaMeta } from './alpha-beta';
+import { metadata as dfsMeta } from './depth-first-search';
 
 const demos = [dfsMeta, alphaBetaMeta];
 

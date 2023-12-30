@@ -1,6 +1,6 @@
 import Post, { OpeningParagraph } from "@/components/Post";
 
-export const meta = {
+export const metadata = {
   author: "Zachary Marion",
   title: "Minimax",
   date: "08-19-2018",
@@ -12,7 +12,7 @@ export const meta = {
   readTime: 12,
 };
 
-export default ({ children }) => <Post {...meta}>{children}</Post>;
+export default ({ children }) => <Post {...metadata}>{children}</Post>;
 
 <OpeningParagraph>
   I have been playing a lot of chess recently, and it has gotten me interested

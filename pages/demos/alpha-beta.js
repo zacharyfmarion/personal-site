@@ -8,7 +8,7 @@ import Button from '@/components/Button';
 import media from '@/utils/media';
 import getRandomTree from '@/utils/getRandomTree';
 
-export const meta = {
+export const metadata = {
   author: 'Zachary Marion',
   title: 'Alpha Beta Pruning',
   date: '09-23-2018',
@@ -48,7 +48,7 @@ class AlphaBeta extends React.Component {
   render() {
     const { tree, rewards } = this.state;
     return (
-      <Page baseLink="/demos" {...meta}>
+      <Page baseLink="/demos" {...metadata}>
         <GenerateButton onClick={this.getTree}>
           Generate random tree
         </GenerateButton>
