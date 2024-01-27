@@ -44,8 +44,11 @@ export const minimaxContinuedPost = {
     readTime: 12,
 };
 
-export const posts: Post[] = [
+const unorderedPosts: Post[] = [
     welcomePost, 
     minimaxPost,
     minimaxContinuedPost 
 ]
+
+// @ts-expect-error
+export const posts = unorderedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
