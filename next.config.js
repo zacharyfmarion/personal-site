@@ -13,6 +13,10 @@ module.exports = withMDX({
     styledComponents: true,
   },
   output: 'export',
+  basePath: "/personal-site",
+  images: {
+    unoptimized: true,
+  },
   webpack: (config) => {
     config.resolve.alias['next-mdx-import-source-file'] = 'private-next-root-dir/mdx-components';
     config.module.rules.push({
