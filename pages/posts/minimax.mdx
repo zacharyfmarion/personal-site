@@ -1,18 +1,11 @@
 import Post, { OpeningParagraph } from "@/components/Post";
+import { minimaxPost } from './posts';
 
-export const metadata = {
-  author: "Zachary Marion",
-  title: "Minimax",
-  date: "08-19-2018",
-  description:
-    "I've been playing a lot of chess recently, and it has gotten me interested in how the game should optimally be played. In college I took an intro to AI course, and one of the first things that we covered was an algorithm called minimax",
-  image:
-    "https://images.unsplash.com/photo-1523875194681-bedd468c58bf?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=a95f188182bee368ba7465de4dc3d8c4",
-  link: "/posts/minimax",
-  readTime: 12,
-};
-
-export default ({ children }) => <Post {...metadata}>{children}</Post>;
+export default ({ children }) => (
+  <Post {...minimaxPost}>
+    {children}
+  </Post>
+);
 
 <OpeningParagraph>
   I have been playing a lot of chess recently, and it has gotten me interested

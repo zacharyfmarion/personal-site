@@ -1,21 +1,13 @@
 import Post, { OpeningParagraph } from "@/components/Post";
 import TreeAnimation from "@/components/TreeAnimation";
 import MinimaxAnimation from "@/components/MinimaxAnimation";
-import Arrow from "@/components/Arrow";
+import { minimaxContinuedPost } from './posts';
 
-export const metadata = {
-  author: "Zachary Marion",
-  title: "Minimax Continued",
-  date: "09-12-2018",
-  description:
-    "So in between my last post and this one, I realized that I wanted to create some tree animations to show some common tree operations and explain more gracefully how the minimax algorithm worked.",
-  image:
-    "https://images.unsplash.com/photo-1465487862947-ded619a2a9ab?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ&s=68130b7d4392394e1876bbd54c82f427",
-  link: "/posts/minimax-continued",
-  readTime: 12,
-};
-
-export default ({ children }) => <Post {...metadata}>{children}</Post>;
+export default ({ children }) => (
+  <Post {...minimaxContinuedPost}>
+    {children}
+  </Post>
+);
 
 <OpeningParagraph>
   Our minimax algorithm covered in the previous blog post will consistently
