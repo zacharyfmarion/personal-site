@@ -4713,7 +4713,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gh-pages@npm:6.1.1":
+"gh-pages@npm:^6.1.1":
   version: 6.1.1
   resolution: "gh-pages@npm:6.1.1"
   dependencies:
@@ -6880,7 +6880,7 @@ __metadata:
     "@types/react-dom": ^18
     "@types/rebass": ^4.0.14
     fast-deep-equal: ^2.0.1
-    gh-pages: 6.1.1
+    gh-pages: ^6.1.1
     jest: ^23.5.0
     lodash.memoize: ^4.1.2
     next: 14.0.4
